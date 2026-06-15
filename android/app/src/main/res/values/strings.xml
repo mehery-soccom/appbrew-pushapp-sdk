@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Natori</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">ACTUAL_KEY_IN_ENV_FILE</string>
+    <string name="facebook_app_id">FB_APP_ID</string>
+    <string name="fb_login_protocol_scheme">fbFB_APP_ID</string>
+    <string name="facebook_client_token">FB_CLIENT_TOKEN</string>
+</resources>

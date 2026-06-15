@@ -1,0 +1,54 @@
+diff --git a/android/src/main/java/com/attentivereactnativesdk/AttentiveReactNativeSdkModule.java b/android/src/main/java/com/attentivereactnativesdk/AttentiveReactNativeSdkModule.java
+index 0000000..1111111 100644
+--- a/android/src/main/java/com/attentivereactnativesdk/AttentiveReactNativeSdkModule.java
++++ b/android/src/main/java/com/attentivereactnativesdk/AttentiveReactNativeSdkModule.java
+@@ -72,11 +72,6 @@ public class AttentiveReactNativeSdkModule extends ReactContextBaseJavaModule {
+     AttentiveEventTracker.getInstance().initialize(attentiveConfig);
+   }
+
+-  @ReactMethod
+-  public void triggerCreative() {
+-    this.triggerCreative(null);
+-  }
+-
+   @ReactMethod
+   public void triggerCreative(@Nullable String creativeId) {
+     Log.i(TAG, "Native Attentive module was called to trigger the creative.");
+diff --git a/ios/AttentiveReactNativeSdk.h b/ios/AttentiveReactNativeSdk.h
+index 0000000..2222222 100644
+--- a/ios/AttentiveReactNativeSdk.h
++++ b/ios/AttentiveReactNativeSdk.h
+@@ -5,14 +5,8 @@
+ //  Created by Wyatt Davis on 2/13/23.
+ //
+
+-#ifdef RCT_NEW_ARCH_ENABLED
+-#import "RNAttentiveReactNativeSdkSpec.h"
+-
+-@interface AttentiveReactNativeSdk : NSObject <NativeAttentiveReactNativeSdkSpec>
+-#else
+ #import <React/RCTBridgeModule.h>
+
+ @interface AttentiveReactNativeSdk : NSObject <RCTBridgeModule>
+-#endif
+
+ @end
+diff --git a/ios/AttentiveReactNativeSdk.mm b/ios/AttentiveReactNativeSdk.mm
+index 0000000..3333333 100644
+--- a/ios/AttentiveReactNativeSdk.mm
++++ b/ios/AttentiveReactNativeSdk.mm
+@@ -71,14 +71,5 @@ RCT_EXPORT_METHOD(recordCustomEvent:(NSDictionary*)attrs) {
+   [_sdk recordCustomEvent:attrs];
+ }
+
+-// Don't compile this code when we build for the old architecture.
+-#ifdef RCT_NEW_ARCH_ENABLED
+-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
+-    (const facebook::react::ObjCTurboModule::InitParams &)params
+-{
+-    return std::make_shared<facebook::react::NativeAttentiveReactNativeSdkSpecJSI>(params);
+-}
+-#endif
+-
+ @end
+

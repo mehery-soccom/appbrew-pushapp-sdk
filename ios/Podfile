@@ -1,0 +1,97 @@
+require 'pathname'
+
+# Monkey-patch Pathname#realdirpath to handle null byte errors in pnpm monorepos.
+# CocoaPods passes symlinked pnpm paths that contain null bytes to Pathname,
+# causing ArgumentError in project.rb. This affects Ruby >= 3.2 with CocoaPods <= 1.16.2.
+# See: https://github.com/CocoaPods/CocoaPods/issues/12866
+if RUBY_VERSION.to_f >= 3.2
+  class ::Pathname
+    if instance_method(:realdirpath)
+      alias_method :__original_realdirpath, :realdirpath
+
+      def realdirpath(*args)
+        __original_realdirpath(*args)
+      rescue ArgumentError
+        self
+      end
+    end
+  end
+end
+
+# Transform this into a `node_require` generic function:
+def node_require(script)
+  # Resolve script with node to allow for hoisting
+  require Pod::Executable.execute_command('node', ['-p',
+    "require.resolve(
+      '#{script}',
+      {paths: [process.argv[1]]},
+    )", __dir__]).strip
+end
+
+# Use it to require both react-native's and this package's scripts:
+node_require('react-native/scripts/react_native_pods.rb')
+node_require('react-native-permissions/scripts/setup.rb')
+
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+setup_permissions([
+  'AppTrackingTransparency',
+  'Camera',
+  'LocationWhenInUse',
+  'Notifications',
+  'PhotoLibrary',
+])
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+target 'natori' do
+  config = use_native_modules!
+
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'SDWebImage', :modular_headers => true
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+
+    # Workaround for Xcode 26: newer Apple Clang breaks consteval in fmt 11.0.2.
+    # Patch base.h to disable consteval since the header doesn't check for pre-defined FMT_USE_CONSTEVAL.
+    fmt_base = File.join(installer.sandbox.root, 'fmt', 'include', 'fmt', 'base.h')
+    if File.exist?(fmt_base)
+      content = File.read(fmt_base)
+      unless content.include?('Xcode 26 workaround')
+        patched = content.gsub(
+          /^(#elif defined\(__cpp_consteval\)\n#  define FMT_USE_CONSTEVAL) 1/,
+          "// Xcode 26 workaround: disable consteval\n\\1 0"
+        )
+        if patched != content
+          File.chmod(0644, fmt_base)
+          File.write(fmt_base, patched)
+        end
+      end
+    end
+  end
+end
+
+target 'ImageNotification' do
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'Firebase/Messaging', :modular_headers => true
+end

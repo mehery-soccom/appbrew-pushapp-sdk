@@ -1,0 +1,62 @@
+diff --git a/src/helpers/getNativePropsForTNode.ts b/src/helpers/getNativePropsForTNode.ts
+index 113b28cec73911a9d3efc821e951eb9846bef15f..1508b991e797ec0ab41591be56b44717d35a5dca 100644
+--- a/src/helpers/getNativePropsForTNode.ts
++++ b/src/helpers/getNativePropsForTNode.ts
+@@ -60,6 +60,10 @@ export default function getNativePropsForTNode<
+     tnode.getReactNativeProps()?.[type === 'block' ? 'view' : 'text'] || empty;
+   const syntheticOnPress =
+     onPress ?? passedNativeProps?.onPress ?? propsFromModel.onPress;
++  // Filter out undefined/null values from style array for Fabric compatibility
++  const styleArray = [style, passedNativeProps?.style, switchProp.style].filter(
++    (s) => s != null
++  );
+   const nativeProps: TextProps | ViewProps = {
+     ...(typeof syntheticOnPress === 'function'
+       ? ({ accessibilityRole: type === 'block' ? 'button' : 'link' } as const)
+@@ -69,7 +73,7 @@ export default function getNativePropsForTNode<
+     ...switchProp,
+     children,
+     onPress: syntheticOnPress,
+-    style: [style, passedNativeProps?.style, switchProp.style],
++    style: styleArray.length > 0 ? styleArray : undefined,
+     testID: tnode.tagName || undefined
+   };
+   return nativeProps as any;
+diff --git a/src/renderBlockContent.tsx b/src/renderBlockContent.tsx
+index 3894851d9e4172af63f6a816f99282bceaefea7d..1e0d74f4abcf392fe2f0f8b2643d7a22b7823445 100644
+--- a/src/renderBlockContent.tsx
++++ b/src/renderBlockContent.tsx
+@@ -2,14 +2,28 @@ import React from 'react';
+ import { TDefaultRendererProps } from './shared-types';
+ import GenericPressable from './GenericPressable';
+ import getNativePropsForTNode from './helpers/getNativePropsForTNode';
+-import { View } from 'react-native';
++import { View, ViewStyle } from 'react-native';
+ import { TBlock } from '@native-html/transient-render-engine';
+ 
+ function renderBlockContent(props: TDefaultRendererProps<TBlock>) {
+   const nativeProps = getNativePropsForTNode(props);
+-  return React.createElement(
+-    typeof nativeProps.onPress === 'function' ? GenericPressable : View,
+-    nativeProps
+-  );
++  const tagName = props.tnode.tagName;
++  
++  // Add table-specific layout styles for React Native 0.81 Fabric compatibility
++  let tableStyle: ViewStyle | undefined;
++  if (tagName === 'table' || tagName === 'tbody' || tagName === 'thead' || tagName === 'tfoot') {
++    tableStyle = { flexDirection: 'column' as const };
++  } else if (tagName === 'tr') {
++    tableStyle = { flexDirection: 'row' as const, flexWrap: 'wrap' as const };
++  } else if (tagName === 'td' || tagName === 'th') {
++    tableStyle = { flex: 1, minWidth: 0 };
++  }
++  
++  const Component = typeof nativeProps.onPress === 'function' ? GenericPressable : View;
++  const finalProps = tableStyle 
++    ? { ...nativeProps, style: [nativeProps.style, tableStyle] }
++    : nativeProps;
++  
++  return React.createElement(Component, finalProps);
+ }
+ export default renderBlockContent;

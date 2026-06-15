@@ -1,0 +1,55 @@
+diff --git a/dist/exports/StyleSheet/compiler/normalizeColor.js b/dist/exports/StyleSheet/compiler/normalizeColor.js
+index b7f277e9fe657c7387d8c1c1b5091a045fa2375a..33e297cc49b8f4e89cc0a01f619a6e114a7d7668 100644
+--- a/dist/exports/StyleSheet/compiler/normalizeColor.js
++++ b/dist/exports/StyleSheet/compiler/normalizeColor.js
+@@ -9,11 +9,18 @@
+ 
+ import isWebColor from '../../../modules/isWebColor';
+ import processColor from '../../../exports/processColor';
++var colorMap = {};
++export function setColorMap(map) {
++  colorMap = map || {};
++}
+ var normalizeColor = function normalizeColor(color, opacity) {
+   if (opacity === void 0) {
+     opacity = 1;
+   }
+   if (color == null) return;
++  if (typeof color === 'string' && colorMap[color]) {
++    color = colorMap[color];
++  }
+   if (typeof color === 'string' && isWebColor(color)) {
+     return color;
+   }
+diff --git a/dist/modules/normalizeColor/index.js b/dist/modules/normalizeColor/index.js
+index be6120ae30d27037e0c588dc9935aaaef669b6f5..b7169b3f178144b793bc555d9520dd2634ead50d 100644
+--- a/dist/modules/normalizeColor/index.js
++++ b/dist/modules/normalizeColor/index.js
+@@ -7,24 +7,5 @@
+  * 
+  */
+ 
+-import isWebColor from '../isWebColor';
+-import processColor from '../../exports/processColor';
+-var normalizeColor = function normalizeColor(color, opacity) {
+-  if (opacity === void 0) {
+-    opacity = 1;
+-  }
+-  if (color == null) return;
+-  if (typeof color === 'string' && isWebColor(color)) {
+-    return color;
+-  }
+-  var colorInt = processColor(color);
+-  if (colorInt != null) {
+-    var r = colorInt >> 16 & 255;
+-    var g = colorInt >> 8 & 255;
+-    var b = colorInt & 255;
+-    var a = (colorInt >> 24 & 255) / 255;
+-    var alpha = (a * opacity).toFixed(2);
+-    return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
+-  }
+-};
+-export default normalizeColor;
+\ No newline at end of file
++export { setColorMap } from '../../exports/StyleSheet/compiler/normalizeColor';
++export { default } from '../../exports/StyleSheet/compiler/normalizeColor';

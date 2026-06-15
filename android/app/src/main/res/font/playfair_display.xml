@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto">
+  <font app:fontStyle="normal" app:fontWeight="500" app:font="@font/playfair_display_500"></font>
+  <font app:fontStyle="normal" app:fontWeight="600" app:font="@font/playfair_display_600"></font>
+  <font app:fontStyle="normal" app:fontWeight="700" app:font="@font/playfair_display_700"></font>
+  <font app:fontStyle="normal" app:fontWeight="800" app:font="@font/playfair_display_800"></font>
+  <font app:fontStyle="normal" app:fontWeight="900" app:font="@font/playfair_display_900"></font>
+  <font app:fontStyle="normal" app:fontWeight="400" app:font="@font/playfair_display_regular"></font>
+  <font app:fontStyle="italic" app:fontWeight="400" app:font="@font/playfair_display_italic"></font>
+  <font app:fontStyle="italic" app:fontWeight="500" app:font="@font/playfair_display_500italic"></font>
+  <font app:fontStyle="italic" app:fontWeight="600" app:font="@font/playfair_display_600italic"></font>
+  <font app:fontStyle="italic" app:fontWeight="700" app:font="@font/playfair_display_700italic"></font>
+  <font app:fontStyle="italic" app:fontWeight="800" app:font="@font/playfair_display_800italic"></font>
+  <font app:fontStyle="italic" app:fontWeight="900" app:font="@font/playfair_display_900italic"></font>
+</font-family>

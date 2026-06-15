@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "899605737400",
+    "project_id": "appbrew-natori",
+    "storage_bucket": "appbrew-natori.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899605737400:android:68358b19f7d3482dc3694d",
+        "android_client_info": {
+          "package_name": "com.natori.appbrew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899605737400-sa9b0a36q47in7ibbgfbsm6sd4023k5r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.natori.appbrew",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "899605737400-oh29c47uuaa56e9u4ihbi4ekljtm6hk3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6gZOeqT213KvLPW1s1ZxotqiZbrMEwlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "899605737400-oh29c47uuaa56e9u4ihbi4ekljtm6hk3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "899605737400-hpmo51a4b4euqovvj3fterchiho5o2ec.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.natori.appbrew"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

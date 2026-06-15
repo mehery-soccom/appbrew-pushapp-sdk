@@ -1,0 +1,37 @@
+<resources>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+    <item name="colorPrimaryDark">@color/color_status_bar</item>
+    <item name="colorPrimary">@color/color_status_bar</item>
+  
+        <!-- Fix text layout behavior on Android 16 -->
+    <item name="android:textViewStyle">@style/TextViewStyle</item>
+    <item name="editTextStyle">@style/EditTextStyle</item>
+    <item name="android:editTextStyle">@style/EditTextStyle</item>
+  </style>
+
+  <style name="Theme.App.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Below line is handled by '@expo/configure-splash-screen' command and it's discouraged to modify it manually -->
+    <item name="android:windowBackground">@drawable/splashscreen</item>
+    <!-- Customize your splash screen theme here -->
+  </style>
+  <style name="BootTheme" parent="Theme.BootSplash.EdgeToEdge">
+    <item name="bootSplashBackground">@color/bootsplash_background</item>
+    <item name="bootSplashLogo">@mipmap/bootsplash_logo</item>
+    <item name="postBootSplashTheme">@style/AppTheme</item>
+  </style>
+
+  <!-- TextView fix -->
+  <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
+    <item name="android:elegantTextHeight">false</item>
+    <item name="android:useBoundsForWidth">false</item>
+    <item name="android:shiftDrawingOffsetForStartOverhang">false</item>
+  </style>
+
+  <!-- EditText fix -->
+  <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+    <item name="android:useLocalePreferredLineHeightForMinimum">false</item>
+  </style>
+</resources>

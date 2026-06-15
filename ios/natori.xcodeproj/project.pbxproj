@@ -1,0 +1,1200 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		005DC70EBE36D6262BCBE59E /* poppins_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DE38CAC91951F966C58439E /* poppins_italic.ttf */; };
+		00B767BF120117098557EB62 /* dm_sans_900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE5A42B398E58AF972360F2F /* dm_sans_900.ttf */; };
+		01CEF1439082253046C6E324 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		033F0C20C670259A073E0799 /* roboto_condensed_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 175004C1866F43B98A7A425B /* roboto_condensed_italic.ttf */; };
+		04D1C690349BB3E7F7EBCC99 /* dm_sans_600.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20A6982D52B90577BC1917DA /* dm_sans_600.ttf */; };
+		0B0D43641A35B82CCFAB7390 /* HelveticaNeueHeavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23EE36F1111570CA2CDCF3F1 /* HelveticaNeueHeavy.ttf */; };
+		0BE92647161542F768C58136 /* inter_300italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02CA1C8070F482904E41014F /* inter_300italic.ttf */; };
+		0C80B921A6F3F58F76C31292 /* libPods-natori.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-natori.a */; };
+		0D7766970D9FCCE266A5C989 /* poppins_100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F9458B492FDAE75AC40134F /* poppins_100.ttf */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		155539B87C2998BA424E5CF4 /* poppins_500italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 013FC9DD761E4A1B08BC2609 /* poppins_500italic.ttf */; };
+		158C705529B916B0137E1160 /* montserrat_100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799DA58201DD9FE73054E644 /* montserrat_100.ttf */; };
+		15C55194BFAEF2B568014281 /* poppins_800.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52C574BDCD9C16099370DAAE /* poppins_800.ttf */; };
+		15FD37B03DEFE3050EB8F6A2 /* inter_300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F41D0F5EFF08A3535653CB3E /* inter_300.ttf */; };
+		16AFE0CE7BD27D501D64BEC7 /* roboto_condensed_200.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DC8ABDDB5D38C0F6394AF81 /* roboto_condensed_200.ttf */; };
+		172BFF65B62AAB7FB3DD651E /* montserrat_300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 955BAA34BA5969D6AB5EDE00 /* montserrat_300.ttf */; };
+		185B4A2A403166538391013E /* montserrat_200.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD833BA70A4FC09B78C10491 /* montserrat_200.ttf */; };
+		191CE7EE9B50AEEB2DAB49E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F918D7BED11DB5E2A7E0BD1E /* Foundation.framework */; };
+		1A8B254A30E8788921CCDFE5 /* playfair_display_800italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD218797E33F8B2A14A47576 /* playfair_display_800italic.ttf */; };
+		1CE7966E8409386E5B8261DE /* montserrat_300italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAB63F9982FE47E622E213D9 /* montserrat_300italic.ttf */; };
+		1E92D3EB50BFFED681E83309 /* libPods-ImageNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB9D1004CAAC561EB066E55 /* libPods-ImageNotification.a */; };
+		2002C06E5B8BD01E973A5773 /* dm_sans_700italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 200901B6F985053246236B4F /* dm_sans_700italic.ttf */; };
+		210950A80A4477F08A171132 /* dm_sans_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 347B3C43ABF657FCBF669D83 /* dm_sans_italic.ttf */; };
+		2356D370F719934CC3A340A4 /* poppins_300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3FD818C26FC4C351B0694CF /* poppins_300.ttf */; };
+		25CC77B40FB97EBEE71EBEB1 /* dm_sans_700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F1B613A226CE2921B725FE3 /* dm_sans_700.ttf */; };
+		2A4658FCFBDD340ACBD068B7 /* playfair_display_700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23E2C2844C1A8326F0B27C12 /* playfair_display_700.ttf */; };
+		2B4F95AB4C906BC8DAAB65D0 /* inter_700italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E9279CB4EE35CE3CB8E9179 /* inter_700italic.ttf */; };
+		2B7B7085F99C2ADC58F3C206 /* dm_sans_800.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2E261D0785D43952C3041F8 /* dm_sans_800.ttf */; };
+		2C3C333D23AAE9E34E69ECDB /* roboto_condensed_500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA8DAB4680C0004E7FF16B66 /* roboto_condensed_500.ttf */; };
+		2DD94060E6974E8A0580449E /* montserrat_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E768FC622849F00DBDC4ED9 /* montserrat_regular.ttf */; };
+		2E801D4147B0CD0B8884374D /* roboto_condensed_100italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAE3F2551B1141343FE09057 /* roboto_condensed_100italic.ttf */; };
+		2F6F6A6C683281FB0E52612B /* montserrat_500italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C0288AC8A4DCFD55964B1CB /* montserrat_500italic.ttf */; };
+		307517D6AAC6E3F7E38DBD98 /* poppins_600italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A420F76BAC7EFAC2DACEF140 /* poppins_600italic.ttf */; };
+		35F8D7C1CD5B13EC5DB46D87 /* playfair_display_500italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61B7A0747069B20EC776E6DC /* playfair_display_500italic.ttf */; };
+		3684CCF4946C9ED5EFFB9148 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CC745BFDF8F71CD092CCB7 /* NotificationService.swift */; };
+		4039AD37869D6791312D718B /* HelveticaNeueBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B50CCD90495C5A686BA12E6 /* HelveticaNeueBold.ttf */; };
+		41176C10042644EF2EE4E753 /* montserrat_100italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41D3FAFF2E7FE7C2237A090C /* montserrat_100italic.ttf */; };
+		452DCDD8EE4C39B3B758C8E0 /* roboto_condensed_600.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1B9B3B4F8DEAF3B352D3E95 /* roboto_condensed_600.ttf */; };
+		461D3219310179B1E55D98A3 /* poppins_900italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D34CB309B8566C8F96392781 /* poppins_900italic.ttf */; };
+		4700C34405F49FDD36BFB3B7 /* poppins_600.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0545F54D0D3BFE68AD7FFB2 /* poppins_600.ttf */; };
+		4AD5447185E7C2E13D26817C /* inter_500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49A13C913D71A12102FDF10 /* inter_500.ttf */; };
+		4D091329D90AE923A5AA809B /* roboto_condensed_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FED586F84D26E33B0F9D6C1 /* roboto_condensed_regular.ttf */; };
+		504B81ECE16141976DD5E138 /* playfair_display_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52141507E04E923619C7D26C /* playfair_display_italic.ttf */; };
+		524A66F052B6BA068D663D37 /* montserrat_700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95EC5F8F47540A3EB7879E7C /* montserrat_700.ttf */; };
+		54895D702E2E3ACC1C3D640E /* dm_sans_100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0117235F9E42E9ACBAC604BA /* dm_sans_100.ttf */; };
+		552A8A796F7F9F5BADC2C207 /* inter_500italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75C1F01E2A4602D8F4DACC48 /* inter_500italic.ttf */; };
+		5A1273BAB457C21D1F5EDA55 /* inter_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FA2213BBAC0FF7660E7462E /* inter_italic.ttf */; };
+		5B956B4AA988172A32C8C36E /* roboto_condensed_900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A4925469BC3777585A34D52 /* roboto_condensed_900.ttf */; };
+		5E0DD844F2AAFD7BCED8F58D /* inter_600.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBC2CA2E397F7140D65A7498 /* inter_600.ttf */; };
+		61B3967C7E16AE6A1EEEECF3 /* poppins_100italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F0E4889839BBCF515266095 /* poppins_100italic.ttf */; };
+		640C6EE0423C9B89B5D9689D /* roboto_condensed_500italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58FBDA4FD440E335598A7C69 /* roboto_condensed_500italic.ttf */; };
+		659A636ABFD418FE4BF2C96E /* HelveticaNeueLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE571DFD7FA8E6F829C0C306 /* HelveticaNeueLight.ttf */; };
+		692E5848E3F2A80362E4E496 /* poppins_500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A2676123B63CB481D08DF81 /* poppins_500.ttf */; };
+		6DB4DBBD4B9F8CBD3C13359D /* montserrat_700italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F6056A074803064301BD872 /* montserrat_700italic.ttf */; };
+		6E5B5E370100BACD5BB5E405 /* dm_sans_100italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F1062956C2518D1F0AE41B4 /* dm_sans_100italic.ttf */; };
+		6E6A884C6F7D85F62F6657AC /* dm_sans_200italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD4A1E192F6940A4451C03AD /* dm_sans_200italic.ttf */; };
+		71EC67002C8D8FA064505232 /* inter_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93B143181D2F912578D4C0CF /* inter_regular.ttf */; };
+		7264441583440CE74EFE668E /* ImageNotification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8D02AD1662C442097F50CE36 /* ImageNotification.appex */; };
+		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
+		7722F2F377B687CA515F3FB3 /* poppins_700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA4E9F51D216E25BCCEED72E /* poppins_700.ttf */; };
+		77C8F0357CA4110E9313E963 /* dm_sans_800italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E3D64EFB8415F640398533E /* dm_sans_800italic.ttf */; };
+		784FF34CC4FDA2CFBCACDE1D /* montserrat_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C659C6CE6A58B5194502FBE /* montserrat_italic.ttf */; };
+		7869E9B3FD0532F48ED5C1E9 /* inter_100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD9085358E82107DA2112673 /* inter_100.ttf */; };
+		79B30B915B9B240A662BE268 /* playfair_display_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF671D377EB1D87AC8C71053 /* playfair_display_regular.ttf */; };
+		7BCE66F6380440C6BCA7AF5D /* montserrat_500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C711A7726CDF610D142A598A /* montserrat_500.ttf */; };
+		7D5F158893FA524B3D95CFA6 /* inter_200italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E596769939AC399B12DB53D5 /* inter_200italic.ttf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		838F6A77A075FC01907B49E7 /* montserrat_800.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26F0F91E7E0C81AD92895609 /* montserrat_800.ttf */; };
+		83AC8AE1FA91DBCA9BA2EE4B /* roboto_condensed_300italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68AE3C1CAC0CDA3024B357E5 /* roboto_condensed_300italic.ttf */; };
+		89F72B7417633362A186C63A /* inter_700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41A3D41CB2422B7470A2ACF6 /* inter_700.ttf */; };
+		8AD2D7FA184FEF8901847510 /* playfair_display_600.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90895F168492FD0704868FE6 /* playfair_display_600.ttf */; };
+		8FD3F99977BF35971827F116 /* poppins_700italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0C2DC93748AE7A463174FB8 /* poppins_700italic.ttf */; };
+		91D43041DE8B53F5E2491E94 /* inter_200.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80F8492FC4423B3FB4FD5C37 /* inter_200.ttf */; };
+		92575955728EC7F9D8C2B3F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0F583ADDC9192724B7D6EC /* GoogleService-Info.plist */; };
+		92E735F0DB39915F02BCC00C /* dm_sans_500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C08E8EDF4225683EEBD4156C /* dm_sans_500.ttf */; };
+		946EB84B97C570957F17C619 /* poppins_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBF54D8EA71515514563DF2D /* poppins_regular.ttf */; };
+		96222F7ED7FCB7D01C3A45E9 /* Bauer Bodoni Black 900.otf in Resources */ = {isa = PBXBuildFile; fileRef = F5AC5F77D36B5DE31A1D4F4E /* Bauer Bodoni Black 900.otf */; };
+		9D1C759E42E254973FE9681D /* Bauer Bodoni Roman 500.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3160B0AE7EDC35902BE2CA0C /* Bauer Bodoni Roman 500.otf */; };
+		9DED880AA3C6AA1966AE6B89 /* dm_sans_300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D0AA81C6FDD655C7FB8F5F7 /* dm_sans_300.ttf */; };
+		9E8444422341321BD84B447F /* roboto_condensed_700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21FC59E9B53A15D1B6A5F274 /* roboto_condensed_700.ttf */; };
+		A1DA116258D919FFA920F7A3 /* montserrat_800italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EE850190C94ED14E3D70205 /* montserrat_800italic.ttf */; };
+		A358F902857930DBE8BD609F /* inter_900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6161F544F3BDA2F8B7E6CF53 /* inter_900.ttf */; };
+		A394A33E0228F6692F6B3FF4 /* montserrat_900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B4174222669DBF7F47B8F82 /* montserrat_900.ttf */; };
+		A62D101F3201D26A096FA0AA /* dm_sans_900italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A83AD1D8A4AAC67A2CB3A77 /* dm_sans_900italic.ttf */; };
+		A8708774BD21F906A1015064 /* roboto_condensed_600italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F545DD624EAA2C1BEA62C648 /* roboto_condensed_600italic.ttf */; };
+		A8866A29AA83E796B3102DC9 /* playfair_display_500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2CC8E4CD013AB16E251FC5D /* playfair_display_500.ttf */; };
+		A8D2DF19B4A3968964762022 /* dm_sans_600italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBCD9DF8C319F360CE4D7747 /* dm_sans_600italic.ttf */; };
+		A9CD237803F2A64954B94D1F /* dm_sans_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59D1DF572D8BD32EF79656B5 /* dm_sans_regular.ttf */; };
+		AA94ACB7A0A702C9196E05B8 /* inter_800italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BE8BAF2C9ABE4A728A03592 /* inter_800italic.ttf */; };
+		ABC85E3AC4DB55F9C98F149C /* inter_100italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF6491B778B8546BC76677D /* inter_100italic.ttf */; };
+		AF9592F4CDDD1F251C334DD7 /* roboto_condensed_200italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF72F3AE7499A18ADF14EA86 /* roboto_condensed_200italic.ttf */; };
+		B0CAAF83398DBA73D4AB5E36 /* poppins_300italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76BA697E26238174840BA951 /* poppins_300italic.ttf */; };
+		B1215BDEF49F05A5071ECE5C /* poppins_800italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FFA9EF69F9843821EED2450 /* poppins_800italic.ttf */; };
+		B2F67FB82BCF0E989D6EBFAE /* dm_sans_500italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019234A011BAE2CFFDDE0B1C /* dm_sans_500italic.ttf */; };
+		B7277C2A55F64F830B9DB2C3 /* playfair_display_700italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B6E7C38D4FF3B95A029F3D9 /* playfair_display_700italic.ttf */; };
+		B81A01968AE7ACAE29F37483 /* poppins_900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB948D54639FFCEB19F29886 /* poppins_900.ttf */; };
+		BA2ED04ACFB60E09BE61EBBC /* HelveticaNeueBlack.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BA2D50E30DD28BA60F95D75 /* HelveticaNeueBlack.ttf */; };
+		BC772FE5989F638ECDAD395D /* Bauer Bodoni Regular 400.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0651DFB4C6C3DC56F1B8A36 /* Bauer Bodoni Regular 400.otf */; };
+		C32351360820D58A05675AF2 /* roboto_condensed_700italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88EC640B433162C271C79770 /* roboto_condensed_700italic.ttf */; };
+		C51362D1C0274A743E4C4B06 /* playfair_display_600italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 291AFA961CD5BCF1DBD480E3 /* playfair_display_600italic.ttf */; };
+		C6EC896C95187CEBED51B201 /* poppins_200.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59A15F259572B74435522E5A /* poppins_200.ttf */; };
+		C70D4A9C2B1DBA9CE68C1DC7 /* Bauer Bodoni Bold 700.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5AEDB67F9AF484548E4403A /* Bauer Bodoni Bold 700.otf */; };
+		C71E7CD6F85AA859529D37B4 /* montserrat_600italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A1DE5FE61F0A88DC953BB0B /* montserrat_600italic.ttf */; };
+		CF40B7D895E9526D588E235E /* playfair_display_800.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 102B0271D39B0D659415DAC0 /* playfair_display_800.ttf */; };
+		D066011BDD9E026622E45312 /* inter_900italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 231DF3A42A3FF2CD4E01B73D /* inter_900italic.ttf */; };
+		D46AEC79D4EDC4E4649890D9 /* HelveticaNeueThin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A9655480301215DD7E0468C /* HelveticaNeueThin.ttf */; };
+		D5D971F0F9F8865D83622297 /* inter_600italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC32159BDAF24FBD5C08575F /* inter_600italic.ttf */; };
+		D6325CD3953CF00DD0B6FBC3 /* playfair_display_900italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3497F2AF3456B27BA295128 /* playfair_display_900italic.ttf */; };
+		DD7E3C7C8B3A3ABC2E0909B2 /* roboto_condensed_900italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E0C352D47CA5FF878EBF86C /* roboto_condensed_900italic.ttf */; };
+		DDA5FFA42E1775E1C1B0393A /* HelveticaNeueUltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E851FE06D09C2BD4D1DDD32 /* HelveticaNeueUltraLight.ttf */; };
+		E2BA1EC97A58FB6E061EAFB6 /* roboto_condensed_800.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56082B44772E6122E80EF598 /* roboto_condensed_800.ttf */; };
+		E390319FEDBB8B3B807E7973 /* roboto_condensed_800italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD860F60E73438419A09E16D /* roboto_condensed_800italic.ttf */; };
+		E4B7552B43C63B11BD21110E /* roboto_condensed_100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D124CDE8735DD17493E1D9ED /* roboto_condensed_100.ttf */; };
+		E5204EE35F50795B9707B9C4 /* montserrat_900italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0AE2F7C101E8840B82E84918 /* montserrat_900italic.ttf */; };
+		E975F7E64600AD2482012B58 /* dm_sans_200.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 447984A8B318256831492951 /* dm_sans_200.ttf */; };
+		E98957019F870EF9BA6806F4 /* montserrat_200italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9CFE6E736C0E8B514244205 /* montserrat_200italic.ttf */; };
+		EE4FED0C9EBF6BF5D7F88F89 /* poppins_200italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A1D78EEDC558BE0DBE3292D /* poppins_200italic.ttf */; };
+		F0A8F06D06D2303717A32D9F /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7F31988D3A12E887CAC5A56 /* BootSplash.storyboard */; };
+		F1569FD12565693EEE151BBD /* roboto_condensed_300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C605A16A9FC9C523AB06C0B /* roboto_condensed_300.ttf */; };
+		F1C0B9B61468C1CDEDA99AC9 /* inter_800.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D027FB773523B2C70F284AB /* inter_800.ttf */; };
+		F3265CAB667212DD1BD4D7E9 /* dm_sans_300italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7480AABD2F0F3B9EA426A2DB /* dm_sans_300italic.ttf */; };
+		F558578DD3B9D6FFFA2A1010 /* HelveticaNeueMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CABCD156568A46D11F57BE1 /* HelveticaNeueMedium.ttf */; };
+		F63583DB28A54E326F6E7D1B /* montserrat_600.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74BC564BC37102A32B4A7127 /* montserrat_600.ttf */; };
+		F71D6A57FFA04A62A3815AE7 /* HelveticaNeueRoman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 127BECC505D1DA966561C294 /* HelveticaNeueRoman.ttf */; };
+		F937D71A98C5BA8B0A13E1C3 /* playfair_display_900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8E3237CA56AFA5899B667D9 /* playfair_display_900.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		304131D21CE6346F70C8B4ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C06CACF14B76E12CEE8F5B54;
+			remoteInfo = ImageNotification;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AB0D12961024D846896C278B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7264441583440CE74EFE668E /* ImageNotification.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0117235F9E42E9ACBAC604BA /* dm_sans_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_100.ttf; path = natori/Fonts/dm_sans_100.ttf; sourceTree = "<group>"; };
+		013FC9DD761E4A1B08BC2609 /* poppins_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_500italic.ttf; path = natori/Fonts/poppins_500italic.ttf; sourceTree = "<group>"; };
+		019234A011BAE2CFFDDE0B1C /* dm_sans_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_500italic.ttf; path = natori/Fonts/dm_sans_500italic.ttf; sourceTree = "<group>"; };
+		02CA1C8070F482904E41014F /* inter_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_300italic.ttf; path = natori/Fonts/inter_300italic.ttf; sourceTree = "<group>"; };
+		0AE2F7C101E8840B82E84918 /* montserrat_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_900italic.ttf; path = natori/Fonts/montserrat_900italic.ttf; sourceTree = "<group>"; };
+		0B4174222669DBF7F47B8F82 /* montserrat_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_900.ttf; path = natori/Fonts/montserrat_900.ttf; sourceTree = "<group>"; };
+		0DC8ABDDB5D38C0F6394AF81 /* roboto_condensed_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_200.ttf; path = natori/Fonts/roboto_condensed_200.ttf; sourceTree = "<group>"; };
+		0F0E4889839BBCF515266095 /* poppins_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_100italic.ttf; path = natori/Fonts/poppins_100italic.ttf; sourceTree = "<group>"; };
+		102B0271D39B0D659415DAC0 /* playfair_display_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_800.ttf; path = natori/Fonts/playfair_display_800.ttf; sourceTree = "<group>"; };
+		127BECC505D1DA966561C294 /* HelveticaNeueRoman.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueRoman.ttf; path = natori/Fonts/HelveticaNeueRoman.ttf; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* natori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = natori.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = natori/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = natori/Info.plist; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = natori/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		175004C1866F43B98A7A425B /* roboto_condensed_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_italic.ttf; path = natori/Fonts/roboto_condensed_italic.ttf; sourceTree = "<group>"; };
+		1B6E7C38D4FF3B95A029F3D9 /* playfair_display_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_700italic.ttf; path = natori/Fonts/playfair_display_700italic.ttf; sourceTree = "<group>"; };
+		1E851FE06D09C2BD4D1DDD32 /* HelveticaNeueUltraLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueUltraLight.ttf; path = natori/Fonts/HelveticaNeueUltraLight.ttf; sourceTree = "<group>"; };
+		1E9279CB4EE35CE3CB8E9179 /* inter_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_700italic.ttf; path = natori/Fonts/inter_700italic.ttf; sourceTree = "<group>"; };
+		200901B6F985053246236B4F /* dm_sans_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_700italic.ttf; path = natori/Fonts/dm_sans_700italic.ttf; sourceTree = "<group>"; };
+		20A6982D52B90577BC1917DA /* dm_sans_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_600.ttf; path = natori/Fonts/dm_sans_600.ttf; sourceTree = "<group>"; };
+		21FC59E9B53A15D1B6A5F274 /* roboto_condensed_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_700.ttf; path = natori/Fonts/roboto_condensed_700.ttf; sourceTree = "<group>"; };
+		231DF3A42A3FF2CD4E01B73D /* inter_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_900italic.ttf; path = natori/Fonts/inter_900italic.ttf; sourceTree = "<group>"; };
+		23E2C2844C1A8326F0B27C12 /* playfair_display_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_700.ttf; path = natori/Fonts/playfair_display_700.ttf; sourceTree = "<group>"; };
+		23EE36F1111570CA2CDCF3F1 /* HelveticaNeueHeavy.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueHeavy.ttf; path = natori/Fonts/HelveticaNeueHeavy.ttf; sourceTree = "<group>"; };
+		26F0F91E7E0C81AD92895609 /* montserrat_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_800.ttf; path = natori/Fonts/montserrat_800.ttf; sourceTree = "<group>"; };
+		27E6BF46CF3CFDD83AEEEE17 /* Pods-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
+		291AFA961CD5BCF1DBD480E3 /* playfair_display_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_600italic.ttf; path = natori/Fonts/playfair_display_600italic.ttf; sourceTree = "<group>"; };
+		2C659C6CE6A58B5194502FBE /* montserrat_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_italic.ttf; path = natori/Fonts/montserrat_italic.ttf; sourceTree = "<group>"; };
+		3074BAC1C5FCA22458F79A59 /* Pods-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
+		3160B0AE7EDC35902BE2CA0C /* Bauer Bodoni Roman 500.otf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Bauer Bodoni Roman 500.otf"; path = "natori/Fonts/Bauer Bodoni Roman 500.otf"; sourceTree = "<group>"; };
+		347B3C43ABF657FCBF669D83 /* dm_sans_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_italic.ttf; path = natori/Fonts/dm_sans_italic.ttf; sourceTree = "<group>"; };
+		3A1DE5FE61F0A88DC953BB0B /* montserrat_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_600italic.ttf; path = natori/Fonts/montserrat_600italic.ttf; sourceTree = "<group>"; };
+		3B4392A12AC88292D35C810B /* Pods-natori.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natori.debug.xcconfig"; path = "Target Support Files/Pods-natori/Pods-natori.debug.xcconfig"; sourceTree = "<group>"; };
+		3B50CCD90495C5A686BA12E6 /* HelveticaNeueBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueBold.ttf; path = natori/Fonts/HelveticaNeueBold.ttf; sourceTree = "<group>"; };
+		3CABCD156568A46D11F57BE1 /* HelveticaNeueMedium.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueMedium.ttf; path = natori/Fonts/HelveticaNeueMedium.ttf; sourceTree = "<group>"; };
+		3E3D64EFB8415F640398533E /* dm_sans_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_800italic.ttf; path = natori/Fonts/dm_sans_800italic.ttf; sourceTree = "<group>"; };
+		41A3D41CB2422B7470A2ACF6 /* inter_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_700.ttf; path = natori/Fonts/inter_700.ttf; sourceTree = "<group>"; };
+		41D3FAFF2E7FE7C2237A090C /* montserrat_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_100italic.ttf; path = natori/Fonts/montserrat_100italic.ttf; sourceTree = "<group>"; };
+		447984A8B318256831492951 /* dm_sans_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_200.ttf; path = natori/Fonts/dm_sans_200.ttf; sourceTree = "<group>"; };
+		4A2676123B63CB481D08DF81 /* poppins_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_500.ttf; path = natori/Fonts/poppins_500.ttf; sourceTree = "<group>"; };
+		4EE850190C94ED14E3D70205 /* montserrat_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_800italic.ttf; path = natori/Fonts/montserrat_800italic.ttf; sourceTree = "<group>"; };
+		4FFA9EF69F9843821EED2450 /* poppins_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_800italic.ttf; path = natori/Fonts/poppins_800italic.ttf; sourceTree = "<group>"; };
+		52141507E04E923619C7D26C /* playfair_display_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_italic.ttf; path = natori/Fonts/playfair_display_italic.ttf; sourceTree = "<group>"; };
+		52C574BDCD9C16099370DAAE /* poppins_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_800.ttf; path = natori/Fonts/poppins_800.ttf; sourceTree = "<group>"; };
+		56082B44772E6122E80EF598 /* roboto_condensed_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_800.ttf; path = natori/Fonts/roboto_condensed_800.ttf; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-natori.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natori.release.xcconfig"; path = "Target Support Files/Pods-natori/Pods-natori.release.xcconfig"; sourceTree = "<group>"; };
+		58FBDA4FD440E335598A7C69 /* roboto_condensed_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_500italic.ttf; path = natori/Fonts/roboto_condensed_500italic.ttf; sourceTree = "<group>"; };
+		59A15F259572B74435522E5A /* poppins_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_200.ttf; path = natori/Fonts/poppins_200.ttf; sourceTree = "<group>"; };
+		59D1DF572D8BD32EF79656B5 /* dm_sans_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_regular.ttf; path = natori/Fonts/dm_sans_regular.ttf; sourceTree = "<group>"; };
+		5A4925469BC3777585A34D52 /* roboto_condensed_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_900.ttf; path = natori/Fonts/roboto_condensed_900.ttf; sourceTree = "<group>"; };
+		5A9655480301215DD7E0468C /* HelveticaNeueThin.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueThin.ttf; path = natori/Fonts/HelveticaNeueThin.ttf; sourceTree = "<group>"; };
+		5DCACB8F33CDC322A6C60F78 /* libPods-natori.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-natori.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DE38CAC91951F966C58439E /* poppins_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_italic.ttf; path = natori/Fonts/poppins_italic.ttf; sourceTree = "<group>"; };
+		5E768FC622849F00DBDC4ED9 /* montserrat_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_regular.ttf; path = natori/Fonts/montserrat_regular.ttf; sourceTree = "<group>"; };
+		5FA2213BBAC0FF7660E7462E /* inter_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_italic.ttf; path = natori/Fonts/inter_italic.ttf; sourceTree = "<group>"; };
+		6161F544F3BDA2F8B7E6CF53 /* inter_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_900.ttf; path = natori/Fonts/inter_900.ttf; sourceTree = "<group>"; };
+		61B7A0747069B20EC776E6DC /* playfair_display_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_500italic.ttf; path = natori/Fonts/playfair_display_500italic.ttf; sourceTree = "<group>"; };
+		66CC745BFDF8F71CD092CCB7 /* NotificationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		68AE3C1CAC0CDA3024B357E5 /* roboto_condensed_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_300italic.ttf; path = natori/Fonts/roboto_condensed_300italic.ttf; sourceTree = "<group>"; };
+		6A1D78EEDC558BE0DBE3292D /* poppins_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_200italic.ttf; path = natori/Fonts/poppins_200italic.ttf; sourceTree = "<group>"; };
+		6A83AD1D8A4AAC67A2CB3A77 /* dm_sans_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_900italic.ttf; path = natori/Fonts/dm_sans_900italic.ttf; sourceTree = "<group>"; };
+		6C0288AC8A4DCFD55964B1CB /* montserrat_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_500italic.ttf; path = natori/Fonts/montserrat_500italic.ttf; sourceTree = "<group>"; };
+		6D0AA81C6FDD655C7FB8F5F7 /* dm_sans_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_300.ttf; path = natori/Fonts/dm_sans_300.ttf; sourceTree = "<group>"; };
+		7480AABD2F0F3B9EA426A2DB /* dm_sans_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_300italic.ttf; path = natori/Fonts/dm_sans_300italic.ttf; sourceTree = "<group>"; };
+		74BC564BC37102A32B4A7127 /* montserrat_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_600.ttf; path = natori/Fonts/montserrat_600.ttf; sourceTree = "<group>"; };
+		75C1F01E2A4602D8F4DACC48 /* inter_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_500italic.ttf; path = natori/Fonts/inter_500italic.ttf; sourceTree = "<group>"; };
+		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = natori/AppDelegate.swift; sourceTree = "<group>"; };
+		76BA697E26238174840BA951 /* poppins_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_300italic.ttf; path = natori/Fonts/poppins_300italic.ttf; sourceTree = "<group>"; };
+		76F62A8EB63AB48C5691A70D /* natori.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; name = natori.entitlements; path = natori/natori.entitlements; sourceTree = "<group>"; };
+		799DA58201DD9FE73054E644 /* montserrat_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_100.ttf; path = natori/Fonts/montserrat_100.ttf; sourceTree = "<group>"; };
+		7BE8BAF2C9ABE4A728A03592 /* inter_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_800italic.ttf; path = natori/Fonts/inter_800italic.ttf; sourceTree = "<group>"; };
+		7D027FB773523B2C70F284AB /* inter_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_800.ttf; path = natori/Fonts/inter_800.ttf; sourceTree = "<group>"; };
+		7F1062956C2518D1F0AE41B4 /* dm_sans_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_100italic.ttf; path = natori/Fonts/dm_sans_100italic.ttf; sourceTree = "<group>"; };
+		80F8492FC4423B3FB4FD5C37 /* inter_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_200.ttf; path = natori/Fonts/inter_200.ttf; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = natori/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		88EC640B433162C271C79770 /* roboto_condensed_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_700italic.ttf; path = natori/Fonts/roboto_condensed_700italic.ttf; sourceTree = "<group>"; };
+		8C605A16A9FC9C523AB06C0B /* roboto_condensed_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_300.ttf; path = natori/Fonts/roboto_condensed_300.ttf; sourceTree = "<group>"; };
+		8D02AD1662C442097F50CE36 /* ImageNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F9458B492FDAE75AC40134F /* poppins_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_100.ttf; path = natori/Fonts/poppins_100.ttf; sourceTree = "<group>"; };
+		8FED586F84D26E33B0F9D6C1 /* roboto_condensed_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_regular.ttf; path = natori/Fonts/roboto_condensed_regular.ttf; sourceTree = "<group>"; };
+		90895F168492FD0704868FE6 /* playfair_display_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_600.ttf; path = natori/Fonts/playfair_display_600.ttf; sourceTree = "<group>"; };
+		93B143181D2F912578D4C0CF /* inter_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_regular.ttf; path = natori/Fonts/inter_regular.ttf; sourceTree = "<group>"; };
+		955BAA34BA5969D6AB5EDE00 /* montserrat_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_300.ttf; path = natori/Fonts/montserrat_300.ttf; sourceTree = "<group>"; };
+		95EC5F8F47540A3EB7879E7C /* montserrat_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_700.ttf; path = natori/Fonts/montserrat_700.ttf; sourceTree = "<group>"; };
+		9BA2D50E30DD28BA60F95D75 /* HelveticaNeueBlack.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueBlack.ttf; path = natori/Fonts/HelveticaNeueBlack.ttf; sourceTree = "<group>"; };
+		9DF6491B778B8546BC76677D /* inter_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_100italic.ttf; path = natori/Fonts/inter_100italic.ttf; sourceTree = "<group>"; };
+		9E0C352D47CA5FF878EBF86C /* roboto_condensed_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_900italic.ttf; path = natori/Fonts/roboto_condensed_900italic.ttf; sourceTree = "<group>"; };
+		9F1B613A226CE2921B725FE3 /* dm_sans_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_700.ttf; path = natori/Fonts/dm_sans_700.ttf; sourceTree = "<group>"; };
+		9F6056A074803064301BD872 /* montserrat_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_700italic.ttf; path = natori/Fonts/montserrat_700italic.ttf; sourceTree = "<group>"; };
+		A3497F2AF3456B27BA295128 /* playfair_display_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_900italic.ttf; path = natori/Fonts/playfair_display_900italic.ttf; sourceTree = "<group>"; };
+		A420F76BAC7EFAC2DACEF140 /* poppins_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_600italic.ttf; path = natori/Fonts/poppins_600italic.ttf; sourceTree = "<group>"; };
+		A49A13C913D71A12102FDF10 /* inter_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_500.ttf; path = natori/Fonts/inter_500.ttf; sourceTree = "<group>"; };
+		AD4A1E192F6940A4451C03AD /* dm_sans_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_200italic.ttf; path = natori/Fonts/dm_sans_200italic.ttf; sourceTree = "<group>"; };
+		AE5A42B398E58AF972360F2F /* dm_sans_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_900.ttf; path = natori/Fonts/dm_sans_900.ttf; sourceTree = "<group>"; };
+		B8E3237CA56AFA5899B667D9 /* playfair_display_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_900.ttf; path = natori/Fonts/playfair_display_900.ttf; sourceTree = "<group>"; };
+		BA4E9F51D216E25BCCEED72E /* poppins_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_700.ttf; path = natori/Fonts/poppins_700.ttf; sourceTree = "<group>"; };
+		BAE3F2551B1141343FE09057 /* roboto_condensed_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_100italic.ttf; path = natori/Fonts/roboto_condensed_100italic.ttf; sourceTree = "<group>"; };
+		BB948D54639FFCEB19F29886 /* poppins_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_900.ttf; path = natori/Fonts/poppins_900.ttf; sourceTree = "<group>"; };
+		BDBA952292F915999AAD0BEE /* natori-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "natori-Bridging-Header.h"; path = "natori/natori-Bridging-Header.h"; sourceTree = "<group>"; };
+		BE0F583ADDC9192724B7D6EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C08E8EDF4225683EEBD4156C /* dm_sans_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_500.ttf; path = natori/Fonts/dm_sans_500.ttf; sourceTree = "<group>"; };
+		C1B9B3B4F8DEAF3B352D3E95 /* roboto_condensed_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_600.ttf; path = natori/Fonts/roboto_condensed_600.ttf; sourceTree = "<group>"; };
+		C711A7726CDF610D142A598A /* montserrat_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_500.ttf; path = natori/Fonts/montserrat_500.ttf; sourceTree = "<group>"; };
+		C9CFE6E736C0E8B514244205 /* montserrat_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_200italic.ttf; path = natori/Fonts/montserrat_200italic.ttf; sourceTree = "<group>"; };
+		CAB9D1004CAAC561EB066E55 /* libPods-ImageNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ImageNotification.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD9085358E82107DA2112673 /* inter_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_100.ttf; path = natori/Fonts/inter_100.ttf; sourceTree = "<group>"; };
+		CF671D377EB1D87AC8C71053 /* playfair_display_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_regular.ttf; path = natori/Fonts/playfair_display_regular.ttf; sourceTree = "<group>"; };
+		D0651DFB4C6C3DC56F1B8A36 /* Bauer Bodoni Regular 400.otf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Bauer Bodoni Regular 400.otf"; path = "natori/Fonts/Bauer Bodoni Regular 400.otf"; sourceTree = "<group>"; };
+		D0C2DC93748AE7A463174FB8 /* poppins_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_700italic.ttf; path = natori/Fonts/poppins_700italic.ttf; sourceTree = "<group>"; };
+		D124CDE8735DD17493E1D9ED /* roboto_condensed_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_100.ttf; path = natori/Fonts/roboto_condensed_100.ttf; sourceTree = "<group>"; };
+		D2E261D0785D43952C3041F8 /* dm_sans_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_800.ttf; path = natori/Fonts/dm_sans_800.ttf; sourceTree = "<group>"; };
+		D34CB309B8566C8F96392781 /* poppins_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_900italic.ttf; path = natori/Fonts/poppins_900italic.ttf; sourceTree = "<group>"; };
+		D3FD818C26FC4C351B0694CF /* poppins_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_300.ttf; path = natori/Fonts/poppins_300.ttf; sourceTree = "<group>"; };
+		D5AEDB67F9AF484548E4403A /* Bauer Bodoni Bold 700.otf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Bauer Bodoni Bold 700.otf"; path = "natori/Fonts/Bauer Bodoni Bold 700.otf"; sourceTree = "<group>"; };
+		DAB63F9982FE47E622E213D9 /* montserrat_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_300italic.ttf; path = natori/Fonts/montserrat_300italic.ttf; sourceTree = "<group>"; };
+		DB0893DAD74289030090694F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD218797E33F8B2A14A47576 /* playfair_display_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_800italic.ttf; path = natori/Fonts/playfair_display_800italic.ttf; sourceTree = "<group>"; };
+		DD833BA70A4FC09B78C10491 /* montserrat_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_200.ttf; path = natori/Fonts/montserrat_200.ttf; sourceTree = "<group>"; };
+		DF72F3AE7499A18ADF14EA86 /* roboto_condensed_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_200italic.ttf; path = natori/Fonts/roboto_condensed_200italic.ttf; sourceTree = "<group>"; };
+		E2CC8E4CD013AB16E251FC5D /* playfair_display_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_500.ttf; path = natori/Fonts/playfair_display_500.ttf; sourceTree = "<group>"; };
+		E596769939AC399B12DB53D5 /* inter_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_200italic.ttf; path = natori/Fonts/inter_200italic.ttf; sourceTree = "<group>"; };
+		E7F31988D3A12E887CAC5A56 /* BootSplash.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = natori/BootSplash.storyboard; sourceTree = "<group>"; };
+		EBCD9DF8C319F360CE4D7747 /* dm_sans_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_600italic.ttf; path = natori/Fonts/dm_sans_600italic.ttf; sourceTree = "<group>"; };
+		EBF54D8EA71515514563DF2D /* poppins_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_regular.ttf; path = natori/Fonts/poppins_regular.ttf; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EE571DFD7FA8E6F829C0C306 /* HelveticaNeueLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueLight.ttf; path = natori/Fonts/HelveticaNeueLight.ttf; sourceTree = "<group>"; };
+		F0545F54D0D3BFE68AD7FFB2 /* poppins_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_600.ttf; path = natori/Fonts/poppins_600.ttf; sourceTree = "<group>"; };
+		F41D0F5EFF08A3535653CB3E /* inter_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_300.ttf; path = natori/Fonts/inter_300.ttf; sourceTree = "<group>"; };
+		F545DD624EAA2C1BEA62C648 /* roboto_condensed_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_600italic.ttf; path = natori/Fonts/roboto_condensed_600italic.ttf; sourceTree = "<group>"; };
+		F5AC5F77D36B5DE31A1D4F4E /* Bauer Bodoni Black 900.otf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Bauer Bodoni Black 900.otf"; path = "natori/Fonts/Bauer Bodoni Black 900.otf"; sourceTree = "<group>"; };
+		F918D7BED11DB5E2A7E0BD1E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		FA8DAB4680C0004E7FF16B66 /* roboto_condensed_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_500.ttf; path = natori/Fonts/roboto_condensed_500.ttf; sourceTree = "<group>"; };
+		FBC2CA2E397F7140D65A7498 /* inter_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_600.ttf; path = natori/Fonts/inter_600.ttf; sourceTree = "<group>"; };
+		FC32159BDAF24FBD5C08575F /* inter_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_600italic.ttf; path = natori/Fonts/inter_600italic.ttf; sourceTree = "<group>"; };
+		FD860F60E73438419A09E16D /* roboto_condensed_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_800italic.ttf; path = natori/Fonts/roboto_condensed_800italic.ttf; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C80B921A6F3F58F76C31292 /* libPods-natori.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7409AB97992BB7ECF2976E49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				191CE7EE9B50AEEB2DAB49E1 /* Foundation.framework in Frameworks */,
+				1E92D3EB50BFFED681E83309 /* libPods-ImageNotification.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13B07FAE1A68108700A75B9A /* natori */ = {
+			isa = PBXGroup;
+			children = (
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				761780EC2CA45674006654EE /* AppDelegate.swift */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				E7F31988D3A12E887CAC5A56 /* BootSplash.storyboard */,
+				BDBA952292F915999AAD0BEE /* natori-Bridging-Header.h */,
+				9BA2D50E30DD28BA60F95D75 /* HelveticaNeueBlack.ttf */,
+				3B50CCD90495C5A686BA12E6 /* HelveticaNeueBold.ttf */,
+				23EE36F1111570CA2CDCF3F1 /* HelveticaNeueHeavy.ttf */,
+				EE571DFD7FA8E6F829C0C306 /* HelveticaNeueLight.ttf */,
+				3CABCD156568A46D11F57BE1 /* HelveticaNeueMedium.ttf */,
+				127BECC505D1DA966561C294 /* HelveticaNeueRoman.ttf */,
+				5A9655480301215DD7E0468C /* HelveticaNeueThin.ttf */,
+				1E851FE06D09C2BD4D1DDD32 /* HelveticaNeueUltraLight.ttf */,
+				0117235F9E42E9ACBAC604BA /* dm_sans_100.ttf */,
+				7F1062956C2518D1F0AE41B4 /* dm_sans_100italic.ttf */,
+				447984A8B318256831492951 /* dm_sans_200.ttf */,
+				AD4A1E192F6940A4451C03AD /* dm_sans_200italic.ttf */,
+				6D0AA81C6FDD655C7FB8F5F7 /* dm_sans_300.ttf */,
+				7480AABD2F0F3B9EA426A2DB /* dm_sans_300italic.ttf */,
+				C08E8EDF4225683EEBD4156C /* dm_sans_500.ttf */,
+				019234A011BAE2CFFDDE0B1C /* dm_sans_500italic.ttf */,
+				20A6982D52B90577BC1917DA /* dm_sans_600.ttf */,
+				EBCD9DF8C319F360CE4D7747 /* dm_sans_600italic.ttf */,
+				9F1B613A226CE2921B725FE3 /* dm_sans_700.ttf */,
+				200901B6F985053246236B4F /* dm_sans_700italic.ttf */,
+				D2E261D0785D43952C3041F8 /* dm_sans_800.ttf */,
+				3E3D64EFB8415F640398533E /* dm_sans_800italic.ttf */,
+				AE5A42B398E58AF972360F2F /* dm_sans_900.ttf */,
+				6A83AD1D8A4AAC67A2CB3A77 /* dm_sans_900italic.ttf */,
+				347B3C43ABF657FCBF669D83 /* dm_sans_italic.ttf */,
+				59D1DF572D8BD32EF79656B5 /* dm_sans_regular.ttf */,
+				CD9085358E82107DA2112673 /* inter_100.ttf */,
+				9DF6491B778B8546BC76677D /* inter_100italic.ttf */,
+				80F8492FC4423B3FB4FD5C37 /* inter_200.ttf */,
+				E596769939AC399B12DB53D5 /* inter_200italic.ttf */,
+				F41D0F5EFF08A3535653CB3E /* inter_300.ttf */,
+				02CA1C8070F482904E41014F /* inter_300italic.ttf */,
+				A49A13C913D71A12102FDF10 /* inter_500.ttf */,
+				75C1F01E2A4602D8F4DACC48 /* inter_500italic.ttf */,
+				FBC2CA2E397F7140D65A7498 /* inter_600.ttf */,
+				FC32159BDAF24FBD5C08575F /* inter_600italic.ttf */,
+				41A3D41CB2422B7470A2ACF6 /* inter_700.ttf */,
+				1E9279CB4EE35CE3CB8E9179 /* inter_700italic.ttf */,
+				7D027FB773523B2C70F284AB /* inter_800.ttf */,
+				7BE8BAF2C9ABE4A728A03592 /* inter_800italic.ttf */,
+				6161F544F3BDA2F8B7E6CF53 /* inter_900.ttf */,
+				231DF3A42A3FF2CD4E01B73D /* inter_900italic.ttf */,
+				5FA2213BBAC0FF7660E7462E /* inter_italic.ttf */,
+				93B143181D2F912578D4C0CF /* inter_regular.ttf */,
+				799DA58201DD9FE73054E644 /* montserrat_100.ttf */,
+				41D3FAFF2E7FE7C2237A090C /* montserrat_100italic.ttf */,
+				DD833BA70A4FC09B78C10491 /* montserrat_200.ttf */,
+				C9CFE6E736C0E8B514244205 /* montserrat_200italic.ttf */,
+				955BAA34BA5969D6AB5EDE00 /* montserrat_300.ttf */,
+				DAB63F9982FE47E622E213D9 /* montserrat_300italic.ttf */,
+				C711A7726CDF610D142A598A /* montserrat_500.ttf */,
+				6C0288AC8A4DCFD55964B1CB /* montserrat_500italic.ttf */,
+				74BC564BC37102A32B4A7127 /* montserrat_600.ttf */,
+				3A1DE5FE61F0A88DC953BB0B /* montserrat_600italic.ttf */,
+				95EC5F8F47540A3EB7879E7C /* montserrat_700.ttf */,
+				9F6056A074803064301BD872 /* montserrat_700italic.ttf */,
+				26F0F91E7E0C81AD92895609 /* montserrat_800.ttf */,
+				4EE850190C94ED14E3D70205 /* montserrat_800italic.ttf */,
+				0B4174222669DBF7F47B8F82 /* montserrat_900.ttf */,
+				0AE2F7C101E8840B82E84918 /* montserrat_900italic.ttf */,
+				2C659C6CE6A58B5194502FBE /* montserrat_italic.ttf */,
+				5E768FC622849F00DBDC4ED9 /* montserrat_regular.ttf */,
+				E2CC8E4CD013AB16E251FC5D /* playfair_display_500.ttf */,
+				61B7A0747069B20EC776E6DC /* playfair_display_500italic.ttf */,
+				90895F168492FD0704868FE6 /* playfair_display_600.ttf */,
+				291AFA961CD5BCF1DBD480E3 /* playfair_display_600italic.ttf */,
+				23E2C2844C1A8326F0B27C12 /* playfair_display_700.ttf */,
+				1B6E7C38D4FF3B95A029F3D9 /* playfair_display_700italic.ttf */,
+				102B0271D39B0D659415DAC0 /* playfair_display_800.ttf */,
+				DD218797E33F8B2A14A47576 /* playfair_display_800italic.ttf */,
+				B8E3237CA56AFA5899B667D9 /* playfair_display_900.ttf */,
+				A3497F2AF3456B27BA295128 /* playfair_display_900italic.ttf */,
+				52141507E04E923619C7D26C /* playfair_display_italic.ttf */,
+				CF671D377EB1D87AC8C71053 /* playfair_display_regular.ttf */,
+				8F9458B492FDAE75AC40134F /* poppins_100.ttf */,
+				0F0E4889839BBCF515266095 /* poppins_100italic.ttf */,
+				59A15F259572B74435522E5A /* poppins_200.ttf */,
+				6A1D78EEDC558BE0DBE3292D /* poppins_200italic.ttf */,
+				D3FD818C26FC4C351B0694CF /* poppins_300.ttf */,
+				76BA697E26238174840BA951 /* poppins_300italic.ttf */,
+				4A2676123B63CB481D08DF81 /* poppins_500.ttf */,
+				013FC9DD761E4A1B08BC2609 /* poppins_500italic.ttf */,
+				F0545F54D0D3BFE68AD7FFB2 /* poppins_600.ttf */,
+				A420F76BAC7EFAC2DACEF140 /* poppins_600italic.ttf */,
+				BA4E9F51D216E25BCCEED72E /* poppins_700.ttf */,
+				D0C2DC93748AE7A463174FB8 /* poppins_700italic.ttf */,
+				52C574BDCD9C16099370DAAE /* poppins_800.ttf */,
+				4FFA9EF69F9843821EED2450 /* poppins_800italic.ttf */,
+				BB948D54639FFCEB19F29886 /* poppins_900.ttf */,
+				D34CB309B8566C8F96392781 /* poppins_900italic.ttf */,
+				5DE38CAC91951F966C58439E /* poppins_italic.ttf */,
+				EBF54D8EA71515514563DF2D /* poppins_regular.ttf */,
+				D124CDE8735DD17493E1D9ED /* roboto_condensed_100.ttf */,
+				BAE3F2551B1141343FE09057 /* roboto_condensed_100italic.ttf */,
+				0DC8ABDDB5D38C0F6394AF81 /* roboto_condensed_200.ttf */,
+				DF72F3AE7499A18ADF14EA86 /* roboto_condensed_200italic.ttf */,
+				8C605A16A9FC9C523AB06C0B /* roboto_condensed_300.ttf */,
+				68AE3C1CAC0CDA3024B357E5 /* roboto_condensed_300italic.ttf */,
+				FA8DAB4680C0004E7FF16B66 /* roboto_condensed_500.ttf */,
+				58FBDA4FD440E335598A7C69 /* roboto_condensed_500italic.ttf */,
+				C1B9B3B4F8DEAF3B352D3E95 /* roboto_condensed_600.ttf */,
+				F545DD624EAA2C1BEA62C648 /* roboto_condensed_600italic.ttf */,
+				21FC59E9B53A15D1B6A5F274 /* roboto_condensed_700.ttf */,
+				88EC640B433162C271C79770 /* roboto_condensed_700italic.ttf */,
+				56082B44772E6122E80EF598 /* roboto_condensed_800.ttf */,
+				FD860F60E73438419A09E16D /* roboto_condensed_800italic.ttf */,
+				5A4925469BC3777585A34D52 /* roboto_condensed_900.ttf */,
+				9E0C352D47CA5FF878EBF86C /* roboto_condensed_900italic.ttf */,
+				175004C1866F43B98A7A425B /* roboto_condensed_italic.ttf */,
+				8FED586F84D26E33B0F9D6C1 /* roboto_condensed_regular.ttf */,
+				F5AC5F77D36B5DE31A1D4F4E /* Bauer Bodoni Black 900.otf */,
+				D5AEDB67F9AF484548E4403A /* Bauer Bodoni Bold 700.otf */,
+				D0651DFB4C6C3DC56F1B8A36 /* Bauer Bodoni Regular 400.otf */,
+				3160B0AE7EDC35902BE2CA0C /* Bauer Bodoni Roman 500.otf */,
+				76F62A8EB63AB48C5691A70D /* natori.entitlements */,
+			);
+			name = natori;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				5DCACB8F33CDC322A6C60F78 /* libPods-natori.a */,
+				931F5A61A8EDAF7CFB08AF9E /* iOS */,
+				CAB9D1004CAAC561EB066E55 /* libPods-ImageNotification.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				13B07FAE1A68108700A75B9A /* natori */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				BE0F583ADDC9192724B7D6EC /* GoogleService-Info.plist */,
+				E299F8F97A6B17BA8BF568CF /* ImageNotification */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* natori.app */,
+				8D02AD1662C442097F50CE36 /* ImageNotification.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		931F5A61A8EDAF7CFB08AF9E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F918D7BED11DB5E2A7E0BD1E /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3B4392A12AC88292D35C810B /* Pods-natori.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-natori.release.xcconfig */,
+				3074BAC1C5FCA22458F79A59 /* Pods-ImageNotification.release.xcconfig */,
+				27E6BF46CF3CFDD83AEEEE17 /* Pods-ImageNotification.debug.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E299F8F97A6B17BA8BF568CF /* ImageNotification */ = {
+			isa = PBXGroup;
+			children = (
+				DB0893DAD74289030090694F /* Info.plist */,
+				66CC745BFDF8F71CD092CCB7 /* NotificationService.swift */,
+			);
+			name = ImageNotification;
+			path = ImageNotification;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		13B07F861A680F5B00A75B9A /* natori */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "natori" */;
+			buildPhases = (
+				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				AB0D12961024D846896C278B /* Embed Foundation Extensions */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
+				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				A624C60C5EC793C2E34DAA4D /* [CP-User] [RNFB] Core Configuration */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9D5F76896ADD7BF3FE140275 /* PBXTargetDependency */,
+			);
+			name = natori;
+			productName = natori;
+			productReference = 13B07F961A680F5B00A75B9A /* natori.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C06CACF14B76E12CEE8F5B54 /* ImageNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CD0FCD8353ED7790789D015 /* Build configuration list for PBXNativeTarget "ImageNotification" */;
+			buildPhases = (
+				E6A274C84BFF604EB939B6FE /* [CP] Check Pods Manifest.lock */,
+				9B488809497C6EA5CAEB2E47 /* Sources */,
+				7409AB97992BB7ECF2976E49 /* Frameworks */,
+				D3B34471C6A1C3912E0DCD99 /* Resources */,
+				791CF1E63518F7133D0398EC /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImageNotification;
+			productName = ImageNotification;
+			productReference = 8D02AD1662C442097F50CE36 /* ImageNotification.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1120;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "natori" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* natori */,
+				C06CACF14B76E12CEE8F5B54 /* ImageNotification */,
+				C06CACF14B76E12CEE8F5B54 /* ImageNotification */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				01CEF1439082253046C6E324 /* PrivacyInfo.xcprivacy in Resources */,
+				F0A8F06D06D2303717A32D9F /* BootSplash.storyboard in Resources */,
+				BA2ED04ACFB60E09BE61EBBC /* HelveticaNeueBlack.ttf in Resources */,
+				4039AD37869D6791312D718B /* HelveticaNeueBold.ttf in Resources */,
+				0B0D43641A35B82CCFAB7390 /* HelveticaNeueHeavy.ttf in Resources */,
+				659A636ABFD418FE4BF2C96E /* HelveticaNeueLight.ttf in Resources */,
+				F558578DD3B9D6FFFA2A1010 /* HelveticaNeueMedium.ttf in Resources */,
+				F71D6A57FFA04A62A3815AE7 /* HelveticaNeueRoman.ttf in Resources */,
+				D46AEC79D4EDC4E4649890D9 /* HelveticaNeueThin.ttf in Resources */,
+				DDA5FFA42E1775E1C1B0393A /* HelveticaNeueUltraLight.ttf in Resources */,
+				54895D702E2E3ACC1C3D640E /* dm_sans_100.ttf in Resources */,
+				6E5B5E370100BACD5BB5E405 /* dm_sans_100italic.ttf in Resources */,
+				E975F7E64600AD2482012B58 /* dm_sans_200.ttf in Resources */,
+				6E6A884C6F7D85F62F6657AC /* dm_sans_200italic.ttf in Resources */,
+				9DED880AA3C6AA1966AE6B89 /* dm_sans_300.ttf in Resources */,
+				F3265CAB667212DD1BD4D7E9 /* dm_sans_300italic.ttf in Resources */,
+				92E735F0DB39915F02BCC00C /* dm_sans_500.ttf in Resources */,
+				B2F67FB82BCF0E989D6EBFAE /* dm_sans_500italic.ttf in Resources */,
+				04D1C690349BB3E7F7EBCC99 /* dm_sans_600.ttf in Resources */,
+				A8D2DF19B4A3968964762022 /* dm_sans_600italic.ttf in Resources */,
+				25CC77B40FB97EBEE71EBEB1 /* dm_sans_700.ttf in Resources */,
+				2002C06E5B8BD01E973A5773 /* dm_sans_700italic.ttf in Resources */,
+				2B7B7085F99C2ADC58F3C206 /* dm_sans_800.ttf in Resources */,
+				77C8F0357CA4110E9313E963 /* dm_sans_800italic.ttf in Resources */,
+				00B767BF120117098557EB62 /* dm_sans_900.ttf in Resources */,
+				A62D101F3201D26A096FA0AA /* dm_sans_900italic.ttf in Resources */,
+				210950A80A4477F08A171132 /* dm_sans_italic.ttf in Resources */,
+				A9CD237803F2A64954B94D1F /* dm_sans_regular.ttf in Resources */,
+				7869E9B3FD0532F48ED5C1E9 /* inter_100.ttf in Resources */,
+				ABC85E3AC4DB55F9C98F149C /* inter_100italic.ttf in Resources */,
+				91D43041DE8B53F5E2491E94 /* inter_200.ttf in Resources */,
+				7D5F158893FA524B3D95CFA6 /* inter_200italic.ttf in Resources */,
+				15FD37B03DEFE3050EB8F6A2 /* inter_300.ttf in Resources */,
+				0BE92647161542F768C58136 /* inter_300italic.ttf in Resources */,
+				4AD5447185E7C2E13D26817C /* inter_500.ttf in Resources */,
+				552A8A796F7F9F5BADC2C207 /* inter_500italic.ttf in Resources */,
+				5E0DD844F2AAFD7BCED8F58D /* inter_600.ttf in Resources */,
+				D5D971F0F9F8865D83622297 /* inter_600italic.ttf in Resources */,
+				89F72B7417633362A186C63A /* inter_700.ttf in Resources */,
+				2B4F95AB4C906BC8DAAB65D0 /* inter_700italic.ttf in Resources */,
+				F1C0B9B61468C1CDEDA99AC9 /* inter_800.ttf in Resources */,
+				AA94ACB7A0A702C9196E05B8 /* inter_800italic.ttf in Resources */,
+				A358F902857930DBE8BD609F /* inter_900.ttf in Resources */,
+				D066011BDD9E026622E45312 /* inter_900italic.ttf in Resources */,
+				5A1273BAB457C21D1F5EDA55 /* inter_italic.ttf in Resources */,
+				71EC67002C8D8FA064505232 /* inter_regular.ttf in Resources */,
+				158C705529B916B0137E1160 /* montserrat_100.ttf in Resources */,
+				41176C10042644EF2EE4E753 /* montserrat_100italic.ttf in Resources */,
+				185B4A2A403166538391013E /* montserrat_200.ttf in Resources */,
+				E98957019F870EF9BA6806F4 /* montserrat_200italic.ttf in Resources */,
+				172BFF65B62AAB7FB3DD651E /* montserrat_300.ttf in Resources */,
+				1CE7966E8409386E5B8261DE /* montserrat_300italic.ttf in Resources */,
+				7BCE66F6380440C6BCA7AF5D /* montserrat_500.ttf in Resources */,
+				2F6F6A6C683281FB0E52612B /* montserrat_500italic.ttf in Resources */,
+				F63583DB28A54E326F6E7D1B /* montserrat_600.ttf in Resources */,
+				C71E7CD6F85AA859529D37B4 /* montserrat_600italic.ttf in Resources */,
+				524A66F052B6BA068D663D37 /* montserrat_700.ttf in Resources */,
+				6DB4DBBD4B9F8CBD3C13359D /* montserrat_700italic.ttf in Resources */,
+				838F6A77A075FC01907B49E7 /* montserrat_800.ttf in Resources */,
+				A1DA116258D919FFA920F7A3 /* montserrat_800italic.ttf in Resources */,
+				A394A33E0228F6692F6B3FF4 /* montserrat_900.ttf in Resources */,
+				E5204EE35F50795B9707B9C4 /* montserrat_900italic.ttf in Resources */,
+				784FF34CC4FDA2CFBCACDE1D /* montserrat_italic.ttf in Resources */,
+				2DD94060E6974E8A0580449E /* montserrat_regular.ttf in Resources */,
+				A8866A29AA83E796B3102DC9 /* playfair_display_500.ttf in Resources */,
+				35F8D7C1CD5B13EC5DB46D87 /* playfair_display_500italic.ttf in Resources */,
+				8AD2D7FA184FEF8901847510 /* playfair_display_600.ttf in Resources */,
+				C51362D1C0274A743E4C4B06 /* playfair_display_600italic.ttf in Resources */,
+				2A4658FCFBDD340ACBD068B7 /* playfair_display_700.ttf in Resources */,
+				B7277C2A55F64F830B9DB2C3 /* playfair_display_700italic.ttf in Resources */,
+				CF40B7D895E9526D588E235E /* playfair_display_800.ttf in Resources */,
+				1A8B254A30E8788921CCDFE5 /* playfair_display_800italic.ttf in Resources */,
+				F937D71A98C5BA8B0A13E1C3 /* playfair_display_900.ttf in Resources */,
+				D6325CD3953CF00DD0B6FBC3 /* playfair_display_900italic.ttf in Resources */,
+				504B81ECE16141976DD5E138 /* playfair_display_italic.ttf in Resources */,
+				79B30B915B9B240A662BE268 /* playfair_display_regular.ttf in Resources */,
+				0D7766970D9FCCE266A5C989 /* poppins_100.ttf in Resources */,
+				61B3967C7E16AE6A1EEEECF3 /* poppins_100italic.ttf in Resources */,
+				C6EC896C95187CEBED51B201 /* poppins_200.ttf in Resources */,
+				EE4FED0C9EBF6BF5D7F88F89 /* poppins_200italic.ttf in Resources */,
+				2356D370F719934CC3A340A4 /* poppins_300.ttf in Resources */,
+				B0CAAF83398DBA73D4AB5E36 /* poppins_300italic.ttf in Resources */,
+				692E5848E3F2A80362E4E496 /* poppins_500.ttf in Resources */,
+				155539B87C2998BA424E5CF4 /* poppins_500italic.ttf in Resources */,
+				4700C34405F49FDD36BFB3B7 /* poppins_600.ttf in Resources */,
+				307517D6AAC6E3F7E38DBD98 /* poppins_600italic.ttf in Resources */,
+				7722F2F377B687CA515F3FB3 /* poppins_700.ttf in Resources */,
+				8FD3F99977BF35971827F116 /* poppins_700italic.ttf in Resources */,
+				15C55194BFAEF2B568014281 /* poppins_800.ttf in Resources */,
+				B1215BDEF49F05A5071ECE5C /* poppins_800italic.ttf in Resources */,
+				B81A01968AE7ACAE29F37483 /* poppins_900.ttf in Resources */,
+				461D3219310179B1E55D98A3 /* poppins_900italic.ttf in Resources */,
+				005DC70EBE36D6262BCBE59E /* poppins_italic.ttf in Resources */,
+				946EB84B97C570957F17C619 /* poppins_regular.ttf in Resources */,
+				E4B7552B43C63B11BD21110E /* roboto_condensed_100.ttf in Resources */,
+				2E801D4147B0CD0B8884374D /* roboto_condensed_100italic.ttf in Resources */,
+				16AFE0CE7BD27D501D64BEC7 /* roboto_condensed_200.ttf in Resources */,
+				AF9592F4CDDD1F251C334DD7 /* roboto_condensed_200italic.ttf in Resources */,
+				F1569FD12565693EEE151BBD /* roboto_condensed_300.ttf in Resources */,
+				83AC8AE1FA91DBCA9BA2EE4B /* roboto_condensed_300italic.ttf in Resources */,
+				2C3C333D23AAE9E34E69ECDB /* roboto_condensed_500.ttf in Resources */,
+				640C6EE0423C9B89B5D9689D /* roboto_condensed_500italic.ttf in Resources */,
+				452DCDD8EE4C39B3B758C8E0 /* roboto_condensed_600.ttf in Resources */,
+				A8708774BD21F906A1015064 /* roboto_condensed_600italic.ttf in Resources */,
+				9E8444422341321BD84B447F /* roboto_condensed_700.ttf in Resources */,
+				C32351360820D58A05675AF2 /* roboto_condensed_700italic.ttf in Resources */,
+				E2BA1EC97A58FB6E061EAFB6 /* roboto_condensed_800.ttf in Resources */,
+				E390319FEDBB8B3B807E7973 /* roboto_condensed_800italic.ttf in Resources */,
+				5B956B4AA988172A32C8C36E /* roboto_condensed_900.ttf in Resources */,
+				DD7E3C7C8B3A3ABC2E0909B2 /* roboto_condensed_900italic.ttf in Resources */,
+				033F0C20C670259A073E0799 /* roboto_condensed_italic.ttf in Resources */,
+				4D091329D90AE923A5AA809B /* roboto_condensed_regular.ttf in Resources */,
+				96222F7ED7FCB7D01C3A45E9 /* Bauer Bodoni Black 900.otf in Resources */,
+				C70D4A9C2B1DBA9CE68C1DC7 /* Bauer Bodoni Bold 700.otf in Resources */,
+				BC772FE5989F638ECDAD395D /* Bauer Bodoni Regular 400.otf in Resources */,
+				9D1C759E42E254973FE9681D /* Bauer Bodoni Roman 500.otf in Resources */,
+				92575955728EC7F9D8C2B3F1 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3B34471C6A1C3912E0DCD99 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"\\\"$WITH_ENVIRONMENT\\\" \\\"$REACT_NATIVE_XCODE\\\"\"\n";
+		};
+		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		791CF1E63518F7133D0398EC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ImageNotification/Pods-ImageNotification-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ImageNotification/Pods-ImageNotification-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ImageNotification/Pods-ImageNotification-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A624C60C5EC793C2E34DAA4D /* [CP-User] [RNFB] Core Configuration */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "[CP-User] [RNFB] Core Configuration";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\n\n##########################################################################\n##########################################################################\n#\n#  NOTE THAT IF YOU CHANGE THIS FILE YOU MUST RUN pod install AFTERWARDS\n#\n#  This file is installed as an Xcode build script in the project file\n#  by cocoapods, and you will not see your changes until you pod install\n#\n##########################################################################\n##########################################################################\n\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  if ! _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\"); then\n    echo \"error: Failed to parse firebase.json, check for syntax errors.\"\n    exit 1\n  fi\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_analytics_storage\n  _ANALYTICS_STORAGE=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_analytics_storage\")\n  if [[ $_ANALYTICS_STORAGE ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_ANALYTICS_STORAGE\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_STORAGE\")\")\n  fi\n\n  # config.analytics_default_allow_ad_storage\n  _ANALYTICS_AD_STORAGE=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_storage\")\n  if [[ $_ANALYTICS_AD_STORAGE ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_STORAGE\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AD_STORAGE\")\")\n  fi\n\n  # config.analytics_default_allow_ad_user_data\n  _ANALYTICS_AD_USER_DATA=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_user_data\")\n  if [[ $_ANALYTICS_AD_USER_DATA ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_USER_DATA\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AD_USER_DATA\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
+		};
+		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-natori-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6A274C84BFF604EB939B6FE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ImageNotification-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B488809497C6EA5CAEB2E47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3684CCF4946C9ED5EFFB9148 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9D5F76896ADD7BF3FE140275 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ImageNotification;
+			target = C06CACF14B76E12CEE8F5B54 /* ImageNotification */;
+			targetProxy = 304131D21CE6346F70C8B4ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-natori.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = natori/natori.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = natori/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.natori.appbrew;
+				PRODUCT_NAME = natori;
+				SWIFT_OBJC_BRIDGING_HEADER = "natori/natori-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-natori.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = natori/natori.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 73Z7RRC3S6;
+				INFOPLIST_FILE = natori/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.natori.appbrew;
+				PRODUCT_NAME = natori;
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.natori.appbrew";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.natori.appbrew";
+				SWIFT_OBJC_BRIDGING_HEADER = "natori/natori-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		28F54E261B1FAA97659D9A35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3074BAC1C5FCA22458F79A59 /* Pods-ImageNotification.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 73Z7RRC3S6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ImageNotification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ImageNotification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.natori.appbrew.ImageNotification;
+				PRODUCT_NAME = ImageNotification;
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.natori.appbrew.ImageNotification";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.natori.appbrew.ImageNotification";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+					"-DFOLLY_CFG_NO_COROUTINES=1",
+					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				USE_HERMES = true;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+					"-DFOLLY_CFG_NO_COROUTINES=1",
+					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				SDKROOT = iphoneos;
+				USE_HERMES = true;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C6358889392C067A76E5FA69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27E6BF46CF3CFDD83AEEEE17 /* Pods-ImageNotification.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ImageNotification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ImageNotification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.natori.appbrew.ImageNotification;
+				PRODUCT_NAME = ImageNotification;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "natori" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CD0FCD8353ED7790789D015 /* Build configuration list for PBXNativeTarget "ImageNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28F54E261B1FAA97659D9A35 /* Release */,
+				C6358889392C067A76E5FA69 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "natori" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}

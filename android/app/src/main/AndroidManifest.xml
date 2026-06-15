@@ -1,0 +1,40 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.natori.appbrew">
+  <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"></uses-permission>
+  <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="true" android:theme="@style/BootTheme" android:networkSecurityConfig="@xml/network_security_config">
+    <activity android:name=".MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="stateAlwaysHidden|adjustPan" android:screenOrientation="portrait" android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"></action>
+        <category android:name="android.intent.category.LAUNCHER"></category>
+      </intent-filter>
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW"></action>
+        <category android:name="android.intent.category.DEFAULT"></category>
+        <category android:name="android.intent.category.BROWSABLE"></category>
+        <data android:scheme="https" android:host="www.natori-appbrew.myshopify.com"></data>
+      </intent-filter>
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW"></action>
+        <category android:name="android.intent.category.DEFAULT"></category>
+        <category android:name="android.intent.category.BROWSABLE"></category>
+        <data android:scheme="https" android:host="natori-appbrew.myshopify.com"></data>
+      </intent-filter>
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW"></action>
+        <category android:name="android.intent.category.DEFAULT"></category>
+        <category android:name="android.intent.category.BROWSABLE"></category>
+        <data android:scheme="https" android:host="natori-appbrew.page.link"></data>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"></action>
+        <category android:name="android.intent.category.DEFAULT"></category>
+        <category android:name="android.intent.category.BROWSABLE"></category>
+        <data android:scheme="natori-appbrew" android:host="natori-appbrew.myshopify.com"></data>
+      </intent-filter>
+    </activity>
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"></meta-data>
+    <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"></meta-data>
+    <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" tools:replace="android:value" android:value="default"></meta-data>
+    <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_launcher_notification"></meta-data>
+  </application>
+</manifest>

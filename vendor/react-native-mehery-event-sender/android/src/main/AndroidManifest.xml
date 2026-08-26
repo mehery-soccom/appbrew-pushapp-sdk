@@ -1,0 +1,48 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.meheryeventsender">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application>
+        <!--
+          react-native-push-notification does not ship this in its merged manifest.
+          Without it, notification action buttons never fire (taps appear to do nothing).
+        -->
+        <receiver
+            android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationActions"
+            android:exported="false" />
+
+        <!-- Firebase Messaging Service -->
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Carousel Receiver (REQUIRED for next / prev buttons) -->
+        <receiver
+            android:name=".CarouselReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.meheryeventsender.CAROUSEL_NEXT" />
+                <action android:name="com.meheryeventsender.CAROUSEL_PREV" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".NotificationActionReceiver"
+            android:exported="false" />
+
+        <!-- CTA URL opens: activity PendingIntent (required for Android 12+ trampoline rules). -->
+        <activity
+            android:name=".NotificationCtaUrlActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+    </application>
+
+</manifest>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>ImagePreviewExtension</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>XPC!</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>UNNotificationExtensionCategory</key>
+			<array>
+				<string>THREE_BUTTON_CATEGORY</string>
+				<string>THREE_CAROUSEL_CATEGORY</string>
+				<string>THREE_CONFIRMATION_CATEGORY</string>
+				<string>THREE_RESPONSE_CATEGORY</string>
+				<string>THREE_SUBSCRIPTION_CATEGORY</string>
+				<string>THREE_TRANSACTION_CATEGORY</string>
+				<string>THREE_CONTENT_CATEGORY</string>
+				<string>THREE_CHECKOUT_CATEGORY</string>
+				<string>THREE_FORM_ACTION_CATEGORY</string>
+				<string>THREE_DESTRUCTIVE_ACTION_CATEGORY</string>
+				<string>THREE_CONTACT_CATEGORY</string>
+				<string>CAROUSEL_CATEGORY</string>
+				<string>CONFIRMATION_CATEGORY</string>
+				<string>RESPONSE_CATEGORY</string>
+				<string>SUBSCRIPTION_CATEGORY</string>
+				<string>TRANSACTION_CATEGORY</string>
+				<string>CONTENT_CATEGORY</string>
+				<string>CHECKOUT_CATEGORY</string>
+				<string>FORM_ACTION_CATEGORY</string>
+				<string>DESTRUCTIVE_ACTION_CATEGORY</string>
+				<string>CONTACT_CATEGORY</string>
+			</array>
+			<key>UNNotificationExtensionDefaultContentHidden</key>
+			<true/>
+			<key>UNNotificationExtensionInitialContentSizeRatio</key>
+			<real>0.5</real>
+			<key>UNNotificationExtensionUserInteractionEnabled</key>
+			<true/>
+		</dict>
+		<key>NSExtensionMainStoryboard</key>
+		<string>MainInterface</string>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.usernotifications.content-extension</string>
+	</dict>
+	<key>RCTNewArchEnabled</key>
+	<true/>
+</dict>
+</plist>

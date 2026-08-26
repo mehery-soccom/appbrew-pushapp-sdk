@@ -9,6 +9,34 @@ PODS:
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/UserDefaults (~> 8.0)
     - PromisesObjC (~> 2.4)
+  - AsyncStorage (3.1.1):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - boost (1.84.0)
   - brew-webview (0.24.0):
     - boost
@@ -147,7 +175,7 @@ PODS:
     - GoogleUtilities/Network (~> 8.1)
     - "GoogleUtilities/NSData+zlib (~> 8.1)"
     - nanopb (~> 3.30910.0)
-  - GoogleDataTransport (10.1.0):
+  - GoogleDataTransport (10.1.1):
     - nanopb (~> 3.30910.0)
     - PromisesObjC (~> 2.4)
   - GoogleSignIn (9.1.0):
@@ -220,6 +248,34 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
+  - MeheryEventSender (0.0.49):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - nanopb (3.30910.0):
     - nanopb/decode (= 3.30910.0)
     - nanopb/encode (= 3.30910.0)
@@ -2898,6 +2954,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - RNCPushNotificationIOS (1.12.0):
+    - React-Core
   - RNDeviceInfo (14.0.4):
     - React-Core
   - RNFastImage (8.13.0):
@@ -3505,6 +3563,7 @@ PODS:
   - Yoga (0.0.0)
 
 DEPENDENCIES:
+  - "AsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - "brew-webview (from `../node_modules/@app-brew/webview`)"
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
@@ -3512,12 +3571,12 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - fast_float (from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
-  - Firebase/Messaging
   - FirebaseCore
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - GoogleUtilities
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - MeheryEventSender (from `../node_modules/react-native-mehery-event-sender`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
   - RCTRequired (from `../node_modules/react-native/Libraries/Required`)
@@ -3600,6 +3659,7 @@ DEPENDENCIES:
   - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
+  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFastImage (from `../node_modules/@d11/react-native-fast-image`)"
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
@@ -3662,6 +3722,8 @@ SPEC REPOS:
     - TOCropViewController
 
 EXTERNAL SOURCES:
+  AsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   brew-webview:
@@ -3683,6 +3745,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2025-07-07-RNv0.81.0-e0fc67142ec0763c6b6153ca2bf96df815539782
+  MeheryEventSender:
+    :path: "../node_modules/react-native-mehery-event-sender"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -3845,6 +3909,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-bootsplash"
   RNCClipboard:
     :path: "../node_modules/@react-native-clipboard/clipboard"
+  RNCPushNotificationIOS:
+    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNFastImage:
@@ -3889,6 +3955,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppAuth: 1c1a8afa7e12f2ec3a294d9882dfa5ab7d3cb063
   AppCheckCore: cc8fd0a3a230ddd401f326489c99990b013f0c4f
+  AsyncStorage: 10b4956c3184302f5003b3360acc30b9c59dce1e
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   brew-webview: f2dca9beadb793beb5e19577a49ce53bc9ed517f
   BVLinearGradient: cb006ba232a1f3e4f341bb62c42d1098c284da70
@@ -3912,7 +3979,7 @@ SPEC CHECKSUMS:
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   GoogleAppMeasurement: 09f341dfa8527d1612a09cbfe809a242c0b737af
-  GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
+  GoogleDataTransport: a24e58982ab3ba2f64d79613e027fe7f57e88539
   GoogleSignIn: fcee2257188d5eda57a5e2b6a715550ffff9206d
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   GTMAppAuth: 217a876b249c3c585a54fd6f73e6b58c4f5c4238
@@ -3922,6 +3989,7 @@ SPEC CHECKSUMS:
   libavif: 84bbb62fb232c3018d6f1bab79beea87e35de7b7
   libdav1d: 23581a4d8ec811ff171ed5e2e05cd27bad64c39f
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
+  MeheryEventSender: ae2fb2b897dd04ada0a0010d2a650a9893a413f7
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669
@@ -4000,11 +4068,12 @@ SPEC CHECKSUMS:
   React-timing: 25e8229ad1cf6874e9f0711515213cb2bc322215
   React-utils: 068cec677032ba78ca0700f2dcbe6d08a0939647
   ReactAppDependencyProvider: c91900fa724baee992f01c05eeb4c9e01a807f78
-  ReactCodegen: b7d253b0c0957e99b6c6a702103d29b8708df0ec
+  ReactCodegen: f9fbf390daefd953d0b5fa31430f5f1629324841
   ReactCommon: 116d6ee71679243698620d8cd9a9042541e44aa6
   RNAppleAuthentication: a89c9804592b38ed4ab11f0aee68d05ba12ad432
   RNBootSplash: 98a34471966945e8dacd1da8f0c2f87cbc2e2df7
   RNCClipboard: 4b58c780f63676367640f23c8e114e9bd0cf86ac
+  RNCPushNotificationIOS: 85957a0534fd1309b4c028ccbe5b1baf9ab5cf57
   RNDeviceInfo: d863506092aef7e7af3a1c350c913d867d795047
   RNFastImage: b076a6378b1ce90debc27a927a437db3652bef14
   RNFBAnalytics: 74b24ffa69cd578f4617e1fb130d5daddc2bcf0a
@@ -4018,12 +4087,12 @@ SPEC CHECKSUMS:
   RNNotifee: 5e3b271e8ea7456a36eec994085543c9adca9168
   RNPermissions: 1110b7df6afbf5014e40ccb1a226f972136963fb
   RNReactNativeHapticFeedback: 43181767a132b77676b6a58b7ed852928e0d4862
-  RNReanimated: 997377a1f5ce484623fd771bf5a05bb7fc18d42f
+  RNReanimated: 41657de59f0f8ef1d05c21f2c91ed7fb880b3fb2
   RNScreens: 0bbf16c074ae6bb1058a7bf2d1ae017f4306797c
   RNSentry: fdb39d5f294e492aa2f08ad80e510310dc223772
   RNSVG: 6c39befcfad06eec55b40c19a030b2d9eca63334
   RNVectorIcons: 5784330be9dddb5474e8b378d5f6947996c84e55
-  RNWorklets: e2a5c8cfa8f15e24ef88919921ba21986c62f27b
+  RNWorklets: a3be2e83eb75ff13718a99e00b8244e0d160829f
   SDWebImage: 1bb6a1b84b6fe87b972a102bdc77dd589df33477
   SDWebImageAVIFCoder: afe194a084e851f70228e4be35ef651df0fc5c57
   SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
@@ -4034,6 +4103,6 @@ SPEC CHECKSUMS:
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   Yoga: 00013dd9cde63a2d98e8002fcc4f5ddb66c10782
 
-PODFILE CHECKSUM: c930233055e6c10e848d251c8684149d2aeba3fd
+PODFILE CHECKSUM: 82192af4e9236713bf3615e6c10e2425b2fc2c97
 
 COCOAPODS: 1.16.2

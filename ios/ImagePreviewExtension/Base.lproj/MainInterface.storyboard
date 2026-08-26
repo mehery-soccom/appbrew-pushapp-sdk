@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Notification View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" userLabel="Notification View Controller" customClass="NotificationViewController" customModule="ImagePreviewExtension" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="RootView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ContainerView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <label contentMode="left" misplaced="YES" text="Title Text" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="TitleLabel">
+                                        <rect key="frame" x="57" y="10" width="398" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                    <label contentMode="left" misplaced="YES" text="Sample Text" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="TextLabel">
+                                        <rect key="frame" x="57" y="35" width="398" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LogoImageView">
+                                        <rect key="frame" x="8" y="10" width="60" height="60"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+
+    <!-- LOGO POSITION -->
+    <constraint firstItem="LogoImageView" firstAttribute="leading"
+                secondItem="ContainerView" secondAttribute="leading" constant="16" id="logoLeading"/>
+
+    <constraint firstItem="LogoImageView" firstAttribute="top"
+                secondItem="ContainerView" secondAttribute="top" constant="12" id="logoTop"/>
+
+    <constraint firstItem="LogoImageView" firstAttribute="width"
+                constant="36" id="logoWidth"/>
+
+    <constraint firstItem="LogoImageView" firstAttribute="height"
+                constant="36" id="logoHeight"/>
+
+
+    <!-- TITLE ALIGNMENT -->
+    <constraint firstItem="TitleLabel" firstAttribute="leading"
+                secondItem="LogoImageView" secondAttribute="trailing" constant="12" id="titleLeadingToLogo"/>
+
+    <constraint firstItem="TitleLabel" firstAttribute="top"
+                secondItem="LogoImageView" secondAttribute="top" id="titleTopToLogoTop"/>
+
+    <constraint firstAttribute="trailing" secondItem="TitleLabel"
+                secondAttribute="trailing" constant="16" id="titleTrailing"/>
+
+
+    <!-- BODY BELOW TITLE -->
+    <constraint firstItem="TextLabel" firstAttribute="top"
+                secondItem="TitleLabel" secondAttribute="bottom" constant="2" id="bodyBelowTitle"/>
+
+    <constraint firstItem="TextLabel" firstAttribute="leading"
+                secondItem="TitleLabel" secondAttribute="leading" id="bodyLeadingToTitle"/>
+
+    <constraint firstAttribute="trailing" secondItem="TextLabel"
+                secondAttribute="trailing" constant="16" id="bodyTrailing"/>
+
+</constraints>
+
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SafeArea"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ContainerView" secondAttribute="bottom" id="ContainerBottom"/>
+                            <constraint firstItem="ContainerView" firstAttribute="leading" secondItem="RootView" secondAttribute="leading" id="ContainerLeading"/>
+                            <constraint firstItem="ContainerView" firstAttribute="top" secondItem="RootView" secondAttribute="top" id="ContainerTop"/>
+                            <constraint firstAttribute="trailing" secondItem="ContainerView" secondAttribute="trailing" id="ContainerTrailing"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="ContainerView" id="containerOutlet"/>
+                        <outlet property="logoImageView" destination="LogoImageView" id="logoOutlet"/>
+                        <outlet property="textLabel" destination="TextLabel" id="textOutlet"/>
+                        <outlet property="titleLabel" destination="TitleLabel" id="titleOutlet"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FirstResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="55.072463768115945" y="-1.3392857142857142"/>
+        </scene>
+    </scenes>
+</document>

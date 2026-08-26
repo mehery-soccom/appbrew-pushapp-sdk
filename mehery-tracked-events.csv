@@ -1,0 +1,34 @@
+event,how_sent,properties
+OnUserLogin,SDK identity,user_id (Shopify customer id or email)
+updateUserProfile,SDK identity,email; phone; name
+OnUserLogOut,SDK identity,user_id
+OnPageOpen,SDK lifecycle,pageName
+OnPageClose,SDK lifecycle,pageName
+AppBrew-app_install,sendCustomEvent,version; sizeWidth; sizeHeight (from app_install_ios / app_install_android)
+AppBrew-screen_view,sendCustomEvent,screen_name; screen_class
+AppBrew-page_view,sendCustomEvent,screen_name (if App Brew fires page_view)
+AppBrew-push_notification_subscribed,sendCustomEvent,push_enabled
+AppBrew-push_notification_unsubscribed,sendCustomEvent,push_enabled
+AppBrew-login,sendCustomEvent,method
+AppBrew-signup,sendCustomEvent,method
+AppBrew-logout,sendCustomEvent,
+AppBrew-view_item,sendCustomEvent,currency; value; items.item_id; items.handle; items.item_name; items.item_variant; items.price; items.original_price; items.discount; items.url; items.sku; items.item_category; items.item_brand; items.img_url
+AppBrew-view_item_list,sendCustomEvent,item_list_id; handle; item_list_name; url
+AppBrew-select_item,sendCustomEvent,item payload if App Brew fires select_item
+AppBrew-select_promotion,sendCustomEvent,promotion payload if App Brew fires select_promotion
+AppBrew-view_promotion,sendCustomEvent,promotion payload if App Brew fires view_promotion
+AppBrew-view_block,sendCustomEvent,block payload if App Brew fires view_block
+AppBrew-search,sendCustomEvent,search_term
+AppBrew-add_to_cart,sendCustomEvent,currency; value; items[] including quantity
+AppBrew-remove_from_cart,sendCustomEvent,currency; value; items[] including quantity
+AppBrew-view_cart,sendCustomEvent,url; value; checkout_token; sub_total; discount; currency; coupon; items[]
+AppBrew-add_to_wishlist,sendCustomEvent,currency; value; items[]
+AppBrew-remove_from_wishlist,sendCustomEvent,currency; value; items[]
+AppBrew-notify_back_in_stock,sendCustomEvent,currency; value; items[]
+AppBrew-begin_checkout,sendCustomEvent,url; value; checkout_token; sub_total; discount; currency; coupon; items[]
+AppBrew-add_shipping_info,sendCustomEvent,url; value; checkout_token; sub_total; discount; currency; coupon; items[]
+AppBrew-add_payment_info,sendCustomEvent,cart-like payload if App Brew fires add_payment_info
+AppBrew-apply_coupon,sendCustomEvent,coupon; isApplicable
+AppBrew-remove_coupon,sendCustomEvent,coupon
+AppBrew-purchase,sendCustomEvent,transaction_id; shopify_order_id; url; value; checkout_token; sub_total; discount; currency; coupon; items[]
+AppBrew-refund,sendCustomEvent,reason; transaction_id; value; currency

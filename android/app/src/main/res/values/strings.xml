@@ -1,7 +1,14 @@
 <resources>
-    <string name="app_name">Natori</string>
+    <string name="app_name">Mehery</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">ACTUAL_KEY_IN_ENV_FILE</string>
     <string name="facebook_app_id">FB_APP_ID</string>
     <string name="fb_login_protocol_scheme">fbFB_APP_ID</string>
     <string name="facebook_client_token">FB_CLIENT_TOKEN</string>
+    <!-- Mehery / PushApp credentials (same set in all envs until client provides per-env keys) -->
+    <string name="mehery_prod_app_id" translatable="false">pa_76ae9ba487dde35e358e2cfd558c977a278aa54bca2805b3</string>
+    <string name="mehery_prod_app_key" translatable="false">pas_e95b1f4dd87948af351a7036cc316356e87d677390d3864ce3e41b113512412915e334a32ae3d0382623c3548c7add5a</string>
+    <string name="mehery_sandbox_app_id" translatable="false">pa_76ae9ba487dde35e358e2cfd558c977a278aa54bca2805b3</string>
+    <string name="mehery_sandbox_app_key" translatable="false">pas_e95b1f4dd87948af351a7036cc316356e87d677390d3864ce3e41b113512412915e334a32ae3d0382623c3548c7add5a</string>
+    <string name="mehery_dev_app_id" translatable="false">pa_76ae9ba487dde35e358e2cfd558c977a278aa54bca2805b3</string>
+    <string name="mehery_dev_app_key" translatable="false">pas_e95b1f4dd87948af351a7036cc316356e87d677390d3864ce3e41b113512412915e334a32ae3d0382623c3548c7add5a</string>
 </resources>

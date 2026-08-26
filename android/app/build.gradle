@@ -5,6 +5,51 @@ apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 /**
+ * Prefer an arm64-only Node binary.
+ * When Gradle runs under a Rosetta (x86_64) JDK, a universal `/usr/local/bin/node`
+ * inherits x64 and then @rspack/binding cannot load darwin-arm64 natives.
+ */
+def findNodeExecutable() {
+    def fromEnv = System.getenv("NODE_BINARY")
+    if (fromEnv != null && !fromEnv.isBlank() && new File(fromEnv).canExecute()) {
+        return fromEnv
+    }
+
+    def home = System.getenv("HOME")
+    def nvmNodeDir = new File("${home}/.nvm/versions/node")
+    if (nvmNodeDir.isDirectory()) {
+        def versions = nvmNodeDir.listFiles()
+            ?.findAll { it.isDirectory() && new File(it, "bin/node").canExecute() }
+            ?.sort { a, b -> b.name <=> a.name }
+        for (dir in versions ?: []) {
+            def bin = new File(dir, "bin/node")
+            def fileOut = ["file", "-b", bin.absolutePath].execute().text
+            // arm64-only (not universal) survives Rosetta Gradle parents.
+            if (fileOut.contains("arm64") && !fileOut.contains("x86_64")) {
+                return bin.absolutePath
+            }
+        }
+        if (versions) {
+            return new File(versions[0], "bin/node").absolutePath
+        }
+    }
+
+    try {
+        def stdout = new ByteArrayOutputStream()
+        def stderr = new ByteArrayOutputStream()
+        def proc = ["bash", "-lc", "command -v node"].execute()
+        proc.consumeProcessOutput(stdout, stderr)
+        proc.waitFor()
+        def path = stdout.toString().trim()
+        if (!path.isEmpty() && new File(path).canExecute()) {
+            return path
+        }
+    } catch (Throwable ignored) {
+    }
+    return "node"
+}
+
+/**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
@@ -26,8 +71,8 @@ react {
     // debuggableVariants = ["liteDebug", "prodDebug"]
 
     /* Bundling */
-    //   A list containing the node command and its flags. Default is just 'node'.
-    // nodeExecutableAndArgs = ["node"]
+    // Pin absolute arm64 Node so Re.Pack/rspack bindings resolve under Rosetta JDKs.
+    nodeExecutableAndArgs = [findNodeExecutable()]
     //
     //   The command to run when bundling. By default is 'bundle'
     // bundleCommand = "ram-bundle"
@@ -79,9 +124,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.natori.appbrew"
+    namespace "com.app.appbrew"
     defaultConfig {
-        applicationId "com.natori.appbrew"
+        applicationId "com.app.appbrew"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

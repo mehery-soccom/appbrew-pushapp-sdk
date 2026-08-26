@@ -27,18 +27,25 @@ import {
   AppbrewTracker,
   LocalWishlistProvider,
 } from '@gauntlet/appbrew'
-import { Platform } from 'react-native'
 import { FacebookTracker } from '@gauntlet/facebook'
 import { registerContainers } from './register-containers'
 import { FirebasePush } from '@gauntlet/firebase-push'
+import { ensureWorkingCatalog } from '../mehery/catalogFallback'
+import { installNotifeePushAppDeduper } from '../mehery/pushCoexistence'
+import { registerMeheryTracker } from '../mehery/MeheryTracker'
+import { installMeheryCartPressTracking } from '../mehery/cartPressEvents'
 
 const EnvConfig = Config.getConstants()
 
 const reactNavigationIntegration = Sentry.reactNavigationIntegration()
 
 function initApp() {
+  // Dual-send ecom events in __DEV__ and release so PushApp is not empty in Metro.
+  registerMeheryTracker(AnalyticsProvider.getInstance())
+  installMeheryCartPressTracking()
+
   if (!__DEV__) {
-        Sentry.init({
+    Sentry.init({
       dsn: 'https://66d1ec06c6ab4dcbb03a8569cbd47f9e@o1270458.ingest.sentry.io/6461307',
       tracesSampleRate: 1.0,
       initialScope: {
@@ -54,6 +61,7 @@ function initApp() {
     AnalyticsProvider.getInstance().addTracker(new AppbrewTracker())
     AnalyticsProvider.getInstance().addTracker(new FacebookTracker())
   }
+
   registerBlocks()
   registerContainers()
   registerIcons()
@@ -75,12 +83,67 @@ function initApp() {
   modules['cart'] = ShopifyCartProvider.getInstance
   modules['search'] = ShopifySearchProviderV2.getInstance
   modules['currency'] = AppbrewCurrencyProvider.getInstance
+  // Keep AppBrew push module contract; Mehery owns PushApp rich tray (see src/mehery/pushCoexistence.ts).
   modules['push'] = FirebasePush.getInstance
+  // Patch Notifee before FirebasePush.init so foreground FCM is not shown twice.
+  installNotifeePushAppDeduper()
 
   state.modules.updateModules(modules)
 }
 
 once(initApp)()
+
+/**
+ * PollOverlay from Mehery — loaded after mount via loadMeherySdk().
+ */
+function MeheryPollOverlay() {
+  const [Provider, setProvider] = React.useState<
+    React.ComponentType | null
+  >(null)
+
+  React.useEffect(() => {
+    let cancelled = false
+    import('../mehery/sdk')
+      .then(async (m) => {
+        // Same peer as startMehery — avoid loading Mehery JS (and NativeEventEmitter)
+        // when RNCPushNotificationIOS is not in the binary yet.
+        const { NativeModules, Platform } = await import('react-native')
+        if (
+          Platform.OS === 'ios' &&
+          !NativeModules.RNCPushNotificationIOS
+        ) {
+          console.warn(
+            '[Mehery] PollOverlay skipped — RNCPushNotificationIOS missing'
+          )
+          return null
+        }
+        return m.loadMeherySdk()
+      })
+      .then((sdk) => {
+        if (!sdk || cancelled) {
+          return
+        }
+        const Comp = sdk.PollOverlayProvider
+        if (Comp) {
+          setProvider(() => Comp)
+        } else {
+          console.warn('[Mehery] PollOverlayProvider missing')
+        }
+      })
+      .catch((e) => {
+        console.warn('[Mehery] PollOverlayProvider load failed', e)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  if (!Provider) {
+    return null
+  }
+  return <Provider />
+}
+
 const App = Sentry.wrap((props: any) => {
   /**
    * Fetch config and gift only
@@ -90,6 +153,7 @@ const App = Sentry.wrap((props: any) => {
     useAppStore
       .getState()
       .config.init(EnvConfig.APP_ID)
+      .then(() => ensureWorkingCatalog())
       .then(() => {
         if (
           useAppStore.getState().config.data?.settings?.['global']?.enableGiftV3
@@ -106,6 +170,24 @@ const App = Sentry.wrap((props: any) => {
         }
       })
   }, [])
+
+  React.useEffect(() => {
+    import('../mehery/startMehery')
+      .then((m) => {
+        if (typeof m.startMehery !== 'function') {
+          console.warn(
+            '[Mehery] startMehery missing',
+            m && typeof m === 'object' ? Object.keys(m) : m
+          )
+          return
+        }
+        return m.startMehery()
+      })
+      .catch((e) => {
+        console.warn('[Mehery] bootstrap failed', e)
+      })
+  }, [])
+
   return (
     <Sentry.ErrorBoundary fallback={(props) => <FallbackUI {...props} />}>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -118,6 +200,7 @@ const App = Sentry.wrap((props: any) => {
             }}
             routingInstrumentation={reactNavigationIntegration}
           />
+          <MeheryPollOverlay />
         </SafeAreaProvider>
       </GestureHandlerRootView>
     </Sentry.ErrorBoundary>

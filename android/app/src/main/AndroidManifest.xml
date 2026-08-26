@@ -1,7 +1,13 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.natori.appbrew">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.app.appbrew">
   <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+  <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS"></uses-permission>
   <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="true" android:theme="@style/BootTheme" android:networkSecurityConfig="@xml/network_security_config">
+    <!-- Mehery owns background rich FCM. Remove RNFB's no-op messaging service so MyFirebaseMessagingService receives data-only pushes. -->
+    <service
+      android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingService"
+      android:exported="false"
+      tools:node="remove" />
     <activity android:name=".MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="stateAlwaysHidden|adjustPan" android:screenOrientation="portrait" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"></action>
@@ -11,25 +17,19 @@
         <action android:name="android.intent.action.VIEW"></action>
         <category android:name="android.intent.category.DEFAULT"></category>
         <category android:name="android.intent.category.BROWSABLE"></category>
-        <data android:scheme="https" android:host="www.natori-appbrew.myshopify.com"></data>
+        <data android:scheme="https" android:host="www.mehery2.myshopify.com"></data>
       </intent-filter>
       <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW"></action>
         <category android:name="android.intent.category.DEFAULT"></category>
         <category android:name="android.intent.category.BROWSABLE"></category>
-        <data android:scheme="https" android:host="natori-appbrew.myshopify.com"></data>
-      </intent-filter>
-      <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW"></action>
-        <category android:name="android.intent.category.DEFAULT"></category>
-        <category android:name="android.intent.category.BROWSABLE"></category>
-        <data android:scheme="https" android:host="natori-appbrew.page.link"></data>
+        <data android:scheme="https" android:host="mehery2.myshopify.com"></data>
       </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW"></action>
         <category android:name="android.intent.category.DEFAULT"></category>
         <category android:name="android.intent.category.BROWSABLE"></category>
-        <data android:scheme="natori-appbrew" android:host="natori-appbrew.myshopify.com"></data>
+        <data android:scheme="mehery2" android:host="mehery2.myshopify.com"></data>
       </intent-filter>
     </activity>
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"></meta-data>

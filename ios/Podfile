@@ -90,8 +90,15 @@ target 'natori' do
   end
 end
 
+# Mehery multi-image NSE (no longer needs Firebase Messaging — custom download path).
 target 'ImageNotification' do
-  pod 'GoogleUtilities', :modular_headers => true
-  pod 'FirebaseCore', :modular_headers => true
-  pod 'Firebase/Messaging', :modular_headers => true
+end
+
+# Mehery notification content extension (carousel / category UI).
+# Add this target in Xcode if missing (bundle id: com.app.appbrew.ImagePreviewExtension).
+target 'ImagePreviewExtension' do
+end
+
+# Mehery Live Activity / WidgetKit extension.
+target 'DeliveryActivityExtension' do
 end

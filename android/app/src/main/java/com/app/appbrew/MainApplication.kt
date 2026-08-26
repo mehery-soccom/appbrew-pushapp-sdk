@@ -1,4 +1,4 @@
-package com.natori.appbrew
+package com.app.appbrew
 
 import android.app.Application
 import com.facebook.react.PackageList

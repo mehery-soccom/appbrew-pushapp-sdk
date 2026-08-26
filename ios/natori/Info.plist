@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Natori</string>
+	<string>Mehery</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -31,12 +31,12 @@
 			<array>
 				<string>fbappid</string>
 				<string>com.googleusercontent.apps.899605737400-hpmo51a4b4euqovvj3fterchiho5o2ec</string>
-				<string>natori-appbrew</string>
+				<string>mehery2</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>8</string>
 	<key>FacebookAppID</key>
 	<string>FB_APP_ID</string>
 	<key>FacebookClientToken</key>
@@ -54,6 +54,18 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MeheryDevAppId</key>
+	<string>pa_76ae9ba487dde35e358e2cfd558c977a278aa54bca2805b3</string>
+	<key>MeheryDevAppKey</key>
+	<string>pas_e95b1f4dd87948af351a7036cc316356e87d677390d3864ce3e41b113512412915e334a32ae3d0382623c3548c7add5a</string>
+	<key>MeheryProdAppId</key>
+	<string>pa_76ae9ba487dde35e358e2cfd558c977a278aa54bca2805b3</string>
+	<key>MeheryProdAppKey</key>
+	<string>pas_e95b1f4dd87948af351a7036cc316356e87d677390d3864ce3e41b113512412915e334a32ae3d0382623c3548c7add5a</string>
+	<key>MeherySandboxAppId</key>
+	<string>pa_76ae9ba487dde35e358e2cfd558c977a278aa54bca2805b3</string>
+	<key>MeherySandboxAppKey</key>
+	<string>pas_e95b1f4dd87948af351a7036cc316356e87d677390d3864ce3e41b113512412915e334a32ae3d0382623c3548c7add5a</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -73,6 +85,10 @@
 	<string>We need permission to save images to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library to let you upload product images and profile pictures.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>NSSupportsLiveActivitiesFrequentUpdates</key>
+	<true/>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>Your data will be used to show personalised ads to you.</string>
 	<key>RCTNewArchEnabled</key>
@@ -193,6 +209,11 @@
 		<string>roboto_condensed_900italic.ttf</string>
 		<string>roboto_condensed_italic.ttf</string>
 		<string>roboto_condensed_regular.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+		<string>fetch</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash</string>

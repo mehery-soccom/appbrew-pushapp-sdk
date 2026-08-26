@@ -77,3 +77,4 @@ yarn-error.log
 *.keystore
 !debug.keystore
 *.jks
+.gstack/

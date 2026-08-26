@@ -10,10 +10,13 @@
     </array>
     <key>com.apple.developer.associated-domains</key>
     <array>
-      <string>applinks:natori.page.link</string>
-      <string>applinks:www.natori-appbrew.myshopify.com</string>
-      <string>applinks:natori-appbrew.myshopify.com</string>
-      <string>applinks:natori-appbrew.page.link</string>
+      <string>applinks:www.mehery2.myshopify.com</string>
+      <string>applinks:mehery2.myshopify.com</string>
+    </array>
+    <!-- Shared with DeliveryActivity widget extension for Live Activity hero images -->
+    <key>com.apple.security.application-groups</key>
+    <array>
+      <string>group.com.app.appbrew.NotificationLiveActivity</string>
     </array>
   </dict>
 </plist>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mehery SDK Integration — App Brew</title>
+  <meta name="description" content="How PushApp (react-native-pushapp-appbrew) is wired into the App Brew Natori host on Android, iOS, and JavaScript." />
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --paper: #fffcf8;
+      --ink: #1c1917;
+      --muted: #57534e;
+      --line: #e7e5e4;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --code-bg: #1c1917;
+      --code-fg: #f5f5f4;
+      --warn-bg: #fff7ed;
+      --warn-border: #fdba74;
+      --ok-bg: #ecfdf5;
+      --radius: 10px;
+      --shadow: 0 1px 2px rgba(28, 25, 23, 0.06), 0 8px 24px rgba(28, 25, 23, 0.04);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+      font-size: 16px;
+    }
+    .wrap {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 820px);
+      gap: 48px;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 48px 32px 96px;
+    }
+    nav {
+      position: sticky;
+      top: 32px;
+      align-self: start;
+      font-size: 13px;
+    }
+    nav .brand {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    nav a {
+      display: block;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 5px 0;
+      border-left: 2px solid transparent;
+      padding-left: 12px;
+    }
+    nav a:hover { color: var(--ink); }
+    nav a.active {
+      color: var(--ink);
+      border-left-color: var(--accent);
+      font-weight: 600;
+    }
+    main { min-width: 0; }
+    header.hero {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 36px 36px 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 40px;
+    }
+    header.hero h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+    header.hero p.lede {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 62ch;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      font-size: 12px;
+      background: var(--accent-soft);
+      color: #115e59;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .chip.neutral {
+      background: #f5f5f4;
+      color: var(--muted);
+    }
+    h2 {
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      margin: 48px 0 12px;
+      padding-top: 8px;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 28px 0 8px;
+    }
+    p { margin: 0 0 14px; max-width: 70ch; }
+    ol, ul { margin: 0 0 16px; padding-left: 22px; max-width: 70ch; }
+    li { margin-bottom: 6px; }
+    a { color: var(--accent); }
+    .callout {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 14px;
+      margin: 16px 0 20px;
+      max-width: 70ch;
+    }
+    .callout.ok {
+      background: var(--ok-bg);
+      border-color: #6ee7b7;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 8px;
+      align-items: stretch;
+      margin: 20px 0 28px;
+      font-size: 13px;
+    }
+    .flow .box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      box-shadow: var(--shadow);
+    }
+    .flow .box strong { display: block; margin-bottom: 4px; }
+    .flow .arrow { color: var(--muted); align-self: center; font-size: 18px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 12px 0 24px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th { background: #f5f5f4; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+    tr:last-child td { border-bottom: 0; }
+    code, kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.86em;
+      background: #f5f5f4;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .snippet {
+      margin: 12px 0 24px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #292524;
+      background: var(--code-bg);
+    }
+    .snippet-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: #292524;
+      color: #a8a29e;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    .snippet-bar .file { color: #d6d3d1; text-transform: none; letter-spacing: 0; font-size: 12px; }
+    .copy {
+      appearance: none;
+      border: 0;
+      background: #44403c;
+      color: #fafaf9;
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+    .copy:hover { background: #57534e; }
+    .copy.copied { background: var(--accent); }
+    pre {
+      margin: 0;
+      padding: 16px 18px 18px;
+      overflow-x: auto;
+      color: var(--code-fg);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+    .kw { color: #7dd3fc; }
+    .st { color: #86efac; }
+    .cm { color: #a8a29e; }
+    footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 860px) {
+      .wrap { grid-template-columns: 1fr; padding: 24px 16px 64px; }
+      nav { position: static; }
+      .flow { grid-template-columns: 1fr; }
+      .flow .arrow { display: none; }
+    }
+    @media print {
+      nav, .copy { display: none; }
+      .wrap { display: block; max-width: none; }
+      body { background: #fff; }
+      .snippet { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav aria-label="Contents">
+      <div class="brand">App Brew · PushApp</div>
+      <a href="#overview">Overview</a>
+      <a href="#install">1. Install</a>
+      <a href="#android">2. Android</a>
+      <a href="#ios">3. iOS</a>
+      <a href="#js">4. JavaScript</a>
+      <a href="#events">5. Events</a>
+      <a href="#files">6. File map</a>
+      <a href="#checklist">7. Checklist</a>
+      <a href="#fix">8. Troubleshooting</a>
+      <a href="#repeat">9. Repeat on a host</a>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <h1>Mehery SDK Integration</h1>
+        <p class="lede">How PushApp sits inside the App Brew Natori app without touching product screens or <code>@gauntlet/*</code> call sites. Copy a snippet, paste it, keep going.</p>
+        <div class="meta">
+          <span class="chip">react-native-pushapp-appbrew 0.0.50</span>
+          <span class="chip">com.app.appbrew</span>
+          <span class="chip neutral">31 August 2026</span>
+        </div>
+      </header>
+
+      <section id="overview">
+        <h2>What “seamless” means</h2>
+        <p>App Brew already owns analytics, Shopify, and Firebase Push. Mehery is a side layer:</p>
+        <ol>
+          <li><strong>Boot once</strong> on cold start (<code>startMehery</code> after App mount).</li>
+          <li><strong>Dual-send</strong> every ecom event through <code>MeheryTracker</code> on <code>AnalyticsProvider</code>.</li>
+          <li><strong>Own the rich notification tray</strong> (Android native FCM service + iOS NSE/NCE) while App Brew still uses <code>modules['push'] = FirebasePush</code>.</li>
+        </ol>
+        <div class="flow">
+          <div class="box"><strong>User action</strong>add to cart, login, purchase</div>
+          <div class="arrow">→</div>
+          <div class="box"><strong>AnalyticsProvider</strong>MeheryTracker fans out. GA4 / Facebook stay as they are.</div>
+          <div class="arrow">→</div>
+          <div class="box"><strong>PushApp</strong><code>sendCustomEvent</code> + rich FCM / APNs tray</div>
+        </div>
+        <div class="callout ok">You never patch <code>add_to_cart</code> call sites. The tracker fans events out.</div>
+      </section>
+
+      <section id="install">
+        <h2>1. Install the package</h2>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">package.json</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>{
+  "dependencies": {
+    "react-native-pushapp-appbrew": "file:./vendor/react-native-pushapp-appbrew",
+    "react-native-push-notification": "^8.1.1",
+    "@react-native-async-storage/async-storage": "^3.1.1",
+    "@react-native-firebase/app": "23.3.1",
+    "@react-native-firebase/messaging": "23.3.1"
+  }
+}</code></pre>
+        </div>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span>bash</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>pnpm install
+pnpm pod-install</code></pre>
+        </div>
+        <p>Confirm CocoaPods lists <code>MeheryEventSender</code>. Keep Google Services as already configured:</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">android/*.gradle</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>// android/build.gradle
+classpath("com.google.gms:google-services:4.4.3")
+
+// android/app/build.gradle
+apply plugin: "com.google.gms.google-services"</code></pre>
+        </div>
+      </section>
+
+      <section id="android">
+        <h2>2. Android folder</h2>
+        <p>Mehery’s <code>MyFirebaseMessagingService</code> is merged from the SDK AAR. The host only does two things: credentials, and getting React Native Firebase out of the way.</p>
+
+        <h3>2.1 Manifest</h3>
+        <p><code>android/app/src/main/AndroidManifest.xml</code> — need <code>xmlns:tools</code> on <code>&lt;manifest&gt;</code>.</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">AndroidManifest.xml</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>&lt;uses-permission android:name="android.permission.WAKE_LOCK" /&gt;
+&lt;uses-permission android:name="android.permission.POST_NOTIFICATIONS" /&gt;
+
+&lt;application ...&gt;
+  &lt;!-- Mehery owns background rich FCM. Remove RNFB's no-op service. --&gt;
+  &lt;service
+    android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingService"
+    android:exported="false"
+    tools:node="remove" /&gt;
+&lt;/application&gt;</code></pre>
+        </div>
+        <p>If both services remain, data-only carousel / BigPicture / live-tray pushes never reach Mehery.</p>
+
+        <h3>2.2 Credentials</h3>
+        <p><code>android/app/src/main/res/values/strings.xml</code> — <code>readCredentialsForEnvironment()</code> reads these native strings.</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">strings.xml</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>&lt;string name="mehery_prod_app_id" translatable="false"&gt;pa_YOUR_APP_ID&lt;/string&gt;
+&lt;string name="mehery_prod_app_key" translatable="false"&gt;pas_YOUR_APP_KEY&lt;/string&gt;
+&lt;string name="mehery_sandbox_app_id" translatable="false"&gt;pa_YOUR_APP_ID&lt;/string&gt;
+&lt;string name="mehery_sandbox_app_key" translatable="false"&gt;pas_YOUR_APP_KEY&lt;/string&gt;
+&lt;string name="mehery_dev_app_id" translatable="false"&gt;pa_YOUR_APP_ID&lt;/string&gt;
+&lt;string name="mehery_dev_app_key" translatable="false"&gt;pas_YOUR_APP_KEY&lt;/string&gt;</code></pre>
+        </div>
+
+        <h3>2.3 Android push types (no extra host code)</h3>
+        <table>
+          <thead><tr><th>Type</th><th>Payload keys</th></tr></thead>
+          <tbody>
+            <tr><td>Simple banner</td><td><code>title</code>, <code>body</code></td></tr>
+            <tr><td>BigPicture</td><td><code>image</code> / <code>imageUrl</code> / <code>image_url</code></td></tr>
+            <tr><td>Carousel (Prev/Next, max 4)</td><td><code>imageUrls</code> or <code>image1</code>…<code>imageN</code></td></tr>
+            <tr><td>Live tray</td><td><code>message1</code> + <code>message2</code> + <code>message3</code></td></tr>
+            <tr><td>CTA buttons</td><td><code>title1</code>/<code>url1</code>/<code>action1</code> or <code>cta_buttons</code></td></tr>
+            <tr><td>Deep link</td><td><code>notification_url</code></td></tr>
+          </tbody>
+        </table>
+        <div class="callout">Background rich UI needs a <strong>data-only</strong>, high-priority FCM. A top-level <code>notification</code> block shows the stock OS tray and skips Mehery.</div>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span>json · carousel data map</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>{
+  "title": "New arrivals",
+  "body": "Swipe looks",
+  "imageUrls": "[\"https://example.com/1.jpg\",\"https://example.com/2.jpg\"]",
+  "notification_url": "https://shop.example/collections/all",
+  "title1": "Shop",
+  "url1": "https://shop.example/collections/all",
+  "action1": "SHOP"
+}</code></pre>
+        </div>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span>bash</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>adb logcat -s MyFirebaseMessagingService:I</code></pre>
+        </div>
+      </section>
+
+      <section id="ios">
+        <h2>3. iOS folder</h2>
+        <p>Three extra targets ride inside <code>ios/natori.xcodeproj</code>, plus credentials and categories on the main app.</p>
+        <table>
+          <thead><tr><th>Folder / target</th><th>Bundle id</th><th>Job</th></tr></thead>
+          <tbody>
+            <tr><td><code>ios/natori/</code></td><td><code>com.app.appbrew</code></td><td>Credentials, categories, APNs, Live Activity start</td></tr>
+            <tr><td><code>ios/ImageNotification/</code></td><td>NSE</td><td>Download images for rich banners</td></tr>
+            <tr><td><code>ios/ImagePreviewExtension/</code></td><td><code>com.app.appbrew.ImagePreviewExtension</code></td><td>Carousel / action UI</td></tr>
+            <tr><td><code>ios/DeliveryActivity/</code></td><td><code>com.app.appbrew.DeliveryActivity</code></td><td>Lock Screen / Dynamic Island</td></tr>
+          </tbody>
+        </table>
+
+        <h3>3.1 Credentials + background</h3>
+        <p><code>ios/natori/Info.plist</code></p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">Info.plist</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>&lt;key&gt;MeheryProdAppId&lt;/key&gt;
+&lt;string&gt;pa_YOUR_APP_ID&lt;/string&gt;
+&lt;key&gt;MeheryProdAppKey&lt;/key&gt;
+&lt;string&gt;pas_YOUR_APP_KEY&lt;/string&gt;
+&lt;key&gt;MeherySandboxAppId&lt;/key&gt;
+&lt;string&gt;pa_YOUR_APP_ID&lt;/string&gt;
+&lt;key&gt;MeherySandboxAppKey&lt;/key&gt;
+&lt;string&gt;pas_YOUR_APP_KEY&lt;/string&gt;
+&lt;key&gt;MeheryDevAppId&lt;/key&gt;
+&lt;string&gt;pa_YOUR_APP_ID&lt;/string&gt;
+&lt;key&gt;MeheryDevAppKey&lt;/key&gt;
+&lt;string&gt;pas_YOUR_APP_KEY&lt;/string&gt;
+
+&lt;key&gt;UIBackgroundModes&lt;/key&gt;
+&lt;array&gt;
+  &lt;string&gt;remote-notification&lt;/string&gt;
+  &lt;string&gt;fetch&lt;/string&gt;
+&lt;/array&gt;
+
+&lt;key&gt;NSSupportsLiveActivities&lt;/key&gt;
+&lt;true/&gt;
+&lt;key&gt;NSSupportsLiveActivitiesFrequentUpdates&lt;/key&gt;
+&lt;true/&gt;</code></pre>
+        </div>
+
+        <h3>3.2 Entitlements</h3>
+        <p><code>ios/natori/natori.entitlements</code> — enable the same App Group on <code>DeliveryActivityExtension</code>.</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">natori.entitlements</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>&lt;key&gt;aps-environment&lt;/key&gt;
+&lt;string&gt;production&lt;/string&gt;
+&lt;key&gt;com.apple.security.application-groups&lt;/key&gt;
+&lt;array&gt;
+  &lt;string&gt;group.com.app.appbrew.NotificationLiveActivity&lt;/string&gt;
+&lt;/array&gt;</code></pre>
+        </div>
+
+        <h3>3.3 AppDelegate</h3>
+        <p><code>ios/natori/AppDelegate.swift</code> — Firebase, notification delegate, categories, APNs.</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">AppDelegate.swift · launch</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>FirebaseApp.configure()
+Messaging.messaging().delegate = self
+UNUserNotificationCenter.current().delegate = self
+registerNotificationCategories()
+
+UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+  if granted {
+    DispatchQueue.main.async { application.registerForRemoteNotifications() }
+  }
+}</code></pre>
+        </div>
+        <div class="callout">Forward APNs to FCM <strong>and</strong> <code>RNCPushNotificationIOS</code>. Do not also send the FCM token through Mehery’s APNs <code>PushTokenEvent</code> — that corrupts the PushApp session id.</div>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">AppDelegate.swift · APNs</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>func application(_ application: UIApplication,
+                 didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+  Messaging.messaging().apnsToken = deviceToken
+  PushTokenManager.sendTokenEvent("apns", token: /* hex of deviceToken */)
+  RNCPushNotificationIOS.didRegisterForRemoteNotifications(withDeviceToken: deviceToken)
+}</code></pre>
+        </div>
+        <p>Register every PushApp category. The NCE <code>Info.plist</code> must list the same ids:</p>
+        <p><code>THREE_BUTTON_CATEGORY</code>, <code>THREE_CAROUSEL_CATEGORY</code>, <code>THREE_CONFIRMATION_CATEGORY</code>, <code>THREE_RESPONSE_CATEGORY</code>, <code>THREE_SUBSCRIPTION_CATEGORY</code>, <code>THREE_TRANSACTION_CATEGORY</code>, <code>THREE_CONTENT_CATEGORY</code>, <code>THREE_CHECKOUT_CATEGORY</code>, <code>THREE_FORM_ACTION_CATEGORY</code>, <code>THREE_DESTRUCTIVE_ACTION_CATEGORY</code>, <code>THREE_CONTACT_CATEGORY</code>, <code>CAROUSEL_CATEGORY</code>, <code>CONFIRMATION_CATEGORY</code>, <code>RESPONSE_CATEGORY</code>, <code>SUBSCRIPTION_CATEGORY</code>, <code>TRANSACTION_CATEGORY</code>, <code>CONTENT_CATEGORY</code>, <code>CHECKOUT_CATEGORY</code>, <code>FORM_ACTION_CATEGORY</code>, <code>DESTRUCTIVE_ACTION_CATEGORY</code>, <code>CONTACT_CATEGORY</code>.</p>
+        <p>Foreground: <code>completionHandler([.banner, .list, .sound, .badge])</code>. Taps open <code>notification_url</code>. Live Activity starts from <code>didReceiveRemoteNotification</code> when the payload has <code>activity_id</code> (<code>ios/natori/MeheryLiveActivity.swift</code>). Silent ping: <code>type: silent_daily_ping</code>.</p>
+
+        <h3>3.4 Notification Service Extension</h3>
+        <p><code>ios/ImageNotification/</code> — Mehery multi-image NSE. Not Firebase <code>populateNotificationContent</code>.</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">ImageNotification/Info.plist</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>&lt;key&gt;NSExtensionPointIdentifier&lt;/key&gt;
+&lt;string&gt;com.apple.usernotifications.service&lt;/string&gt;
+&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;
+&lt;dict&gt;
+  &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;
+  &lt;true/&gt;
+&lt;/dict&gt;</code></pre>
+        </div>
+
+        <h3>3.5 Notification Content Extension</h3>
+        <p><code>ios/ImagePreviewExtension/</code> — carousel / category UI. Principal class <code>NotificationViewController</code>. Categories in <code>Info.plist</code> must match AppDelegate.</p>
+
+        <h3>3.6 Live Activity</h3>
+        <p><code>ios/DeliveryActivity/</code> — WidgetKit extension. Shared App Group for hero images. Create the App ID + App Group in Apple Developer and assign profiles before release.</p>
+
+        <h3>3.7 Podfile targets</h3>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">ios/Podfile</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>target 'natori' do
+  # existing RN + Firebase pods
+end
+
+target 'ImageNotification' do
+end
+
+target 'ImagePreviewExtension' do
+end
+
+target 'DeliveryActivityExtension' do
+end</code></pre>
+        </div>
+        <p>The NSE does not depend on Firebase Messaging. Then <code>pnpm pod-install</code>.</p>
+      </section>
+
+      <section id="js">
+        <h2>4. JavaScript — the seamless layer</h2>
+        <p>All host glue lives in <code>src/mehery/</code>. App Brew screens stay untouched.</p>
+
+        <h3>4.1 Why not index.js</h3>
+        <p>This app uses Re.Pack. Loading Mehery during <code>AppRegistry</code> evaluation stalls on circular modules. Do not import the SDK at the top of <code>index.js</code>. Register FCM from <code>startMehery</code> after App mount.</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">index.js</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>// Mehery is NOT imported here
+AppRegistry.registerComponent(appName, () =&gt; App)</code></pre>
+        </div>
+
+        <h3>4.2 Channel + environment</h3>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">src/mehery/channelPin.ts · bootstrap.ts</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>export const MEHERY_CHANNEL_ID = 'ecommerce_1786525308082' // tenant_channel from dashboard
+export const MEHERY_ENVIRONMENT = false // production → pushapp.ai</code></pre>
+        </div>
+        <table>
+          <thead><tr><th>initSdk env</th><th>Host</th><th>Native keys</th></tr></thead>
+          <tbody>
+            <tr><td><code>false</code></td><td><code>pushapp.ai</code></td><td>Prod</td></tr>
+            <tr><td><code>true</code></td><td><code>pushapp.net.in</code></td><td>Sandbox</td></tr>
+            <tr><td><code>'development'</code></td><td><code>pushapp.co.in</code></td><td>Dev</td></tr>
+          </tbody>
+        </table>
+        <p>Always <code>readCredentialsForEnvironment(env)</code> then <code>pushappAuth</code> then <code>initSdk(..., env)</code> with the same env. Pin the channel in AsyncStorage before any SDK call. The SDK example app writes <code>demo_*</code>; leftover demo ids win over <code>initSdk</code>.</p>
+
+        <h3>4.3 Cold-start order (mandatory)</h3>
+        <p>Implemented in <code>src/mehery/startMehery.ts</code> + <code>bootstrap.ts</code>:</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span>order</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>ensureMeheryChannelPinned
+registerFcmBackgroundHandler
+registerMeheryTracker
+wire identity listeners
+readCredentialsForEnvironment(env)
+pushappAuth(xApiId, xApiKey)
+initSdk(null, CHANNEL_ID, env, logs)
+waitForSdkReady()          // false = failure, do not send events
+configure deep links
+Android notification permission
+setMeheryOwnsPushTray(true)
+messaging().requestPermission() + getToken()
+OnUserLogin if the user is already idle</code></pre>
+        </div>
+
+        <h3>4.4 Wire it in App.tsx</h3>
+        <p>Tracker first (so early cart / install events queue instead of dropping), then boot after mount, then poll overlay.</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">src/app/App.tsx</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>function initApp() {
+  registerMeheryTracker(AnalyticsProvider.getInstance())
+  installMeheryCartPressTracking()
+  installNotifeePushAppDeduper()
+  modules['push'] = FirebasePush.getInstance // keep App Brew push contract
+}
+
+React.useEffect(() =&gt; {
+  import('../mehery/startMehery').then((m) =&gt; m.startMehery())
+}, [])
+
+return (
+  &lt;&gt;
+    &lt;Shell ... /&gt;
+    &lt;MeheryPollOverlay /&gt;
+  &lt;/&gt;
+)</code></pre>
+        </div>
+        <p><code>MeheryPollOverlay</code> loads <code>PollOverlayProvider</code> from <code>loadMeherySdk()</code> after mount. Skip on iOS if <code>NativeModules.RNCPushNotificationIOS</code> is missing (stale binary / pods not linked).</p>
+
+        <h3>4.5 Dual-send — MeheryTracker</h3>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">src/mehery/MeheryTracker.ts</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>class MeheryTracker extends AnalyticsTrackerV2 {
+  async sendEvent(event, payload) {
+    await sendMeheryCustomEvent(toGa4EventName(event), payload, 'LOG')
+  }
+  async setUserDetails(user) {
+    // OnUserLogin + updateUserProfile, or OnUserLogOut when cleared
+  }
+}</code></pre>
+        </div>
+        <p>Exact GA4 names (<code>add_to_cart</code>, <code>purchase</code>, <code>screen_view</code>). <code>app_install_ios</code> / <code>app_install_android</code> remap to <code>app_install</code>. Register the tracker in <strong>__DEV__ and release</strong>.</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span>typescript · manual send</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>import { sendMeheryCustomEvent } from '../mehery/sendCustomEvent'
+
+await sendMeheryCustomEvent('add_to_cart', {
+  currency: 'INR',
+  value: 2499,
+  items: [{ item_id: 'sku_1', item_name: 'Tee', quantity: 1, price: 2499 }],
+})</code></pre>
+        </div>
+
+        <h3>4.6 Identity and deep links</h3>
+        <p>Login → <code>OnUserLogin(userId)</code> + <code>updateUserProfile</code>. Logout → <code>OnUserLogOut</code>. <code>identityListeners.ts</code> replays the current App Brew user after SDK ready.</p>
+        <div class="snippet" data-copy>
+          <div class="snippet-bar"><span class="file">src/mehery/deepLinks.ts</span><button class="copy" type="button">Copy</button></div>
+          <pre><code>sdk.configureNotificationLinkRewrites([
+  { httpsHost: 'mehery2.myshopify.com', appScheme: 'mehery2' },
+  { httpsHost: 'www.mehery2.myshopify.com', appScheme: 'mehery2' },
+])
+sdk.setNotificationUrlHandler((url) =&gt; Linking.openURL(url))</code></pre>
+        </div>
+
+        <h3>4.7 Coexistence</h3>
+        <table>
+          <thead><tr><th>Layer</th><th>Owner</th></tr></thead>
+          <tbody>
+            <tr><td>App Brew <code>modules['push']</code></td><td><code>@gauntlet/firebase-push</code></td></tr>
+            <tr><td>Rich tray (Android background)</td><td>Mehery <code>MyFirebaseMessagingService</code></td></tr>
+            <tr><td>Rich tray (iOS)</td><td>NSE + NCE</td></tr>
+            <tr><td>Dual-send analytics</td><td><code>MeheryTracker</code></td></tr>
+            <tr><td>Foreground double-tray</td><td><code>installNotifeePushAppDeduper()</code></td></tr>
+          </tbody>
+        </table>
+        <p>Do not patch <code>@gauntlet/*</code> for dual-send.</p>
+      </section>
+
+      <section id="events">
+        <h2>5. Event catalog</h2>
+        <table>
+          <thead><tr><th>Event</th><th>Properties</th></tr></thead>
+          <tbody>
+            <tr><td><code>app_install</code></td><td><code>version</code>, <code>sizeWidth</code>, <code>sizeHeight</code></td></tr>
+            <tr><td><code>screen_view</code></td><td><code>screen_name</code>, <code>screen_class</code></td></tr>
+            <tr><td><code>push_notification_subscribed</code> / <code>_unsubscribed</code></td><td><code>push_enabled</code></td></tr>
+            <tr><td><code>login</code> / <code>signup</code></td><td><code>method</code></td></tr>
+            <tr><td><code>logout</code></td><td>—</td></tr>
+            <tr><td><code>view_item</code></td><td><code>currency</code>, <code>value</code>, <code>items[]</code></td></tr>
+            <tr><td><code>view_item_list</code></td><td><code>item_list_id</code>, <code>handle</code>, <code>item_list_name</code>, <code>url</code></td></tr>
+            <tr><td><code>search</code></td><td><code>search_term</code></td></tr>
+            <tr><td><code>add_to_cart</code> / <code>remove_from_cart</code></td><td><code>currency</code>, <code>value</code>, <code>items[]</code></td></tr>
+            <tr><td><code>view_cart</code></td><td><code>url</code>, <code>value</code>, <code>checkout_token</code>, <code>sub_total</code>, <code>discount</code>, <code>currency</code>, <code>coupon</code>, <code>items[]</code></td></tr>
+            <tr><td><code>add_to_wishlist</code> / <code>remove_from_wishlist</code> / <code>notify_back_in_stock</code></td><td><code>currency</code>, <code>value</code>, <code>items[]</code></td></tr>
+            <tr><td><code>begin_checkout</code> / <code>add_shipping_info</code></td><td>cart-like set</td></tr>
+            <tr><td><code>apply_coupon</code></td><td><code>coupon</code>, <code>isApplicable</code></td></tr>
+            <tr><td><code>remove_coupon</code></td><td><code>coupon</code></td></tr>
+            <tr><td><code>purchase</code></td><td><code>transaction_id</code>, <code>shopify_order_id</code>, cart-like set, <code>items[]</code></td></tr>
+            <tr><td><code>refund</code></td><td><code>reason</code>, <code>transaction_id</code>, <code>value</code>, <code>currency</code></td></tr>
+          </tbody>
+        </table>
+        <p><code>items[]</code> fields: <code>item_id</code>, <code>handle</code>, <code>item_name</code>, <code>item_variant</code>, <code>price</code>, <code>original_price</code>, <code>discount</code>, <code>url</code>, <code>sku</code>, <code>item_category</code>, <code>item_brand</code>, <code>img_url</code>, <code>quantity</code>.</p>
+      </section>
+
+      <section id="files">
+        <h2>6. File map</h2>
+        <table>
+          <thead><tr><th>Path</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>vendor/react-native-pushapp-appbrew/</code></td><td>SDK (treat as a package)</td></tr>
+            <tr><td><code>src/mehery/startMehery.ts</code></td><td>Host entry after App mount</td></tr>
+            <tr><td><code>src/mehery/bootstrap.ts</code></td><td>Auth → initSdk → ready</td></tr>
+            <tr><td><code>src/mehery/sdk.ts</code></td><td>Re.Pack-safe SDK loader</td></tr>
+            <tr><td><code>src/mehery/MeheryTracker.ts</code></td><td>Dual-send + identity</td></tr>
+            <tr><td><code>src/mehery/sendCustomEvent.ts</code></td><td>sendCustomEvent wrapper</td></tr>
+            <tr><td><code>src/mehery/channelPin.ts</code></td><td>Force dashboard channel id</td></tr>
+            <tr><td><code>src/mehery/pushCoexistence.ts</code></td><td>Permission + Notifee dedupe</td></tr>
+            <tr><td><code>src/mehery/deepLinks.ts</code></td><td>Notification URL → Linking</td></tr>
+            <tr><td><code>src/app/App.tsx</code></td><td>Tracker, startMehery, poll overlay</td></tr>
+            <tr><td><code>android/.../AndroidManifest.xml</code></td><td>WAKE_LOCK + RNFB service remove</td></tr>
+            <tr><td><code>android/.../values/strings.xml</code></td><td>mehery_* credentials</td></tr>
+            <tr><td><code>ios/natori/Info.plist</code></td><td>Credentials + background + Live Activities</td></tr>
+            <tr><td><code>ios/natori/AppDelegate.swift</code></td><td>Categories, APNs, URLs, silent/live</td></tr>
+            <tr><td><code>ios/natori/MeheryLiveActivity.swift</code></td><td>Start/update Live Activities</td></tr>
+            <tr><td><code>ios/ImageNotification/</code></td><td>NSE</td></tr>
+            <tr><td><code>ios/ImagePreviewExtension/</code></td><td>NCE</td></tr>
+            <tr><td><code>ios/DeliveryActivity/</code></td><td>Live Activity widget</td></tr>
+            <tr><td><code>ios/Podfile</code></td><td>Three extension targets</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="checklist">
+        <h2>7. Checklist</h2>
+        <ul>
+          <li>Peers installed; <code>pnpm pod-install</code> shows <code>MeheryEventSender</code></li>
+          <li>Real <code>pa_</code> / <code>pas_</code> keys in Info.plist and <code>strings.xml</code></li>
+          <li>Channel id is the dashboard <code>tenant_channel</code>, never <code>demo_*</code></li>
+          <li><code>initSdk</code> env matches the native key slot</li>
+          <li>Android: RNFB messaging service <code>tools:node="remove"</code></li>
+          <li>iOS: <code>remote-notification</code> background mode; categories registered</li>
+          <li>NSE + NCE + Live Activity targets embedded and signed</li>
+          <li><code>MeheryTracker</code> registered in __DEV__ and release</li>
+          <li><code>PollOverlayProvider</code> mounted once at root</li>
+          <li>FCM / APNs payloads for rich UI are data-only + high priority</li>
+        </ul>
+      </section>
+
+      <section id="fix">
+        <h2>8. Troubleshooting</h2>
+        <table>
+          <thead><tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td>Auth / init fails</td><td>Wrong env or placeholder keys</td><td>Match env + native keys + channel</td></tr>
+            <tr><td>No rich Android background push</td><td>Top-level FCM <code>notification</code>, or dual messaging services</td><td>Data-only + confirm RNFB remove; <code>adb logcat -s MyFirebaseMessagingService:I</code></td></tr>
+            <tr><td>iOS carousel missing</td><td>NCE not embedded / unsigned / category mismatch</td><td>Confirm <code>ImagePreviewExtension</code> + same category ids</td></tr>
+            <tr><td>Events missing in PushApp</td><td>Fired before <code>waitForSdkReady</code></td><td>Await <code>startMehery</code>; then retry</td></tr>
+            <tr><td>Double foreground notification</td><td>Notifee + Mehery both display</td><td><code>installNotifeePushAppDeduper</code></td></tr>
+            <tr><td>Live Activity missing</td><td>App Group / signing / no <code>activity_id</code></td><td>Enable group on app + extension; see <code>ios/DeliveryActivity/README-NATORI.md</code></td></tr>
+            <tr><td><code>RNCPushNotificationIOS</code> missing</td><td>Pods not in the binary</td><td>Rebuild iOS after <code>pod install</code></td></tr>
+            <tr><td>Device stuck on <code>demo_*</code> channel</td><td>Example-app leftovers in AsyncStorage</td><td><code>ensureMeheryChannelPinned</code> runs first; reinstall if needed</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="repeat">
+        <h2>9. Repeat on another App Brew host</h2>
+        <ol>
+          <li>Add the three JS dependencies and run <code>pod-install</code>.</li>
+          <li>Copy Android manifest service-remove + <code>strings.xml</code> keys.</li>
+          <li>Copy iOS Info.plist keys, AppDelegate category/APNs blocks, and the three extension folders.</li>
+          <li>Copy <code>src/mehery/</code> and the three <code>App.tsx</code> hooks (tracker, <code>startMehery</code>, poll overlay).</li>
+          <li>Set <code>MEHERY_CHANNEL_ID</code> and <code>MEHERY_ENVIRONMENT</code>.</li>
+          <li>Point deep-link rewrites at your Shopify host / app scheme.</li>
+          <li>Keep <code>modules['push'] = FirebasePush</code>. Do not edit SDK sources.</li>
+        </ol>
+      </section>
+
+      <footer>
+        App Brew Natori · Mehery / PushApp host integration. Same content: <code>docs/mehery-sdk-integration.md</code> and <code>docs/mehery-sdk-integration.pdf</code>.
+      </footer>
+    </main>
+  </div>
+  <script>
+    document.querySelectorAll('[data-copy]').forEach((block) => {
+      const btn = block.querySelector('.copy');
+      const pre = block.querySelector('pre');
+      btn.addEventListener('click', async () => {
+        const text = pre.innerText.replace(/\n$/, '');
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+        }
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1400);
+      });
+    });
+    const links = [...document.querySelectorAll('nav a')];
+    const sections = links.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach((s) => io.observe(s));
+  </script>
+</body>
+</html>

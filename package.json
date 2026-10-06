@@ -125,7 +125,7 @@
     "react-native-linear-gradient": "^2.8.3",
     "react-native-loading-dots": "^1.2.0",
     "react-native-localize": "3.5.2",
-    "react-native-mehery-event-sender": "file:./vendor/react-native-mehery-event-sender",
+    "react-native-pushapp-appbrew": "file:./vendor/react-native-pushapp-appbrew",
     "react-native-mmkv": "3.3.1",
     "react-native-pager-view": "^6.9.1",
     "react-native-permissions": "5.4.2",

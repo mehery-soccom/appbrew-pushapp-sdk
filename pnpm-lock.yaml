@@ -340,9 +340,6 @@ importers:
       react-native-localize:
         specifier: 3.5.2
         version: 3.5.2(@expo/config-plugins@10.1.2(supports-color@8.1.1))(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
-      react-native-mehery-event-sender:
-        specifier: file:./vendor/react-native-mehery-event-sender
-        version: file:vendor/react-native-mehery-event-sender(f395f7e76e633b9685bdf6629a940e86)
       react-native-mmkv:
         specifier: 3.3.1
         version: 3.3.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
@@ -358,6 +355,9 @@ importers:
       react-native-push-notification:
         specifier: ^8.1.1
         version: 8.1.1(@react-native-community/push-notification-ios@1.12.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
+      react-native-pushapp-appbrew:
+        specifier: file:./vendor/react-native-pushapp-appbrew
+        version: file:vendor/react-native-pushapp-appbrew(f395f7e76e633b9685bdf6629a940e86)
       react-native-radio-buttons-group:
         specifier: 3.1.0
         version: 3.1.0
@@ -7763,14 +7763,6 @@ packages:
       react-native-macos:
         optional: true
 
-  react-native-mehery-event-sender@file:vendor/react-native-mehery-event-sender:
-    resolution: {directory: vendor/react-native-mehery-event-sender, type: directory}
-    peerDependencies:
-      expo-notifications: ^0.20.0
-      react: '*'
-      react-native: '*'
-      react-native-push-notification: ^8.1.1
-
   react-native-mmkv@3.3.1:
     resolution: {integrity: sha512-LYamDWQirPTUJZ9Re+BkCD+zLRGNr+EVJDeIeblvoJXGatWy9PXnChtajDSLqwjX3EXVeUyjgrembs7wlBw9ug==}
     peerDependencies:
@@ -7805,6 +7797,14 @@ packages:
       '@react-native-community/push-notification-ios': ^1.10.1
       react-native: '>=0.33'
 
+  react-native-pushapp-appbrew@file:vendor/react-native-pushapp-appbrew:
+    resolution: {directory: vendor/react-native-pushapp-appbrew, type: directory}
+    peerDependencies:
+      expo-notifications: ^0.20.0
+      react: '*'
+      react-native: '*'
+      react-native-push-notification: ^8.1.1
+
   react-native-radio-buttons-group@3.1.0:
     resolution: {integrity: sha512-DiNM1yI6WfRygUZ+Z/bsjggyLypXsxRNXPNYpPHXSEVbRD6uF5Aei+HMIwyeRbfMKPtHwLq7cGsmUDV01i+rOQ==}
 
@@ -7826,6 +7826,7 @@ packages:
 
   react-native-render-html@6.3.4:
     resolution: {integrity: sha512-H2jSMzZjidE+Wo3qCWPUMU1nm98Vs2SGCvQCz/i6xf0P3Y9uVtG/b0sDbG/cYFir2mSYBYCIlS1Dv0WC1LjYig==}
+    deprecated: This package has been replaced with @native-html/render
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -18483,32 +18484,6 @@ snapshots:
     optionalDependencies:
       '@expo/config-plugins': 10.1.2(supports-color@8.1.1)
 
-  react-native-mehery-event-sender@file:vendor/react-native-mehery-event-sender(f395f7e76e633b9685bdf6629a940e86):
-    dependencies:
-      '@react-native-async-storage/async-storage': 3.1.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
-      '@react-native-community/netinfo': 11.4.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
-      '@react-native-firebase/app': 22.4.0(@react-native-async-storage/async-storage@3.1.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(expo@57.0.11)(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
-      '@react-native-firebase/messaging': 22.4.0(@react-native-firebase/app@22.4.0(@react-native-async-storage/async-storage@3.1.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(expo@57.0.11)(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(expo@57.0.11)
-      chalk: 4.1.2
-      events: 3.3.0
-      expo-notifications: 0.20.1(encoding@0.1.13)(expo@57.0.11)(supports-color@8.1.1)
-      react: 19.1.0
-      react-native: 0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1)
-      react-native-device-info: 15.0.2(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
-      react-native-localize: 3.7.0(@expo/config-plugins@10.1.2(supports-color@8.1.1))(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
-      react-native-push-notification: 8.1.1(@react-native-community/push-notification-ios@1.12.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
-      react-native-uuid: 2.0.4
-      react-native-video: 6.16.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
-      react-native-webview: 13.16.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
-      socket.io-client: 4.8.3(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - '@expo/config-plugins'
-      - bufferutil
-      - expo
-      - react-native-macos
-      - supports-color
-      - utf-8-validate
-
   react-native-mmkv@3.3.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0):
     dependencies:
       react: 19.1.0
@@ -18540,6 +18515,32 @@ snapshots:
     dependencies:
       '@react-native-community/push-notification-ios': 1.12.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
       react-native: 0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1)
+
+  react-native-pushapp-appbrew@file:vendor/react-native-pushapp-appbrew(f395f7e76e633b9685bdf6629a940e86):
+    dependencies:
+      '@react-native-async-storage/async-storage': 3.1.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
+      '@react-native-community/netinfo': 11.4.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
+      '@react-native-firebase/app': 22.4.0(@react-native-async-storage/async-storage@3.1.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(expo@57.0.11)(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
+      '@react-native-firebase/messaging': 22.4.0(@react-native-firebase/app@22.4.0(@react-native-async-storage/async-storage@3.1.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(expo@57.0.11)(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(expo@57.0.11)
+      chalk: 4.1.2
+      events: 3.3.0
+      expo-notifications: 0.20.1(encoding@0.1.13)(expo@57.0.11)(supports-color@8.1.1)
+      react: 19.1.0
+      react-native: 0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1)
+      react-native-device-info: 15.0.2(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
+      react-native-localize: 3.7.0(@expo/config-plugins@10.1.2(supports-color@8.1.1))(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
+      react-native-push-notification: 8.1.1(@react-native-community/push-notification-ios@1.12.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
+      react-native-uuid: 2.0.4
+      react-native-video: 6.16.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
+      react-native-webview: 13.16.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
+      socket.io-client: 4.8.3(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - '@expo/config-plugins'
+      - bufferutil
+      - expo
+      - react-native-macos
+      - supports-color
+      - utf-8-validate
 
   react-native-radio-buttons-group@3.1.0: {}
 

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-mehery-event-sender": ["./src/index"]
+      "react-native-pushapp-appbrew": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -23,6 +23,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
+    "types": ["jest", "node", "react"],
     "target": "ESNext",
     "verbatimModuleSyntax": true
   }

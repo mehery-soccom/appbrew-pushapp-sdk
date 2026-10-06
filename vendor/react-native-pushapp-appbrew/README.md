@@ -1,7 +1,7 @@
-# react-native-mehery-event-sender
+# react-native-pushapp-appbrew
 
-[![npm version](https://img.shields.io/npm/v/react-native-mehery-event-sender.svg?style=flat-square)](https://www.npmjs.com/package/react-native-mehery-event-sender)
-[![license](https://img.shields.io/npm/l/react-native-mehery-event-sender.svg?style=flat-square)](https://github.com/mehery-soccom/PushApp-React-Native/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/react-native-pushapp-appbrew.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pushapp-appbrew)
+[![license](https://img.shields.io/npm/l/react-native-pushapp-appbrew.svg?style=flat-square)](https://github.com/mehery-soccom/PushApp-React-Native/blob/main/LICENSE)
 
 React Native SDK for push notifications, in-app notifications, interactive polls, and real-time event tracking.
 
@@ -39,7 +39,7 @@ Before integrating, ensure the consumer app has:
 ## Installation
 
 ```bash
-npm install react-native-mehery-event-sender
+npm install react-native-pushapp-appbrew
 npm install @react-native-firebase/app @react-native-firebase/messaging
 npm install @react-native-async-storage/async-storage react-native-push-notification
 ```
@@ -189,7 +189,7 @@ import {
   pushappAuth,
   readCredentialsForEnvironment,
   type SdkInitEnvironmentParam,
-} from 'react-native-mehery-event-sender';
+} from 'react-native-pushapp-appbrew';
 
 const environment: SdkInitEnvironmentParam = false; // production
 const { xApiId, xApiKey } = await readCredentialsForEnvironment(environment);
@@ -218,7 +218,7 @@ import {
   initSdk,
   readCredentialsForEnvironment,
   type SdkInitEnvironmentParam,
-} from 'react-native-mehery-event-sender';
+} from 'react-native-pushapp-appbrew';
 
 const App = () => {
   useEffect(() => {
@@ -257,7 +257,7 @@ Native Android FCM logcat lines are unaffected (native code).
 Set geo context before init (used by register and event payloads):
 
 ```tsx
-import { setGeoIP } from 'react-native-mehery-event-sender';
+import { setGeoIP } from 'react-native-pushapp-appbrew';
 
 setGeoIP({
   ip: '203.0.113.1',
@@ -269,7 +269,7 @@ setGeoIP({
 Wait for init to complete before login if needed:
 
 ```tsx
-import { waitForSdkReady, OnUserLogin } from 'react-native-mehery-event-sender';
+import { waitForSdkReady, OnUserLogin } from 'react-native-pushapp-appbrew';
 
 await waitForSdkReady();
 await OnUserLogin('user_123');
@@ -278,7 +278,7 @@ await OnUserLogin('user_123');
 Register the FCM background handler early in `index.js` when you need JS background message handling:
 
 ```tsx
-import { registerFcmBackgroundHandler } from 'react-native-mehery-event-sender';
+import { registerFcmBackgroundHandler } from 'react-native-pushapp-appbrew';
 
 registerFcmBackgroundHandler();
 ```
@@ -286,7 +286,7 @@ registerFcmBackgroundHandler();
 On Android 13+, request notification permission when appropriate:
 
 ```tsx
-import { ensureAndroidNotificationPermission } from 'react-native-mehery-event-sender';
+import { ensureAndroidNotificationPermission } from 'react-native-pushapp-appbrew';
 
 await ensureAndroidNotificationPermission();
 ```
@@ -296,7 +296,7 @@ await ensureAndroidNotificationPermission();
 Mount `PollOverlayProvider` once at the root of your application for full-screen / popup polls.
 
 ```tsx
-import { PollOverlayProvider } from 'react-native-mehery-event-sender';
+import { PollOverlayProvider } from 'react-native-pushapp-appbrew';
 
 export default function App() {
   return (
@@ -314,7 +314,7 @@ Optional in-app poll placeholders:
 import {
   InlinePollContainer,
   TooltipPollContainer,
-} from 'react-native-mehery-event-sender';
+} from 'react-native-pushapp-appbrew';
 ```
 
 | Component | Description |
@@ -328,7 +328,7 @@ import {
 ### Authentication events
 
 ```tsx
-import { OnUserLogin, OnUserLogOut } from 'react-native-mehery-event-sender';
+import { OnUserLogin, OnUserLogOut } from 'react-native-pushapp-appbrew';
 
 // After successful sign-in or sign-up — map this device/session to your user ID
 await OnUserLogin('unique_user_id_123');
@@ -342,7 +342,7 @@ await OnUserLogOut('unique_user_id_123');
 Sync user metadata for targeted segments. The SDK keeps the last successfully pushed profile locally and only calls `PUT /v1/customer/profile` when `additionalInfo` or `cohorts` change. The snapshot is cleared on logout.
 
 ```tsx
-import { updateUserProfile } from 'react-native-mehery-event-sender';
+import { updateUserProfile } from 'react-native-pushapp-appbrew';
 
 await updateUserProfile(
   { name: 'Jane Doe', email: 'jane@example.com', city: 'Mumbai' },
@@ -361,7 +361,7 @@ import {
   OnAppOpen,
   OnAppLaunch,
   sendCustomEvent,
-} from 'react-native-mehery-event-sender';
+} from 'react-native-pushapp-appbrew';
 
 // Prefer: await OnUserLogin(...) first, then track screens.
 // Interactive events fired during the /device/link window are queued in memory

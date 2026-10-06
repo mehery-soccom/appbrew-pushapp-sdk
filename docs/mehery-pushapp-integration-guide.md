@@ -3,7 +3,7 @@
 **Audience:** Client engineering team integrating or maintaining PushApp in this host app.  
 **Branch:** `pushapp_neilo`  
 **Host app:** App Brew Natori (`com.app.appbrew`)  
-**SDK (read-only):** `react-native-mehery-event-sender` from local path `../msdk/react-native-mehery-event-sender`  
+**SDK (read-only):** `react-native-pushapp-appbrew` from local path `../msdk/react-native-pushapp-appbrew`  
 **Date:** 2026-08-10
 
 This document explains **what we changed**, **where**, **why**, and **how to repeat or extend** the integration. The Mehery SDK source itself was **not** modified.
@@ -58,7 +58,7 @@ Before shipping:
 ### Dependency lines added to `package.json`
 
 ```json
-"react-native-mehery-event-sender": "file:../msdk/react-native-mehery-event-sender",
+"react-native-pushapp-appbrew": "file:../msdk/react-native-pushapp-appbrew",
 "react-native-push-notification": "^8.1.1",
 "@react-native-async-storage/async-storage": "^3.1.1"
 ```
@@ -69,7 +69,7 @@ Existing (kept): `@react-native-firebase/app` and `@react-native-firebase/messag
 
 ```bash
 cd "/Users/neil/Desktop/APP Brew"
-pnpm add react-native-mehery-event-sender@file:../msdk/react-native-mehery-event-sender \
+pnpm add react-native-pushapp-appbrew@file:../msdk/react-native-pushapp-appbrew \
   react-native-push-notification \
   @react-native-async-storage/async-storage
 
@@ -223,7 +223,7 @@ Confirms `MeheryEventSender (0.0.49)` and extension targets integrate.
 ### 6.1 `index.js`
 
 ```js
-import { registerFcmBackgroundHandler } from 'react-native-mehery-event-sender';
+import { registerFcmBackgroundHandler } from 'react-native-pushapp-appbrew';
 registerFcmBackgroundHandler();
 // then AppRegistry.registerComponent(...)
 ```
@@ -294,7 +294,7 @@ Implemented in `src/mehery/bootstrap.ts` and invoked from `App.tsx`.
 
 ## 9. Dual-send: GA4 / Excel events → Mehery
 
-Mechanism: `MeheryTracker` extends `AnalyticsTrackerV2` and implements `sendEvent` → `sendCustomEvent(exactGa4Name, payload, { eventType: 'INTERACTIVE' })`.
+Mechanism: `MeheryTracker` extends `AnalyticsTrackerV2` and implements `sendEvent` → `sendCustomEvent(exactGa4Name, payload, { eventType: 'LOG' })`.
 
 `app_install_ios` / `app_install_android` are remapped to GA4 name `app_install`.
 
@@ -316,20 +316,24 @@ Interactive events fired before device link are **queued** by the SDK (cap 50) a
 | `view_item` | `currency`, `value`, `items[]` (`item_id`, `handle`, `item_name`, `item_variant`, `price`, `original_price`, `discount`, `url`, `sku`, `item_category`, `item_brand`, `img_url`) |
 | `view_item_list` | `item_list_id`, `handle`, `item_list_name`, `url` |
 | `search` | `search_term` |
-| `add_to_cart` | `currency`, `value`, `items[]` (incl. `quantity`, `sku`, …) |
-| `remove_from_cart` | `currency`, `value`, `items[]` |
-| `view_cart` | `url`, `value`, `checkout_token`, `sub_total`, `discount`, `currency`, `coupon`, `items[]` |
+| `add_to_cart` | `currency`, `value`, `cart_id`, `shopify_id`, `items[]` (incl. `quantity`, `sku`, …) |
+| `remove_from_cart` | `currency`, `value`, `cart_id`, `shopify_id`, `items[]` |
+| `view_cart` | `url`, `value`, `checkout_token`, `sub_total`, `discount`, `currency`, `coupon`, `cart_id`, `shopify_id`, `items[]` |
 | `add_to_wishlist` | `currency`, `value`, `items[]` |
 | `remove_from_wishlist` | `currency`, `value`, `items[]` |
 | `notify_back_in_stock` | `currency`, `value`, `items[]` |
-| `begin_checkout` | cart-like set |
-| `add_shipping_info` | cart-like set |
+| `begin_checkout` | cart-like set + `cart_id`, `shopify_id` |
+| `add_shipping_info` | cart-like set + `cart_id`, `shopify_id` |
 | `apply_coupon` | `coupon`, `isApplicable` |
 | `remove_coupon` | `coupon` |
-| `purchase` | `transaction_id`, `shopify_order_id`, `url`, `value`, `checkout_token`, `sub_total`, `discount`, `currency`, `coupon`, `items[]` |
-| `refund` | `reason`, `transaction_id`, `value`, `currency` |
+| `purchase` | `transaction_id`, `shopify_order_id`, `cart_id`, `shopify_id`, `url`, `value`, `checkout_token`, `sub_total`, `discount`, `currency`, `coupon`, `items[]` |
+| `refund` | `reason`, `transaction_id`, `shopify_order_id`, `shopify_id`, `value`, `currency` |
 
 Lifecycle outside the analytics bus (after init): `OnAppLaunch`, `OnAppOpen`.
+
+### Dummy checkout (host QA)
+
+Shopify **cart** stays live (Storefront + MMKV cart id). Payment WebView blocks are replaced by `DummyCheckoutScreen` (`src/mehery/dummyCheckout/`), which fires the checkout funnel and persists demo orders in MMKV (`mehery_local_orders`). Account **Demo orders** tracks transit and refund. See `docs/superpowers/plans/2026-09-24-dummy-checkout-qa-matrix.md`.
 
 ---
 
@@ -449,7 +453,7 @@ Lifecycle outside the analytics bus (after init): `OnAppLaunch`, `OnAppOpen`.
 | `.cursor/skills/mehery-pushapp-integration/*` | Agent skill |
 | `docs/mehery-pushapp-integration-guide.md` (+ pdf/docx) | This handoff |
 
-**Never edited:** `Desktop/msdk/react-native-mehery-event-sender/**`
+**Never edited:** `Desktop/msdk/react-native-pushapp-appbrew/**`
 
 ---
 
@@ -468,7 +472,7 @@ Lifecycle outside the analytics bus (after init): `OnAppLaunch`, `OnAppOpen`.
 
 ## 15. What we did not change (and why)
 
-The Mehery SDK under `Desktop/msdk/react-native-mehery-event-sender` is treated as a **vendor package**. All host-specific behavior lives in this App Brew repo so upgrades of the SDK remain clean.
+The Mehery SDK under `Desktop/msdk/react-native-pushapp-appbrew` is treated as a **vendor package**. All host-specific behavior lives in this App Brew repo so upgrades of the SDK remain clean.
 
 ---
 
@@ -482,9 +486,9 @@ UI: `PollOverlayProvider`, `InlinePollContainer`, `TooltipPollContainer`
 
 ### Further reading (SDK, read-only)
 
-- `../msdk/react-native-mehery-event-sender/README.md`
-- `../msdk/react-native-mehery-event-sender/example/src/App.tsx`
-- `../msdk/react-native-mehery-event-sender/example/ios/` (NSE / NCE / DeliveryActivity / AppDelegate categories)
+- `../msdk/react-native-pushapp-appbrew/README.md`
+- `../msdk/react-native-pushapp-appbrew/example/src/App.tsx`
+- `../msdk/react-native-pushapp-appbrew/example/ios/` (NSE / NCE / DeliveryActivity / AppDelegate categories)
 
 ### Agent skill (internal)
 

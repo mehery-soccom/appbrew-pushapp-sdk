@@ -5,7 +5,7 @@ import rspack from '@rspack/core'
 
 const require = createRequire(import.meta.url)
 const meheryPkgJson = require.resolve(
-  'react-native-mehery-event-sender/package.json'
+  'react-native-pushapp-appbrew/package.json'
 )
 /** Real AsyncStorage 3.x entry — used by the v2 multi* compat shim. */
 const asyncStorageReal = require.resolve(
@@ -24,7 +24,7 @@ const baseConfigFactory = createAppConfig({
     new rspack.NormalModuleReplacementPlugin(/package\.json$/, (resource) => {
       if (
         resource.context.includes(
-          `${path.sep}react-native-mehery-event-sender${path.sep}lib${path.sep}module${path.sep}helpers`
+          `${path.sep}react-native-pushapp-appbrew${path.sep}lib${path.sep}module${path.sep}helpers`
         ) &&
         (resource.request === '../../package.json' ||
           resource.request.endsWith(`${path.sep}lib${path.sep}package.json`))

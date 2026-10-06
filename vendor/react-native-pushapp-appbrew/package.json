@@ -1,6 +1,6 @@
 {
-  "name": "react-native-mehery-event-sender",
-  "version": "0.0.50",
+  "name": "react-native-pushapp-appbrew",
+  "version": "1.0.0",
   "description": "A React Native SDK for event tracking that works with both Expo Go and bare React Native applications",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
@@ -33,7 +33,6 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-mehery-event-sender-example",
     "test": "jest --no-watchman",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -91,9 +90,6 @@
     "react-native": "*",
     "react-native-push-notification": "^8.1.1"
   },
-  "workspaces": [
-    "example"
-  ],
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",

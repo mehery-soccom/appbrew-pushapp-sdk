@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+
+- Renamed npm package from `react-native-mehery-event-sender` to `react-native-pushapp-appbrew`. Native module names (pod `MeheryEventSender`, Android `com.meheryeventsender`) are unchanged. Install: `npm install react-native-pushapp-appbrew`.
+
 ## 0.0.50 — 2026-08-31
 
 ### Features

@@ -60,7 +60,7 @@ export async function readCredentialsForEnvironment(
 ): Promise<MeheryAppCredentials> {
   if (!MeheryAppConfig?.getCredentialsForEnvironment) {
     throw new Error(
-      'MeheryAppConfig.getCredentialsForEnvironment is unavailable. Rebuild the native app after upgrading react-native-mehery-event-sender.'
+      'MeheryAppConfig.getCredentialsForEnvironment is unavailable. Rebuild the native app after upgrading react-native-pushapp-appbrew.'
     );
   }
 

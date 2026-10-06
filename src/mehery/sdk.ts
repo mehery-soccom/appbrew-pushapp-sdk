@@ -27,9 +27,12 @@ export type MeherySdk = {
   configureNotificationLinkRewrites: (...args: any[]) => unknown
   setNotificationUrlHandler: (...args: any[]) => unknown
   registerFcmBackgroundHandler: () => void
+  handleBackgroundFcmMessage?: (remoteMessage: unknown) => Promise<void>
   setGeoIP: (...args: any[]) => unknown
   resetCachedDeviceId?: () => void
   PollOverlayProvider: any
+  InlinePollContainer: any
+  TooltipPollContainer: any
   [key: string]: unknown
 }
 
@@ -57,19 +60,82 @@ declare const __webpack_require__: WebpackRequire
 let sdkPromise: Promise<MeherySdk> | null = null
 const completing = new Set<string>()
 
-function findMeheryModuleId(): string | null {
-  const ids = Object.keys(__webpack_require__.m || {}).filter(
-    (k) =>
-      k.includes('react-native-mehery-event-sender') &&
-      k.endsWith('lib/module/index.js')
+function isMeheryBarrelPath(id: string): boolean {
+  return (
+    id.includes('react-native-pushapp-appbrew') &&
+    (/[/\\](?:lib[/\\]module[/\\]index|src[/\\]index)\.(?:js|ts|tsx)$/.test(
+      id
+    ) ||
+      /pushapp-appbrew[^/\\]*$/.test(id))
   )
-  return ids[0] ?? null
+}
+
+function factoryLooksLikeMeheryBarrel(src: string): boolean {
+  // Barrel defines initSdk + login. Avoid helpers/pushappAuth which only
+  // mentions pushappAuth and was incorrectly returned as the first hit.
+  return (
+    src.includes('initSdk') &&
+    (src.includes('OnUserLogin') ||
+      src.includes('updateUserProfile') ||
+      src.includes('PollOverlayProvider'))
+  )
+}
+
+function findMeheryModuleId(): string | null {
+  const factories = __webpack_require__.m || {}
+  const pathHits = Object.keys(factories).filter(isMeheryBarrelPath)
+  if (pathHits[0]) {
+    return pathHits[0]
+  }
+
+  // Production rspack may use numeric module ids — scan factory source.
+  let weakInitOnly: string | null = null
+  for (const [id, factory] of Object.entries(factories)) {
+    const src = typeof factory === 'function' ? String(factory) : ''
+    if (!src) continue
+    const mentionsPackage =
+      id.includes('react-native-pushapp-appbrew') ||
+      src.includes('react-native-pushapp-appbrew')
+    if (!mentionsPackage && !src.includes('initSdk')) {
+      continue
+    }
+    if (factoryLooksLikeMeheryBarrel(src)) {
+      return id
+    }
+    if (src.includes('function initSdk') || src.includes('initSdk=')) {
+      if (!weakInitOnly) weakInitOnly = id
+    }
+  }
+  return weakInitOnly
+}
+
+/** Collect candidate barrel module ids (path + factory heuristics). */
+function findMeheryModuleCandidates(): string[] {
+  const factories = __webpack_require__.m || {}
+  const out: string[] = []
+  const seen = new Set<string>()
+  const push = (id: string | null) => {
+    if (id && !seen.has(id)) {
+      seen.add(id)
+      out.push(id)
+    }
+  }
+
+  for (const id of Object.keys(factories)) {
+    if (isMeheryBarrelPath(id)) push(id)
+  }
+  for (const [id, factory] of Object.entries(factories)) {
+    const src = typeof factory === 'function' ? String(factory) : ''
+    if (factoryLooksLikeMeheryBarrel(src)) push(id)
+  }
+  push(findMeheryModuleId())
+  return out
 }
 
 function findMeheryDeviceModuleId(): string | null {
   const ids = Object.keys(__webpack_require__.m || {}).filter(
     (k) =>
-      k.includes('react-native-mehery-event-sender') &&
+      k.includes('react-native-pushapp-appbrew') &&
       /utils\/device\.(js|ts)$/.test(k)
   )
   return ids[0] ?? null
@@ -168,41 +234,75 @@ function touchMeheryModule(): void {
   }
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require('react-native-mehery-event-sender')
+    require('react-native-pushapp-appbrew')
   } catch {
     // expected under cycles
   }
 }
 
 function readMeheryExports(): MeherySdk | null {
-  const id = findMeheryModuleId()
-  if (!id) {
+  const candidates = findMeheryModuleCandidates()
+  if (candidates.length === 0) {
     return null
   }
 
   const safeReq = createSafeRequire()
-  const exports = forceCompleteModule(id, safeReq)
+  const tried: string[] = []
 
-  if (typeof exports.initSdk !== 'function') {
-    throw new Error(
-      `[Mehery] initSdk missing after factory; keys=${Object.keys(exports).join(',')}`
-    )
+  for (const id of candidates) {
+    try {
+      const exports = forceCompleteModule(id, safeReq)
+      tried.push(
+        `${id}→keys=${Object.keys(exports).slice(0, 8).join('|')}`
+      )
+      if (typeof exports.initSdk === 'function') {
+        return attachResetCachedDeviceId(exports as MeherySdk, safeReq)
+      }
+    } catch (e) {
+      tried.push(
+        `${id}→err=${e instanceof Error ? e.message : String(e)}`
+      )
+    }
   }
 
-  return attachResetCachedDeviceId(exports as MeherySdk, safeReq)
+  throw new Error(
+    `[Mehery] initSdk missing after factory; tried=${tried.join(' ;; ')}`
+  )
 }
 
 export function loadMeherySdk(): Promise<MeherySdk> {
   if (!sdkPromise) {
-    sdkPromise = Promise.resolve().then(() => {
+    sdkPromise = (async () => {
       touchMeheryModule()
-      const sdk = readMeheryExports()
+      let sdk = readMeheryExports()
+      if (!sdk) {
+        // Fallback when webpack module ids are opaque in release bundles.
+        try {
+          const mod = await import('react-native-pushapp-appbrew')
+          const candidate = (mod as { default?: MeherySdk }).default ??
+            (mod as MeherySdk)
+          if (typeof candidate?.initSdk === 'function') {
+            sdk = candidate
+          }
+        } catch (e) {
+          console.warn('[Mehery] dynamic import fallback failed', e)
+        }
+      }
+      // Re-scan after import() — factory map may now include the package.
+      if (!sdk) {
+        touchMeheryModule()
+        sdk = readMeheryExports()
+      }
       if (!sdk) {
         throw new Error(
-          '[Mehery] module id not in webpack map — is react-native-mehery-event-sender installed?'
+          '[Mehery] module id not in webpack map — is react-native-pushapp-appbrew installed?'
         )
       }
       return sdk
+    })().catch((error) => {
+      // Allow a later call to retry after a transient wrong-module hit.
+      sdkPromise = null
+      throw error
     })
   }
   return sdkPromise

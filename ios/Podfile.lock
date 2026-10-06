@@ -248,7 +248,7 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - MeheryEventSender (0.0.49):
+  - MeheryEventSender (1.0.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -3576,7 +3576,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - GoogleUtilities
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
-  - MeheryEventSender (from `../node_modules/react-native-mehery-event-sender`)
+  - MeheryEventSender (from `../node_modules/react-native-pushapp-appbrew`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
   - RCTRequired (from `../node_modules/react-native/Libraries/Required`)
@@ -3746,7 +3746,7 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2025-07-07-RNv0.81.0-e0fc67142ec0763c6b6153ca2bf96df815539782
   MeheryEventSender:
-    :path: "../node_modules/react-native-mehery-event-sender"
+    :path: "../node_modules/react-native-pushapp-appbrew"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -3989,7 +3989,7 @@ SPEC CHECKSUMS:
   libavif: 84bbb62fb232c3018d6f1bab79beea87e35de7b7
   libdav1d: 23581a4d8ec811ff171ed5e2e05cd27bad64c39f
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
-  MeheryEventSender: ae2fb2b897dd04ada0a0010d2a650a9893a413f7
+  MeheryEventSender: bf4540b8a85394bd7e2fd4f795f6374a6bc6bcaa
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669
@@ -4103,6 +4103,6 @@ SPEC CHECKSUMS:
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   Yoga: 00013dd9cde63a2d98e8002fcc4f5ddb66c10782
 
-PODFILE CHECKSUM: 82192af4e9236713bf3615e6c10e2425b2fc2c97
+PODFILE CHECKSUM: 9e17a956f373649f6f4132e2685e1a6e8b393702
 
 COCOAPODS: 1.16.2

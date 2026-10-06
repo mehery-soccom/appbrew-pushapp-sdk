@@ -1,0 +1,37 @@
+---
+description: Canonical PushApp/Mehery customer profile PUT payload shape
+globs: src/mehery/**/*,vendor/react-native-pushapp-appbrew/**
+alwaysApply: false
+---
+
+# PushApp customer profile payload
+
+Host calls `updateUserProfile` with Starquik's flat shape (only the fields this app has):
+
+```ts
+await updateUserProfile({
+  name: 'Jane Doe',
+  phones: ['+919876543210'],
+  email: 'jane@example.com',
+  alt_emails: [{ email: 'alt@example.com' }], // optional
+})
+```
+
+Wire PUT body:
+
+```json
+{
+  "name": "Jane Doe",
+  "phones": [{ "phone": "+919876543210" }],
+  "additionalInfo": {
+    "email": "jane@example.com",
+    "alt_emails": [{ "email": "alt@example.com" }]
+  }
+}
+```
+
+- Host builder: `buildMeheryProfileInfo` — never invents `source` (admin-only). Do not copy Starquik commerce fields (cart_value, order dates, segments).
+- SDK: scalar `email` stays in `additionalInfo` (PushApp rejects a top-level `emails` add). `phones` strings normalize to `[{ phone }]`. Name is a plain string.
+- Pass `code` / `rmCode` only when the caller already has them; do not invent.
+
+Builders: `buildProfileApiPayload` in `profileSnapshotCompare.ts`; host `buildMeheryProfileInfo` in `buildMeheryProfileInfo.ts`.

@@ -6,7 +6,13 @@ import org.json.JSONObject
 object NotificationPayloadUtils {
     const val MAX_CAROUSEL_IMAGES = 4
     private val singleImageKeys = listOf("image", "imageUrl", "image_url")
-    private val listImageKeys = listOf("imageUrls", "image_urls", "carousel_images", "images")
+    private val listImageKeys = listOf(
+        "imageUrls",
+        "image_urls",
+        "carousel_images",
+        "images",
+        "media-url"
+    )
     private val customTemplateKeys = listOf(
         "tapText",
         "titleColorHex",
@@ -42,23 +48,90 @@ object NotificationPayloadUtils {
     }
 
     fun extractImageList(data: Map<String, String>): List<String> {
-        for (key in listImageKeys) {
-            val parsed = parseJsonArray(data[key])
-            if (parsed.isNotEmpty()) {
-                return parsed
+        val candidates = mutableListOf<List<String>>()
+        for (map in mapsToScanForImages(data)) {
+            for (key in listImageKeys) {
+                val parsed = parseJsonArray(map[key])
+                if (parsed.isNotEmpty()) {
+                    candidates.add(parsed)
+                }
+            }
+            val indexed = extractIndexedImageList(map)
+            if (indexed.isNotEmpty()) {
+                candidates.add(indexed)
             }
         }
 
-        val indexed = mutableListOf<String>()
-        var index = 1
-        while (true) {
-            val key = "image$index"
-            if (!data.containsKey(key)) break
-            val value = data[key]?.trim()
-            if (!value.isNullOrEmpty()) {
-                indexed.add(value)
+        val longest = candidates.maxByOrNull { it.size }.orEmpty()
+        if (longest.size >= 2) {
+            return longest.distinct()
+        }
+
+        val unique = linkedSetOf<String>()
+        candidates.forEach { unique.addAll(it) }
+        val single = resolveSingleImageUrl(data)
+        if (single.isNotEmpty()) unique.add(single)
+        return unique.toList()
+    }
+
+    /**
+     * PushApp / FCM often nests carousel URLs in `style` or `templateData` (same as CTA URLs).
+     * Scan those blobs without letting a single `image` / `fcm_options` hero replace a 2+ list.
+     */
+    private fun mapsToScanForImages(data: Map<String, String>): List<Map<String, String>> {
+        val maps = mutableListOf(data)
+        jsonObjectAsStringMap(data["style"])?.let { maps.add(it) }
+        jsonObjectAsStringMap(data["templateData"])?.let { td ->
+            maps.add(td)
+            jsonObjectAsStringMap(td["style"])?.let { maps.add(it) }
+        }
+        jsonObjectAsStringMap(data["template"])?.let { tmpl ->
+            maps.add(tmpl)
+            jsonObjectAsStringMap(tmpl["style"])?.let { maps.add(it) }
+            jsonObjectAsStringMap(tmpl["data"])?.let { maps.add(it) }
+        }
+        return maps
+    }
+
+    private fun jsonObjectAsStringMap(raw: String?): Map<String, String>? {
+        val input = raw?.trim().orEmpty()
+        if (input.isEmpty() || !input.startsWith("{")) return null
+        return try {
+            jsonObjectToStringMap(JSONObject(input))
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    private fun jsonObjectToStringMap(obj: JSONObject): Map<String, String> {
+        val out = mutableMapOf<String, String>()
+        val keys = obj.keys()
+        while (keys.hasNext()) {
+            val k = keys.next()
+            if (k.isBlank()) continue
+            val v = obj.opt(k) ?: continue
+            val asString = when (v) {
+                is String -> v.trim()
+                is JSONArray -> v.toString()
+                is JSONObject -> v.toString()
+                else -> v.toString().trim()
             }
-            index++
+            if (asString.isNotEmpty()) out[k] = asString
+        }
+        return out
+    }
+
+    /** Match JS: skip a missing `image1`, then stop at the first later gap. */
+    private fun extractIndexedImageList(data: Map<String, String>): List<String> {
+        val indexed = mutableListOf<String>()
+        for (index in 1..20) {
+            val key = "image$index"
+            val value = data[key]?.trim()
+            if (value.isNullOrEmpty()) {
+                if (index == 1) continue
+                break
+            }
+            indexed.add(value)
         }
         return indexed
     }

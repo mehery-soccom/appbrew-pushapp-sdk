@@ -22,7 +22,9 @@ jest.mock('../helpers/buildCommonHeaders', () => ({
 
 jest.mock('../helpers/tenantContext', () => ({
   extractChannelSegment: jest.fn((id: string) => id.split('_').pop() ?? id),
-  getApiBaseUrl: jest.fn().mockResolvedValue('https://demo.pushapp.ai/pushapp/api'),
+  getApiBaseUrl: jest
+    .fn()
+    .mockResolvedValue('https://demo.pushapp.ai/pushapp/api'),
   MEHERY_PUSHAPP_HOST_ROOT_KEY: 'mehery_pushapp_host_root',
 }));
 
@@ -38,6 +40,13 @@ jest.mock('../utils/ensureDeviceRegistered', () => ({
 
 jest.mock('../utils/geoIpContext', () => ({
   waitForGeoIp: jest.fn().mockResolvedValue({ ip: '' }),
+}));
+
+jest.mock('../utils/resolveDeviceHeaders', () => ({
+  attachDeviceInfo: (payload: Record<string, unknown>) => ({
+    ...payload,
+    device_info: { os_name: 'IOS' },
+  }),
 }));
 
 jest.mock('../utils/profileSnapshot', () => ({
@@ -58,6 +67,7 @@ import { ensureDeviceRegistered } from '../utils/ensureDeviceRegistered';
 import { waitForSdkReady } from '../utils/sdkReadiness';
 import {
   getEffectiveLinkChannelId,
+  getEffectiveUserId,
   OnUserLogin,
   persistRegisteredChannelId,
   REGISTERED_CHANNEL_ID_KEY,
@@ -69,13 +79,15 @@ describe('registered channel id for /device/link', () => {
     jest.clearAllMocks();
   });
 
-  it('getEffectiveLinkChannelId prefers mehery_registered_channel_id', async () => {
+  it('getEffectiveLinkChannelId prefers full init channel over numeric registered segment', async () => {
     (AsyncStorage.multiGet as jest.Mock).mockResolvedValue([
       [REGISTERED_CHANNEL_ID_KEY, '1780031354415'],
       ['mehery_channel_id', 'demo_1780031354415'],
     ]);
 
-    await expect(getEffectiveLinkChannelId()).resolves.toBe('1780031354415');
+    await expect(getEffectiveLinkChannelId()).resolves.toBe(
+      'demo_1780031354415'
+    );
   });
 
   it('getEffectiveLinkChannelId falls back to mehery_channel_id', async () => {
@@ -84,14 +96,28 @@ describe('registered channel id for /device/link', () => {
       ['mehery_channel_id', 'demo_1780031354415'],
     ]);
 
-    await expect(getEffectiveLinkChannelId()).resolves.toBe('demo_1780031354415');
+    await expect(getEffectiveLinkChannelId()).resolves.toBe(
+      'demo_1780031354415'
+    );
   });
 
   it('persistRegisteredChannelId stores trimmed channel id', async () => {
+    (AsyncStorage.getItem as jest.Mock).mockResolvedValue('');
     await persistRegisteredChannelId(' 1780031354415 ');
     expect(AsyncStorage.setItem).toHaveBeenCalledWith(
       REGISTERED_CHANNEL_ID_KEY,
       '1780031354415'
+    );
+  });
+
+  it('persistRegisteredChannelId upgrades numeric segment to full init channel', async () => {
+    (AsyncStorage.getItem as jest.Mock).mockResolvedValue(
+      'ecommerce_1786525308082'
+    );
+    await persistRegisteredChannelId('1786525308082');
+    expect(AsyncStorage.setItem).toHaveBeenCalledWith(
+      REGISTERED_CHANNEL_ID_KEY,
+      'ecommerce_1786525308082'
     );
   });
 });
@@ -132,6 +158,32 @@ describe('interactive event pre-link guard', () => {
   });
 });
 
+describe('getEffectiveUserId after logout', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('uses guest registered_user_id when UserLoggedIn is not true', async () => {
+    (AsyncStorage.multiGet as jest.Mock).mockResolvedValue([
+      ['user_id', 'customer_99'],
+      ['registered_user_id', 'guest_42'],
+      ['UserLoggedIn', 'false'],
+    ]);
+
+    await expect(getEffectiveUserId()).resolves.toBe('guest_42');
+  });
+
+  it('uses login user_id only while UserLoggedIn is true', async () => {
+    (AsyncStorage.multiGet as jest.Mock).mockResolvedValue([
+      ['user_id', 'customer_99'],
+      ['registered_user_id', 'guest_42'],
+      ['UserLoggedIn', 'true'],
+    ]);
+
+    await expect(getEffectiveUserId()).resolves.toBe('customer_99');
+  });
+});
+
 describe('OnUserLogin pending-event flush / rollback', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -142,7 +194,8 @@ describe('OnUserLogin pending-event flush / rollback', () => {
       if (key === 'user_id') return Promise.resolve('welop2');
       if (key === 'device_id') return Promise.resolve('device-1');
       if (key === 'mehery_channel_id') return Promise.resolve('demo_ch');
-      if (key === 'mehery_pushapp_host_root') return Promise.resolve('https://demo');
+      if (key === 'mehery_pushapp_host_root')
+        return Promise.resolve('https://demo');
       return Promise.resolve(null);
     });
   });
@@ -160,23 +213,26 @@ describe('OnUserLogin pending-event flush / rollback', () => {
   it('flushes queue when already logged in (no-op link)', async () => {
     (waitForSdkReady as jest.Mock).mockResolvedValue(true);
     (ensureDeviceRegistered as jest.Mock).mockResolvedValue(true);
-    (AsyncStorage.multiGet as jest.Mock).mockImplementation(async (keys: string[]) => {
-      const map: Record<string, string> = {
-        [REGISTERED_CHANNEL_ID_KEY]: 'demo_ch',
-        mehery_channel_id: 'demo_ch',
-        contact_id: 'welop2_device-1',
-        UserLoggedIn: 'true',
-        sessionId: 'sess-1',
-        mehery_last_linked_channel_id: 'demo_ch',
-        mehery_last_linked_host_root: 'https://demo',
-      };
-      return keys.map((k) => [k, map[k] ?? '']);
-    });
+    (AsyncStorage.multiGet as jest.Mock).mockImplementation(
+      async (keys: string[]) => {
+        const map: Record<string, string> = {
+          [REGISTERED_CHANNEL_ID_KEY]: 'demo_ch',
+          mehery_channel_id: 'demo_ch',
+          contact_id: 'welop2_device-1',
+          UserLoggedIn: 'true',
+          sessionId: 'sess-1',
+          mehery_last_linked_channel_id: 'demo_ch',
+          mehery_last_linked_host_root: 'https://demo',
+        };
+        return keys.map((k) => [k, map[k] ?? '']);
+      }
+    );
     (AsyncStorage.getItem as jest.Mock).mockImplementation((key: string) => {
       if (key === 'device_id') return Promise.resolve('device-1');
       if (key === 'user_id') return Promise.resolve('welop2');
       if (key === 'mehery_channel_id') return Promise.resolve('demo_ch');
-      if (key === 'mehery_pushapp_host_root') return Promise.resolve('https://demo');
+      if (key === 'mehery_pushapp_host_root')
+        return Promise.resolve('https://demo');
       return Promise.resolve(null);
     });
 

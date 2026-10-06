@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Dimensions, Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { sendCustomEvent, schedulePollCheck } from '../custom/CustomEvents';
 import { SDK_EVENT_NAMES } from './eventNames';
@@ -29,8 +30,13 @@ export async function trackAppInstallIfNeeded(): Promise<void> {
   }
 
   const isUpdate = Boolean(storedVersion);
-  const attributes: Record<string, string | boolean> = {
+  const { width, height } = Dimensions.get('screen');
+  const attributes: Record<string, string | boolean | number> = {
+    version: currentVersion,
     app_version: currentVersion,
+    sizeWidth: Math.round(width),
+    sizeHeight: Math.round(height),
+    platform: Platform.OS,
     update: isUpdate,
   };
   if (storedVersion) {

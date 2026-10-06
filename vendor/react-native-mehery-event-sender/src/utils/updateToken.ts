@@ -1,10 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 import { buildCommonHeaders } from '../helpers/buildCommonHeaders';
 import { getApiBaseUrl } from '../helpers/tenantContext';
 import { sdkLog } from '../helpers/sdkLogger';
+import { isFcmLikePushToken } from './pushToken';
 
 export async function updatePushToken(newToken: string): Promise<void> {
   if (!newToken) return;
+
+  if (Platform.OS === 'ios' && isFcmLikePushToken(newToken)) {
+    sdkLog.warn(
+      '[TokenUpdate] Ignoring FCM token on iOS — /update/token with FCM poisons the session ObjectId and breaks /device/link'
+    );
+    return;
+  }
 
   const [storedToken, contactId, channelId] = await AsyncStorage.multiGet([
     'lastRegisteredToken',

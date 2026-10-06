@@ -18,90 +18,59 @@ import {
   normalizeInAppCtaFields,
   type CtaTrackFields,
 } from '../utils/ctaTrackPayload';
+import { getPollWebViewProps } from '../helpers/pollTransparency';
 import inlinePollEmitter from './InlinePollEmitter';
+import {
+  reduceInlineContentHeight,
+  type InlineHeightState,
+} from './inlinePollHeight';
+import {
+  getInlinePoll,
+  renderInlinePoll,
+  type InlinePollRecord,
+} from './inlinePollRegistry';
 
-const inlinePollRegistry: Record<
-  string,
-  {
-    htmlContent: string;
-    style?: any;
-    updatedAt: number;
-    messageId?: string;
-    filterId?: string;
-    journiId?: string;
-  }
-> = {};
-
-export async function renderInlinePoll(
-  placeholderId: string,
-  htmlContent: string | null,
-  style?: any,
-  {
-    messageId,
-    filterId,
-    journiId,
-  }: { messageId?: string; filterId?: string; journiId?: string } = {}
-) {
-  // 🧹 Clear if null
-  if (!htmlContent) {
-    delete inlinePollRegistry[placeholderId];
-    sdkLog.log(`🧹 Cleared inline poll for ${placeholderId}`);
-    inlinePollEmitter.emit('inlinePollUpdated', { placeholderId, poll: null });
-    return;
-  }
-
-  const pollData = {
-    htmlContent,
-    style,
-    messageId,
-    filterId,
-    journiId,
-    updatedAt: Date.now(),
-  };
-
-  // 🧠 Save in memory only
-  inlinePollRegistry[placeholderId] = pollData;
-  sdkLog.log(
-    `💾 Saved inline poll in memory for ${placeholderId} @ ${pollData.updatedAt}`
-  );
-  inlinePollEmitter.emit('inlinePollUpdated', {
-    placeholderId,
-    poll: pollData,
-  });
-}
+export { renderInlinePoll };
 
 const MIN_HEIGHT = 1;
 const FALLBACK_HEIGHT = 120;
-const HEIGHT_BUFFER = 0;
+// Settled height per HTML so remounts don't collapse to FALLBACK and re-grow.
+const settledHeights = new Map<string, number>();
 
 export function InlinePollContainer({
   placeholderId,
 }: {
   placeholderId: string;
 }) {
-  const [poll, setPoll] = useState<any>(
-    inlinePollRegistry[placeholderId] || null
+  const [poll, setPoll] = useState<InlinePollRecord | null>(
+    getInlinePoll(placeholderId)
   );
-  const [contentHeight, setContentHeight] = useState<number>(FALLBACK_HEIGHT);
-  const lastHeightRef = useRef(0);
-  const mountTimeRef = useRef(Date.now());
+  const [contentHeight, setContentHeight] = useState<number>(
+    (poll?.htmlContent && settledHeights.get(poll.htmlContent)) ||
+      FALLBACK_HEIGHT
+  );
+  const heightStateRef = useRef<InlineHeightState>({
+    lastHeight: 0,
+    settled: false,
+  });
   const lastNativeTapRef = useRef(0);
+  const lastWidgetOpenKeyRef = useRef<string | null>(null);
   const webViewRef = useRef<WebView>(null);
 
   // 🔄 Load poll data on mount / placeholder change, and react immediately to updates
   useEffect(() => {
-    const applyPoll = (memPoll: (typeof inlinePollRegistry)[string] | null) => {
+    const applyPoll = (memPoll: InlinePollRecord | null) => {
       setPoll(memPoll?.htmlContent ? memPoll : null);
     };
 
-    applyPoll(inlinePollRegistry[placeholderId] || null);
+    applyPoll(getInlinePoll(placeholderId));
 
     const onUpdated = ({
       placeholderId: updatedId,
       poll: nextPoll,
     }: {
       placeholderId: string;
-      poll: (typeof inlinePollRegistry)[string] | null;
+      poll: InlinePollRecord | null;
     }) => {
       if (updatedId !== placeholderId) return;
       sdkLog.log(`🔄 Inline poll updated for ${placeholderId}`);
@@ -172,14 +141,17 @@ export function InlinePollContainer({
     return '';
   };
 
-  // Reset height when poll content changes
+  // Reset height only when the HTML changes. A new message id for the same
+  // campaign must not collapse the banner back to the fallback height.
   useEffect(() => {
     if (poll?.htmlContent) {
-      mountTimeRef.current = Date.now();
-      lastHeightRef.current = 0;
-      setContentHeight(FALLBACK_HEIGHT);
+      const known = settledHeights.get(poll.htmlContent);
+      heightStateRef.current = known
+        ? { lastHeight: known, settled: true }
+        : { lastHeight: 0, settled: false };
+      setContentHeight(known || FALLBACK_HEIGHT);
     }
-  }, [poll?.htmlContent, poll?.updatedAt]);
+  }, [poll?.htmlContent]);
 
   // 🧩 Handle messages from WebView
   const onMessage = (event: any) => {
@@ -191,19 +163,17 @@ export function InlinePollContainer({
         message.type === 'contentHeight' &&
         typeof message.height === 'number'
       ) {
-        const newHeight = Math.max(MIN_HEIGHT, message.height + HEIGHT_BUFFER);
-        const elapsed = Date.now() - mountTimeRef.current;
-        // Block late height growth (e.g. double-tap zoom) after initial layout settles
-        if (
-          lastHeightRef.current > 0 &&
-          newHeight > lastHeightRef.current &&
-          elapsed > 1000
-        ) {
-          return;
+        const next = reduceInlineContentHeight(
+          heightStateRef.current,
+          message.height,
+          message.imagesReady === true
+        );
+        heightStateRef.current = next.state;
+        if (next.height != null) {
+          setContentHeight(next.height);
         }
-        if (Math.abs(newHeight - lastHeightRef.current) > 2) {
-          lastHeightRef.current = newHeight;
-          setContentHeight(newHeight);
+        if (next.state.settled && poll?.htmlContent) {
+          settledHeights.set(poll.htmlContent, next.state.lastHeight);
         }
         return;
       }
@@ -282,16 +252,31 @@ export function InlinePollContainer({
     }
   };
 
+  // Impression only — must be LOG. Default INTERACTIVE re-schedules poll
+  // fetch → renderInlinePoll → this effect → infinite blink + rising counts.
   useEffect(() => {
-    if (poll?.htmlContent) {
-      sdkLog.log('🧩 Inline poll rendered:', placeholderId);
-      sendCustomEvent('widget_open', {
+    if (!poll?.htmlContent) {
+      lastWidgetOpenKeyRef.current = null;
+      return;
+    }
+    const openKey = `${placeholderId}|${poll.messageId ?? ''}|${
+      poll.updatedAt ?? ''
+    }`;
+    if (lastWidgetOpenKeyRef.current === openKey) {
+      return;
+    }
+    lastWidgetOpenKeyRef.current = openKey;
+    sdkLog.log('🧩 Inline poll rendered:', placeholderId);
+    void sendCustomEvent(
+      'widget_open',
+      {
         compare: placeholderId,
         messageId: poll?.messageId,
         filterId: poll?.filterId,
-      });
-    }
-  }, [placeholderId, poll]);
+      },
+      { eventType: 'LOG' }
+    );
+  }, [placeholderId, poll?.htmlContent, poll?.messageId, poll?.updatedAt, poll?.filterId]);
 
   const handleWebViewLoadEnd = useCallback(() => {
     webViewRef.current?.injectJavaScript(
@@ -339,6 +324,13 @@ export function InlinePollContainer({
       const send = (data) => window.ReactNativeWebView.postMessage(JSON.stringify(data));
       document.addEventListener('gesturestart', function(e) { e.preventDefault(); }, { passive: false });
       document.addEventListener('dblclick', function(e) { e.preventDefault(); }, { passive: false });
+function imagesReady() {
+  var imgs = document.querySelectorAll('img');
+  for (var i = 0; i < imgs.length; i++) {
+    if (!imgs[i].complete) return false;
+  }
+  return true;
+}
 function measureAndSend() {
   var wrapper = document.querySelector('.banner-wrapper')
     || document.querySelector('.preview-wrapper')
@@ -346,18 +338,23 @@ function measureAndSend() {
   var height = wrapper
     ? Math.ceil(wrapper.getBoundingClientRect().height)
     : Math.ceil(document.documentElement.scrollHeight);
-  send({ type: 'contentHeight', height: height });
+  send({ type: 'contentHeight', height: height, imagesReady: imagesReady() });
 }
       if (document.readyState === 'complete') {
         measureAndSend();
         setTimeout(measureAndSend, 400);
+        setTimeout(measureAndSend, 800);
       } else {
         window.addEventListener('load', function() {
           measureAndSend();
+          setTimeout(measureAndSend, 400);
         });
       }
       document.querySelectorAll('img').forEach(function(img) {
-        img.onload = measureAndSend;
+        img.onload = function() {
+          measureAndSend();
+          setTimeout(measureAndSend, 300);
+        };
         if (img.complete) measureAndSend();
       });
       
@@ -559,24 +556,24 @@ function measureAndSend() {
   const injectedHTML = injectInlineHtmlFixes(poll.htmlContent);
   const containerHeight = Math.max(MIN_HEIGHT, contentHeight);
   const hasNotificationUrl = !!inlineNotificationUrl.trim();
+  const webViewProps = getPollWebViewProps('#ffffff');
 
   return (
     <View
       style={[styles.container, { height: containerHeight }]}
-      key={poll?.updatedAt}
       collapsable={Platform.OS === 'android' ? false : undefined}
       pointerEvents="box-none"
     >
       <WebView
         ref={webViewRef}
         originWhitelist={['*']}
-        source={{ html: injectedHTML }}
+        source={{ html: injectedHTML, baseUrl: 'about:blank' }}
         injectedJavaScript={injectedJS}
         injectedJavaScriptBeforeContentLoaded="true;"
         onMessage={onMessage}
         onLoadEnd={handleWebViewLoadEnd}
         pointerEvents={hasNotificationUrl ? 'none' : 'auto'}
-        style={[styles.webview, { height: containerHeight }]}
+        style={styles.webview}
         scrollEnabled={false}
         bounces={false}
         overScrollMode="never"
@@ -584,13 +581,15 @@ function measureAndSend() {
         nestedScrollEnabled={Platform.OS === 'android'}
         setSupportMultipleWindows={false}
         mixedContentMode="always"
-        androidLayerType="software"
+        androidLayerType={webViewProps.androidLayerType}
+        // @ts-ignore opaque is a valid iOS WebView prop not in current type defs
+        opaque={webViewProps.opaque}
         javaScriptEnabled
         domStorageEnabled
       />
       {hasNotificationUrl ? (
         <Pressable
-          style={[styles.tapOverlay, { height: containerHeight }]}
+          style={styles.tapOverlay}
           onPress={handleNotificationNativeTap}
           android_ripple={{ color: 'rgba(0,0,0,0.04)', borderless: true }}
           accessibilityRole="link"
@@ -616,6 +615,7 @@ const styles = StyleSheet.create({
     }),
   },
   webview: {
+    flex: 1,
     backgroundColor: '#ffffff',
     ...Platform.select({
       android: { elevation: 0 },

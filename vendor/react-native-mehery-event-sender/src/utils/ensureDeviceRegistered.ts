@@ -1,8 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
 import { Platform } from 'react-native';
 import { getFcmToken } from '../firebase/Fb';
 import { registerDeviceWithAPNS } from '../firebase/IosAPNS';
 import { sdkLog } from '../helpers/sdkLogger';
+import { getDeviceId } from './device';
+import { buildDevApnsToken, pickApnsToken } from './pushToken';
 import {
   DEFAULT_USER_ID_WAIT_MS,
   waitForEffectiveUserId,
@@ -10,8 +13,26 @@ import {
 
 const TOKEN_POLL_MS = 400;
 const DEFAULT_TIMEOUT_MS = 15_000;
+/** Simulator rarely gets APNs — fail fast then use a stable hex stand-in. */
+const SIMULATOR_APNS_WAIT_MS = 3_000;
 /** Brief pause after register so the event API can resolve the device. */
 export const POST_REGISTER_SETTLE_MS = 1_000;
+
+function isLikelyIosSimulator(): boolean {
+  if (Platform.OS !== 'ios') return false;
+  try {
+    // Optional peer — App Brew ships react-native-device-info.
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const DeviceInfo = require('react-native-device-info');
+    if (typeof DeviceInfo.isEmulatorSync === 'function') {
+      return Boolean(DeviceInfo.isEmulatorSync());
+    }
+  } catch {
+    // fall through
+  }
+  // Unknown → do not invent an APNs token (would break real-device linking).
+  return false;
+}
 
 async function waitForStoredPushToken(timeoutMs: number): Promise<string> {
   const startedAt = Date.now();
@@ -22,8 +43,17 @@ async function waitForStoredPushToken(timeoutMs: number): Promise<string> {
       'APNStoken',
     ]).then((entries) => entries.map(([_, value]) => value || ''));
 
-    const token = lastRegisteredToken || apnsToken;
+    const token = pickApnsToken(apnsToken, lastRegisteredToken);
     if (token) return token;
+
+    try {
+      const firebaseApns = await messaging().getAPNSToken();
+      if (firebaseApns && !firebaseApns.includes(':')) {
+        return firebaseApns;
+      }
+    } catch {
+      // APNs may not be wired yet; keep polling.
+    }
 
     await new Promise((resolve) => setTimeout(resolve, TOKEN_POLL_MS));
   }
@@ -76,7 +106,21 @@ export async function ensureDeviceRegistered(
       sdkLog.warn('[SDK] getFcmToken failed during ensureDeviceRegistered', error);
     }
   } else {
-    const token = await waitForStoredPushToken(remainingMs());
+    const onSimulator = isLikelyIosSimulator();
+    const apnsWaitMs = onSimulator
+      ? Math.min(remainingMs(), SIMULATOR_APNS_WAIT_MS)
+      : remainingMs();
+    let token = await waitForStoredPushToken(apnsWaitMs);
+
+    if (!token && onSimulator) {
+      const deviceId = await getDeviceId();
+      token = buildDevApnsToken(deviceId);
+      await AsyncStorage.setItem('APNStoken', token);
+      sdkLog.warn(
+        '[SDK] No APNs token on iOS simulator — using stable hex token for /device/register (dev only).'
+      );
+    }
+
     if (token) {
       try {
         await registerDeviceWithAPNS(token);

@@ -5,6 +5,8 @@ export { CustomBanner } from './components/CustomBanner';
 export { getDeviceId } from './utils/device';
 export { setDeviceMetadata } from './utils/deviceMetadata';
 export { setGeoIP } from './utils/geoIpContext';
+export { registerDeviceWithAPNS } from './firebase/IosAPNS';
+export { ensureDeviceRegistered } from './utils/ensureDeviceRegistered';
 export { updatePushToken } from './utils/updateToken';
 export type { GeoIpInput, GeoIpPayload } from './types/geoIp';
 export type { SdkInitEnvironmentParam } from './helpers/tenantContext';
@@ -76,7 +78,6 @@ import { getDeviceId as fetchDeviceId } from './utils/device';
 // import { registerDeviceWithFCM } from './utils/registerDevice';
 import { registerDeviceWithAPNS } from './firebase/IosAPNS';
 import { updatePushToken } from './utils/updateToken';
-import messaging from '@react-native-firebase/messaging';
 // import { showPollOverlay, hidePollOverlay } from './components/PollOverlay';
 // 🛡 Safe NativeEventEmitter setup
 import { PollOverlayProvider } from './components/PollOverlay';
@@ -86,6 +87,7 @@ import { markSdkReady, resetSdkReady } from './utils/sdkReadiness';
 export { TooltipPollContainer } from './components/TooltipPollContainer';
 export {
   registerFcmBackgroundHandler,
+  handleBackgroundFcmMessage,
   setFcmBackgroundMessageListener,
 } from './firebase/Fb';
 export type { FcmBackgroundMessageListener } from './firebase/Fb';
@@ -120,6 +122,10 @@ import {
   type CtaTrackFields,
 } from './utils/ctaTrackPayload';
 import { openNotificationLink } from './utils/notificationLink';
+import {
+  isSilentKeepAlive,
+  replySilentKeepAlive,
+} from './utils/silentKeepAlive';
 
 const { PushTokenManager } = NativeModules;
 // const pushEmitter = PushTokenManager
@@ -133,6 +139,31 @@ sdkLog.log('PushTokenManager:', NativeModules.PushTokenManager);
 
 let iosListenerAdded = false;
 
+function isUsableApnsToken(token: string, type?: string): boolean {
+  const trimmed = token.trim();
+  if (!trimmed) return false;
+  if (type === 'fcm') return false;
+  // FCM registration tokens contain ':' (e.g. APA91b...). APNs is hex.
+  if (trimmed.includes(':')) return false;
+  return /^[0-9a-f]{32,}$/i.test(trimmed);
+}
+
+async function applyNativePushToken(type: string, token: string): Promise<void> {
+  if (!isUsableApnsToken(token, type)) {
+    sdkLog.warn(
+      `[SDK] Ignoring non-APNs push token from native (type=${type}, len=${token?.length ?? 0})`
+    );
+    return;
+  }
+  sdkLog.log(`📡 Received ${type} token from native: ${token}`);
+  const isRegistered = await AsyncStorage.getItem('isRegistered');
+  if (isRegistered === 'true') {
+    await updatePushToken(token);
+  } else {
+    await registerDeviceWithAPNS(token);
+  }
+}
+
 export const iosChecker = () => {
   if (!PushTokenManager) {
     sdkLog.warn('⚠️ Native module PushTokenManager is NOT available.');
@@ -141,6 +172,7 @@ export const iosChecker = () => {
 
   if (iosListenerAdded) {
     sdkLog.log('ℹ️ iOS listener already added, skipping duplicate.');
+    void replayBufferedIosApnsToken();
     return;
   }
 
@@ -148,17 +180,37 @@ export const iosChecker = () => {
 
   sdkLog.log('🍏 iOS: Setting up PushTokenEvent listener');
   pushEmitter.addListener('PushTokenEvent', async ({ type, token }) => {
-    sdkLog.log(`📡 Received ${type} token from native: ${token}`);
-    const isRegistered = await AsyncStorage.getItem('isRegistered');
-    if (isRegistered === 'true') {
-      updatePushToken(token);
-    } else {
-      registerDeviceWithAPNS(token);
-    }
+    await applyNativePushToken(type, token);
   });
 
   iosListenerAdded = true;
+  void replayBufferedIosApnsToken();
 };
+
+async function replayBufferedIosApnsToken(): Promise<void> {
+  try {
+    if (typeof PushTokenManager.getLastToken === 'function') {
+      const last = await PushTokenManager.getLastToken();
+      if (last?.token) {
+        await applyNativePushToken(last.type || 'apns', last.token);
+      }
+    }
+  } catch (e) {
+    sdkLog.warn('[SDK] PushTokenManager.getLastToken failed', e);
+  }
+
+  try {
+    const messaging = require('@react-native-firebase/messaging').default as {
+      (): { getAPNSToken: () => Promise<string | null> };
+    };
+    const apns = await messaging().getAPNSToken();
+    if (apns) {
+      await applyNativePushToken('apns', apns);
+    }
+  } catch (e) {
+    sdkLog.warn('[SDK] messaging().getAPNSToken failed during iosChecker replay', e);
+  }
+}
 
 let notificationListenerAdded = false;
 const seenIosPushTrackEvents = new Set<string>();
@@ -242,100 +294,6 @@ const trackIosPushEvent = async (
   }
 };
 
-/* -------------------------------------------------------------------------- */
-/*                    SILENT NOTIFICATION DAILY LOGIC                           */
-/* -------------------------------------------------------------------------- */
-
-const SILENT_PING_KEY = 'mehery_last_silent_ping_date';
-
-const isAfterNoon = () => {
-  const now = new Date();
-
-  const noon = new Date();
-  noon.setHours(12, 0, 0, 0); // 12:00 PM local time
-
-  return now >= noon;
-};
-
-const shouldRunSilentPingToday = async (): Promise<boolean> => {
-  const lastRun = await AsyncStorage.getItem(SILENT_PING_KEY);
-  const today = new Date().toISOString().split('T')[0];
-
-  if (lastRun === today) return false;
-
-  await AsyncStorage.setItem(SILENT_PING_KEY, today ?? '');
-  return true;
-};
-
-const sendDailyPing = async () => {
-  try {
-    const channelId = await AsyncStorage.getItem('mehery_channel_id');
-    const contactId = await AsyncStorage.getItem('contact_id');
-
-    if (!channelId || !contactId) {
-      sdkLog.warn('⚠️ Missing channel_id or contact_id. Skipping ping.');
-      return;
-    }
-
-    const payload = {
-      channel_id: channelId,
-      contact_id: contactId,
-    };
-
-    sdkLog.log('📡 Sending silent daily ping:', payload);
-    const commonHeaders = await buildCommonHeaders();
-
-    const apiBaseUrl = await getApiBaseUrl();
-    await fetch(`${apiBaseUrl}/ping`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...commonHeaders,
-      },
-      body: JSON.stringify(payload),
-    });
-
-    sdkLog.log('✅ Silent daily ping sent');
-
-    const currentToken = await messaging().getToken();
-    if (currentToken) {
-      updatePushToken(currentToken);
-    }
-  } catch (err) {
-    sdkLog.error('❌ Silent ping failed:', err);
-  }
-};
-
-// export const addNotificationDebugListener = () => {
-//   if (!PushTokenManager) {
-//     console.warn('⚠️ PushTokenManager not available for notification listener');
-//     return;
-//   }
-
-//   if (notificationListenerAdded) {
-//     console.log('ℹ️ Notification listener already added');
-//     return;
-//   }
-
-//   const emitter = new NativeEventEmitter(PushTokenManager);
-
-//   console.log('🔔 Setting up notification payload listener');
-
-//   emitter.addListener('PushNotificationEvent', async (payload) => {
-//     console.log(
-//       '📦 [SDK][JS] Notification payload received:',
-//       JSON.stringify(payload, null, 2)
-//     );
-//     console.log('🚨 LISTENER FIRED');
-//     console.log('📦 Payload raw:', payload);
-
-//     // 🚀 Send to Slack
-//     // await sendPayloadToSlack(payload);
-//   });
-
-//   notificationListenerAdded = true;
-// };
-
 export const addNotificationDebugListener = () => {
   if (!PushTokenManager) return;
   if (notificationListenerAdded) return;
@@ -345,58 +303,45 @@ export const addNotificationDebugListener = () => {
   emitter.addListener('PushNotificationEvent', async (payload) => {
     sdkLog.log('📦 Push payload received:', payload);
 
-    if (payload?.type !== 'silent_daily_ping') {
-      const raw = payload as Record<string, unknown>;
-      const merged = mergeIosNotificationPayload(raw);
-      const actionId = normalizePayloadString(merged.actionIdentifier);
-      const isDefaultTap =
-        actionId === 'com.apple.UNNotificationDefaultActionIdentifier';
-      const isDismiss =
-        actionId === 'com.apple.UNNotificationDismissActionIdentifier';
+    if (isSilentKeepAlive(payload)) {
+      await replySilentKeepAlive(payload);
+      return;
+    }
 
-      if (actionId && !isDefaultTap && !isDismiss) {
-        const cta = resolvePushCtaFields(actionId, merged);
-        await trackIosPushEvent('cta', merged, cta);
-      } else if (isDefaultTap) {
-        await trackIosPushEvent('opened', merged);
-        const bodyUrl = resolveNotificationUrl(merged);
-        if (bodyUrl) {
-          try {
-            await openNotificationLink(bodyUrl);
-            sdkLog.log(
-              '[PushNotificationEvent] iOS body tap opened notification_url:',
-              bodyUrl
-            );
-          } catch (e) {
-            sdkLog.warn(
-              '[PushNotificationEvent] iOS openNotificationLink failed:',
-              e
-            );
-          }
-        } else {
+    const raw = payload as Record<string, unknown>;
+    const merged = mergeIosNotificationPayload(raw);
+    const actionId = normalizePayloadString(merged.actionIdentifier);
+    const isDefaultTap =
+      actionId === 'com.apple.UNNotificationDefaultActionIdentifier';
+    const isDismiss =
+      actionId === 'com.apple.UNNotificationDismissActionIdentifier';
+
+    if (actionId && !isDefaultTap && !isDismiss) {
+      const cta = resolvePushCtaFields(actionId, merged);
+      await trackIosPushEvent('cta', merged, cta);
+    } else if (isDefaultTap) {
+      await trackIosPushEvent('opened', merged);
+      const bodyUrl = resolveNotificationUrl(merged);
+      if (bodyUrl) {
+        try {
+          await openNotificationLink(bodyUrl);
+          sdkLog.log(
+            '[PushNotificationEvent] iOS body tap opened notification_url:',
+            bodyUrl
+          );
+        } catch (e) {
           sdkLog.warn(
-            '[PushNotificationEvent] iOS body tap: no notification_url in payload (checked style/templateData). Keys:',
-            Object.keys(merged).join(', ')
+            '[PushNotificationEvent] iOS openNotificationLink failed:',
+            e
           );
         }
+      } else {
+        sdkLog.warn(
+          '[PushNotificationEvent] iOS body tap: no notification_url in payload (checked style/templateData). Keys:',
+          Object.keys(merged).join(', ')
+        );
       }
-      return;
     }
-
-    // ⏰ Ensure it's after 12 noon
-    if (!isAfterNoon()) {
-      sdkLog.log('⏳ Silent ping received before 12 noon, skipping');
-      return;
-    }
-
-    // 🧠 Ensure only once per day
-    const shouldRun = await shouldRunSilentPingToday();
-    if (!shouldRun) {
-      sdkLog.log('⏭️ Silent ping already executed today');
-      return;
-    }
-
-    await sendDailyPing();
   });
 
   notificationListenerAdded = true;
@@ -458,7 +403,7 @@ export const initSdk = async (
   let initSucceeded = false;
   try {
     sdkLog.log('🧩 Initializing Mehery SDK...');
-    void resolveDeviceHeaders();
+    await resolveDeviceHeaders();
     sdkLog.log(context ? 'Received' : 'Not provided');
     sdkLog.log(`🏷️ Identifier: ${identifier}`);
     if (environment === 'development') {

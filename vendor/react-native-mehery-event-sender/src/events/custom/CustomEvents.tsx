@@ -14,6 +14,13 @@ import { getDeviceId } from '../../utils/device';
 import { waitForGeoIp } from '../../utils/geoIpContext';
 import { sdkLog } from '../../helpers/sdkLogger';
 import { resolvePollBackgroundColor } from '../../helpers/resolvePollBackgroundColor';
+import { resolvePollPlaceholderId } from '../../helpers/resolvePollPlaceholderId';
+import {
+  claimInAppAck,
+  noteUnchangedInAppPoll,
+  releaseInAppAck,
+  shouldIgnoreWebSocketPoll,
+} from './pollFetchGuard';
 import {
   getEffectiveContactId,
   shouldBlockInteractiveBeforeLink,
@@ -148,7 +155,10 @@ export async function sendCustomEvent(
   }
 
   const event_type = options?.eventType ?? 'INTERACTIVE';
-  if (event_type === 'INTERACTIVE' && (await shouldBlockInteractiveBeforeLink())) {
+  if (
+    event_type === 'INTERACTIVE' &&
+    (await shouldBlockInteractiveBeforeLink())
+  ) {
     sdkLog.warn(
       `[SDK] Skipping ${event_name} event: fired before /device/link — call OnUserLogin first`
     );
@@ -259,6 +269,12 @@ export function schedulePollCheck(
 }
 
 export function handleWebSocketPollSignal(): void {
+  if (shouldIgnoreWebSocketPoll()) {
+    sdkLog.log(
+      '[SDK] WebSocket POLL ignored — unchanged in-app already on screen'
+    );
+    return;
+  }
   sdkLog.log(
     `[SDK] WebSocket POLL signal — checking queue in ${WS_POLL_SIGNAL_DELAY_MS}ms`
   );
@@ -544,6 +560,8 @@ export async function sendPollEvent() {
     sdkLog.log('poll data:', data);
 
     if (data.results?.length > 0) {
+      let embeddedCount = 0;
+      let freshCount = 0;
       data.results.forEach((poll: any) => {
         const htmlContent = poll?.template?.style?.html;
         const code = poll?.template?.style?.code ?? '';
@@ -558,20 +576,30 @@ export async function sendPollEvent() {
         sdkLog.log('poll.messageId:', message_id);
         sdkLog.log('poll.journiId:', journi_id);
 
-        sendAck(poll.contactId, message_id);
+        void sendAck(poll.contactId, message_id);
 
-        // Prefer journey event compare; fall back to template style.placeholder_id
-        // (WS/poll often delivers event: null for inline/tooltip campaigns).
-        const placeholderId =
-          event?.event_data?.compare || style?.placeholder_id || '';
+        // Prefer journey event compare; fall back to template style.placeholder_id.
+        // Empty `compare: []` is truthy in JS — normalize so fallback works.
+        const placeholderId = resolvePollPlaceholderId(
+          event?.event_data?.compare,
+          style?.placeholder_id
+        );
 
         if (code.includes('inline') && placeholderId) {
-          renderInlinePoll(placeholderId, htmlContent, style, {
-            filterId: filter_id,
-            messageId: message_id,
-            journiId: journi_id,
-          });
-        } else if (code.includes('tooltip') && placeholderId) {
+          embeddedCount += 1;
+          if (
+            renderInlinePoll(placeholderId, htmlContent, style, {
+              filterId: filter_id,
+              messageId: message_id,
+              journiId: journi_id,
+            })
+          ) {
+            freshCount += 1;
+          }
+        } else if (code.includes('tooltip')) {
+          embeddedCount += 1;
+          // Empty placeholder still renders: TooltipPollManager fans out to
+          // registered containers (campaigns often send compare: []).
           const interpolationContext = {
             ...templateModelData,
             ...(event?.event_data ?? {}),
@@ -614,11 +642,23 @@ export async function sendPollEvent() {
                 : '',
           };
 
-          renderTooltipPoll(placeholderId, {
-            ...tooltipData,
-            tooltipKey: event?.eventId || Date.now(),
-          });
+          if (!placeholderId) {
+            sdkLog.warn(
+              '[SDK] tooltip poll missing placeholder_id/compare; broadcasting to registered containers'
+            );
+          }
+
+          if (
+            renderTooltipPoll(placeholderId, {
+              ...tooltipData,
+              // Prefer stable ids so remounts don't look like a new campaign.
+              tooltipKey: event?.eventId || message_id || Date.now(),
+            })
+          ) {
+            freshCount += 1;
+          }
         } else if (isOverlayPollCode(code)) {
+          freshCount += 1;
           pollQueue.push({
             htmlContent,
             code,
@@ -629,6 +669,10 @@ export async function sendPollEvent() {
           });
         }
       });
+
+      if (embeddedCount > 0 && freshCount === 0) {
+        noteUnchangedInAppPoll();
+      }
 
       if (!showingPoll) {
         showNextPoll();
@@ -642,6 +686,11 @@ export async function sendPollEvent() {
 export async function sendAck(contactId: string, messageId: string) {
   if (!contactId || !messageId) {
     sdkLog.warn('⚠️ Missing contactId or messageId for ACK');
+    return;
+  }
+
+  if (!claimInAppAck(messageId)) {
+    sdkLog.log(`⏭️ Skip duplicate ack for ${messageId}`);
     return;
   }
 
@@ -666,6 +715,7 @@ export async function sendAck(contactId: string, messageId: string) {
     const data = await res.json();
     sdkLog.log('✅ Acknowledgement response:', data);
   } catch (error) {
+    releaseInAppAck(messageId);
     sdkLog.warn('❌ ACK API error:', error);
   }
 }
@@ -715,9 +765,19 @@ function getAlignment(style: any) {
 export function OnPageOpen(page_name: string): () => void {
   const timer = setTimeout(() => {
     try {
-      sendCustomEvent('page_open', { page: page_name });
-      sendCustomEvent('widget_open', { compare: 'center' });
-      sendCustomEvent('widget_open', { compare: 'login_banner' });
+      // LOG: analytics-only — INTERACTIVE schedules poll checks and can show
+      // roadblocks that steal focus from screens like Search Suggestions.
+      sendCustomEvent('page_open', { page: page_name }, { eventType: 'LOG' });
+      sendCustomEvent(
+        'widget_open',
+        { compare: 'center' },
+        { eventType: 'LOG' }
+      );
+      sendCustomEvent(
+        'widget_open',
+        { compare: 'login_banner' },
+        { eventType: 'LOG' }
+      );
     } catch (error) {
       sdkLog.log(`Error sending events for page: ${page_name}`, error);
     }
@@ -727,7 +787,11 @@ export function OnPageOpen(page_name: string): () => void {
 }
 
 export function OnPageClose(page_name = 'login') {
-  return sendCustomEvent('page_closed', { page: page_name });
+  return sendCustomEvent(
+    'page_closed',
+    { page: page_name },
+    { eventType: 'LOG' }
+  );
 }
 
 export function OnAppOpen() {

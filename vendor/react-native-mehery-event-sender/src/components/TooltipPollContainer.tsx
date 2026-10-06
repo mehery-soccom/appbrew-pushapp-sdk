@@ -4,7 +4,9 @@ import TooltipPoll from './TooltipPoll';
 import tooltipEmitter from './TooltipEmitter';
 import {
   getCachedTooltipPoll,
+  registerTooltipPlaceholder,
   renderTooltipPoll,
+  unregisterTooltipPlaceholder,
 } from './TooltipPollManager';
 import { sdkLog } from '../helpers/sdkLogger';
 import { buildCommonHeaders } from '../helpers/buildCommonHeaders';
@@ -14,6 +16,7 @@ import {
   buildSyntheticCtaData,
   type CtaTrackFields,
 } from '../utils/ctaTrackPayload';
+import { normalizePlaceholderId } from '../helpers/resolvePollPlaceholderId';
 
 export { renderTooltipPoll };
 
@@ -31,9 +34,15 @@ function normalizeUrl(rawUrl?: string) {
 export function TooltipPollContainer({
   placeholderId,
   children,
+  tooltipTop = -100,
+  tooltipLeft = 0,
 }: {
   placeholderId: string;
   children: React.ReactNode;
+  /** Override absolute top (default above the anchor). */
+  tooltipTop?: number;
+  /** Override absolute left (default 0 so it stays on-screen). */
+  tooltipLeft?: number;
 }) {
   const [tooltipData, setTooltipData] = useState<any>(null);
 
@@ -100,14 +109,23 @@ export function TooltipPollContainer({
 
   // 🔹 Apply cached tooltip immediately, then listen for live updates
   useEffect(() => {
-    const cached = getCachedTooltipPoll(placeholderId);
+    registerTooltipPlaceholder(placeholderId);
+
+    const cached =
+      getCachedTooltipPoll(placeholderId) || getCachedTooltipPoll('');
     if (cached) {
       sdkLog.log(`[SDK] Tooltip cache hit for ${placeholderId}, showing it`);
       setTooltipData(cached);
+      // Promote orphan "" cache onto this mounted placeholder id.
+      if (!getCachedTooltipPoll(placeholderId)) {
+        renderTooltipPoll(placeholderId, cached);
+      }
     }
 
     const handler = ({ placeholderId: id, tooltipData: data }: any) => {
-      if (id !== placeholderId) return;
+      const emitted = normalizePlaceholderId(id);
+      // Exact id, or orphan empty/[] id (campaigns often omit placeholder).
+      if (emitted && emitted !== placeholderId) return;
 
       if (data) {
         sdkLog.log(`[SDK] Tooltip matches ${placeholderId}, showing it`);
@@ -120,16 +138,19 @@ export function TooltipPollContainer({
 
     tooltipEmitter.on('showTooltip', handler);
     return () => {
+      unregisterTooltipPlaceholder(placeholderId);
       tooltipEmitter.off('showTooltip', handler);
     };
   }, [placeholderId]);
 
   return (
-    <View pointerEvents="box-none">
+    <View pointerEvents="box-none" style={{ overflow: 'visible', zIndex: 20 }}>
       {children}
       {tooltipData && (
         <TooltipPoll
           {...tooltipData}
+          top={tooltipData.top ?? tooltipTop}
+          left={tooltipData.left ?? tooltipLeft}
           onPress={
             tooltipData.notificationUrl ? handleTooltipPress : undefined
           }

@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { buildCommonHeaders } from '../helpers/buildCommonHeaders';
 import { extractChannelSegment, getApiBaseUrl } from '../helpers/tenantContext';
 import { getDeviceId, resetCachedDeviceId } from '../utils/device';
+import { attachDeviceInfo } from '../utils/resolveDeviceHeaders';
 import { waitForGeoIp } from '../utils/geoIpContext';
 import { sdkLog } from '../helpers/sdkLogger';
 import {
@@ -210,17 +211,20 @@ export async function registerDeviceWithAPNS(
     }
 
     const geoIP = await waitForGeoIp();
-    let payload = {
-      device_id,
-      channel_id: channel_id,
-      platform: Platform.OS,
-      token,
-      fcm_token: fcmToken,
-      geoIP,
-    };
-    sdkLog.log('📡 Registering/updating device...', payload);
     const commonHeaders = await buildCommonHeaders();
     const apiBaseUrl = await getApiBaseUrl();
+    let payload: Record<string, unknown> = attachDeviceInfo(
+      {
+        device_id,
+        channel_id: channel_id,
+        platform: Platform.OS,
+        token,
+        fcm_token: fcmToken,
+        geoIP,
+      },
+      commonHeaders
+    );
+    sdkLog.log('📡 Registering/updating device...', payload);
 
     let response: Response | null = null;
     let text = '';
@@ -303,14 +307,17 @@ export async function registerDeviceWithAPNS(
           resetCachedDeviceId();
           device_id = await getDeviceId();
           currentState = buildCurrentState();
-          payload = {
-            device_id,
-            channel_id,
-            platform: Platform.OS,
-            token,
-            fcm_token: fcmToken,
-            geoIP,
-          };
+          payload = attachDeviceInfo(
+            {
+              device_id,
+              channel_id,
+              platform: Platform.OS,
+              token,
+              fcm_token: fcmToken,
+              geoIP,
+            },
+            commonHeaders
+          );
           continue;
         }
         throw new Error(

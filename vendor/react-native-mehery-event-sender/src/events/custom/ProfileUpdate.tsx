@@ -5,6 +5,7 @@ import { sdkLog } from '../../helpers/sdkLogger';
 import {
   buildProfileApiPayload,
   isProfileUpdatePayloadEmpty,
+  lastSnapshotStoresEmailInAdditionalInfo,
   loadLastProfileSnapshot,
   prepareProfileUpdatePayload,
   profilePayloadsEqual,
@@ -12,6 +13,8 @@ import {
   stableStringify,
 } from '../../utils/profileSnapshot';
 import type { ProfileApiPayload } from '../../utils/profileSnapshot';
+import { PROFILE_ID_STORAGE_KEY } from '../../utils/user';
+import { withOptionalProfileId } from '../../utils/withOptionalProfileId';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -219,6 +222,9 @@ export async function updateUserProfile(
     );
     const normalizedCohorts = normalizeAdditionalInfoDates(cohorts, 'cohorts');
 
+    // Docs shape: flat { name, phones: [string], email, city, … } + cohorts.
+    // Wire PUT: name string, phones top-level, scalar email and alt_emails
+    // under additionalInfo. Do not send source unless caller set it.
     const payload = buildProfileApiPayload(
       normalizedAdditionalInfo,
       normalizedCohorts
@@ -232,7 +238,17 @@ export async function updateUserProfile(
     }
 
     const lastSnapshot = await loadLastProfileSnapshot(user_id);
-    if (lastSnapshot && profilePayloadsEqual(lastSnapshot, payload)) {
+    // Prior SDK stored signup email under additionalInfo.email; admin Profiles
+    // Email column only reads top-level emails[]. Force a PUT to lift it.
+    const emailNeedsAdminLift =
+      lastSnapshotStoresEmailInAdditionalInfo(lastSnapshot) &&
+      Boolean(payload.emails?.length);
+    if (
+      !options?.force &&
+      !emailNeedsAdminLift &&
+      lastSnapshot &&
+      profilePayloadsEqual(lastSnapshot, payload)
+    ) {
       const message = 'Skipped: same profile already pushed (no API call).';
       sdkLog.log(`⏭️ [SDK][Profile] ${message}`, JSON.stringify({ user_id }));
       markSessionProfileHandled(user_id, payload);
@@ -242,7 +258,11 @@ export async function updateUserProfile(
     sdkLog.log('🏷️ [SDK][Profile] channel_code:', channel_code);
     sdkLog.log('👤 [SDK][Profile] user_id:', user_id);
 
-    let requestPayload = prepareProfileUpdatePayload(payload, lastSnapshot);
+    let requestPayload = options?.force
+      ? { ...payload }
+      : prepareProfileUpdatePayload(payload, lastSnapshot);
+    // Never send `devices` on profile PUT (replacement list).
+    delete requestPayload.devices;
 
     if (isProfileUpdatePayloadEmpty(requestPayload)) {
       const message =
@@ -261,6 +281,20 @@ export async function updateUserProfile(
       return { skipped: true, message };
     }
     sdkLog.log('✅ [SDK][Profile] User is logged in, proceeding');
+
+    const storedPId =
+      (await AsyncStorage.getItem(PROFILE_ID_STORAGE_KEY))?.trim() ?? '';
+    requestPayload = withOptionalProfileId(
+      requestPayload,
+      storedPId
+    ) as ProfileApiPayload;
+    if (storedPId) {
+      sdkLog.log('🆔 [SDK][Profile] attaching p_id:', storedPId);
+    } else {
+      sdkLog.warn(
+        '⚠️ [SDK][Profile] no p_id in storage — PUT may succeed without updating profile fields'
+      );
+    }
 
     sdkLog.log(
       '📡 [SDK][Profile] PUT /customer/profile payload:',
@@ -297,9 +331,19 @@ export async function updateUserProfile(
 
       if (ok) {
         sdkLog.log('✅ [SDK][Profile] Profile updated successfully:', data);
-        await saveLastProfileSnapshot(user_id, payload);
+        // Snapshot the full desired profile — not the diff-only request body —
+        // so later compares stay correct. If phones were stripped for a
+        // duplicate-phone retry, merge that into the saved snapshot.
+        const snapshotToSave: ProfileApiPayload = strippedPhonesForDuplicate
+          ? (() => {
+              const next = { ...payload };
+              delete next.phones;
+              return next;
+            })()
+          : payload;
+        await saveLastProfileSnapshot(user_id, snapshotToSave);
         sdkLog.log('🔒 [SDK][Profile] Profile snapshot saved locally');
-        markSessionProfileHandled(user_id, payload);
+        markSessionProfileHandled(user_id, snapshotToSave);
         return {
           skipped: false,
           message: 'Profile updated (API call sent).',
@@ -326,8 +370,10 @@ export async function updateUserProfile(
             '⚠️ [SDK][Profile] Phone already on profile — omitting phones and retrying update for other fields'
           );
           if (isProfileUpdatePayloadEmpty(requestPayload)) {
-            await saveLastProfileSnapshot(user_id, payload);
-            markSessionProfileHandled(user_id, payload);
+            // Save stripped body (no phones) so a later push with phones
+            // is not treated as already synced.
+            await saveLastProfileSnapshot(user_id, requestPayload);
+            markSessionProfileHandled(user_id, requestPayload);
             return {
               skipped: true,
               message:

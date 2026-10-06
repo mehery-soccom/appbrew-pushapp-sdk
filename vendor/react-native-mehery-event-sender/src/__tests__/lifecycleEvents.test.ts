@@ -1,5 +1,8 @@
 jest.mock('react-native', () => ({
   Platform: { OS: 'ios' },
+  Dimensions: {
+    get: jest.fn(() => ({ width: 390, height: 844 })),
+  },
 }));
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
@@ -47,9 +50,11 @@ describe('trackAppInstallIfNeeded', () => {
   });
 
   function mockStorage(values: Record<string, string | null>) {
-    (AsyncStorage.getItem as jest.Mock).mockImplementation(async (key: string) => {
-      return values[key] ?? null;
-    });
+    (AsyncStorage.getItem as jest.Mock).mockImplementation(
+      async (key: string) => {
+        return values[key] ?? null;
+      }
+    );
   }
 
   it('sends app_install on first launch and stores version', async () => {
@@ -59,7 +64,14 @@ describe('trackAppInstallIfNeeded', () => {
 
     expect(sendCustomEvent).toHaveBeenCalledWith(
       SDK_EVENT_NAMES.APP_INSTALL,
-      { app_version: '1.0.0', update: false },
+      {
+        version: '1.0.0',
+        app_version: '1.0.0',
+        sizeWidth: 390,
+        sizeHeight: 844,
+        platform: 'ios',
+        update: false,
+      },
       { eventType: 'LOG' }
     );
     expect(AsyncStorage.setItem).toHaveBeenCalledWith(
@@ -85,7 +97,15 @@ describe('trackAppInstallIfNeeded', () => {
 
     expect(sendCustomEvent).toHaveBeenCalledWith(
       SDK_EVENT_NAMES.APP_INSTALL,
-      { app_version: '2.0.0', previous_version: '1.0.0', update: true },
+      {
+        version: '2.0.0',
+        app_version: '2.0.0',
+        sizeWidth: 390,
+        sizeHeight: 844,
+        platform: 'ios',
+        previous_version: '1.0.0',
+        update: true,
+      },
       { eventType: 'LOG' }
     );
     expect(AsyncStorage.setItem).toHaveBeenCalledWith(

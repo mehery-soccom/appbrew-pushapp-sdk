@@ -348,6 +348,8 @@ await updateUserProfile(
   { name: 'Jane Doe', email: 'jane@example.com', city: 'Mumbai' },
   { segment: 'premium', plan: 'enterprise' }
 );
+// PUT body: name as string, phones top-level when passed, scalar email +
+// extras (city, …) in additionalInfo. Host apps omit `source`.
 ```
 
 ### Engagement and navigation
@@ -486,6 +488,14 @@ Example payload after correct server mapping:
 ```
 
 **iOS host apps:** The npm package does not ship `AppDelegate`. Merge `urlForNotificationBody` and the default-action URL open from the example app into your target’s `AppDelegate` (see [Example app and iOS extensions](#example-app-and-ios-extensions)).
+
+**Silent keep-alive (no blank banner):** The server may send a data-only push with `type` / `data.type` = `silent_keepalive` (no title/body). The SDK replies with `POST /pushapp/silent/ping` and must **not** show a notification. Host `AppDelegate` must treat that type as silent:
+
+1. Forward the payload to JS (`PushNotificationEvent` / `PushTokenManager.sendNotificationEventOrQueue`).
+2. In `userNotificationCenter(_:willPresent:…)`, call `completionHandler([])` (no banner).
+3. In `application(_:didReceiveRemoteNotification:fetchCompletionHandler:)`, do **not** schedule a local notification; call `completionHandler(.newData)` and return.
+
+Copy the pattern from the example [`AppDelegate.swift`](example/ios/MeheryEventSenderExample/AppDelegate.swift) (`isSilentNoUiPush`). Skipping this step can show an empty/blank banner even though the JS pong succeeds.
 
 ### iOS action categories
 

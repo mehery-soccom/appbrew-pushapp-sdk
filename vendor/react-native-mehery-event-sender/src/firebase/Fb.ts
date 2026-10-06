@@ -3,6 +3,7 @@ import type { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 import app from '@react-native-firebase/app';
 import PushNotification from 'react-native-push-notification';
 import { getDeviceId, resetCachedDeviceId } from '../utils/device';
+import { attachDeviceInfo } from '../utils/resolveDeviceHeaders';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { buildCommonHeaders } from '../helpers/buildCommonHeaders';
 import { getApiBaseUrl, extractChannelSegment } from '../helpers/tenantContext';
@@ -30,6 +31,10 @@ import {
 } from '../utils/ctaTrackPayload';
 import { openNotificationLink } from '../utils/notificationLink';
 import { updatePushToken } from '../utils/updateToken';
+import {
+  isSilentKeepAlive,
+  replySilentKeepAlive,
+} from '../utils/silentKeepAlive';
 
 import { NativeModules, Platform } from 'react-native';
 import { ensureAndroidNotificationPermission } from '../native/LiveActivity';
@@ -236,17 +241,20 @@ export async function registerDeviceWithFCM(
     }
 
     const geoIP = await waitForGeoIp();
-    let payload = {
-      device_id: finalDeviceId,
-      channel_id: channel_id,
-      platform: Platform.OS,
-      token: token,
-      geoIP,
-    };
-
-    sdkLog.log('📡 Registering device with payload:', payload);
     const commonHeaders = await buildCommonHeaders();
     const apiBaseUrl = await getApiBaseUrl();
+    let payload: Record<string, unknown> = attachDeviceInfo(
+      {
+        device_id: finalDeviceId,
+        channel_id: channel_id,
+        platform: Platform.OS,
+        token: token,
+        geoIP,
+      },
+      commonHeaders
+    );
+
+    sdkLog.log('📡 Registering device with payload:', payload);
 
     let lastStatus = 0;
     let lastErrorText = '';
@@ -328,13 +336,16 @@ export async function registerDeviceWithFCM(
               resetCachedDeviceId();
               finalDeviceId = await getDeviceId();
               currentState = buildCurrentState();
-              payload = {
-                device_id: finalDeviceId,
-                channel_id: channel_id,
-                platform: Platform.OS,
-                token: token,
-                geoIP,
-              };
+              payload = attachDeviceInfo(
+                {
+                  device_id: finalDeviceId,
+                  channel_id: channel_id,
+                  platform: Platform.OS,
+                  token: token,
+                  geoIP,
+                },
+                commonHeaders
+              );
               continue;
             }
             throw new Error(
@@ -505,15 +516,47 @@ function parseImageListRaw(raw: unknown): string[] {
     .filter(Boolean);
 }
 
-function resolveImageListFromData(data: Record<string, any>): string[] {
-  const listKeys = ['imageUrls', 'image_urls', 'carousel_images', 'images'];
-  for (const key of listKeys) {
-    const normalized = parseImageListRaw(data?.[key]);
-    if (normalized.length > 0) {
-      return normalized;
-    }
+function parseJsonObjectRecord(raw: unknown): Record<string, any> | null {
+  if (raw != null && typeof raw === 'object' && !Array.isArray(raw)) {
+    return raw as Record<string, any>;
   }
+  if (typeof raw !== 'string') return null;
+  const text = raw.trim();
+  if (!text.startsWith('{')) return null;
+  try {
+    const parsed = JSON.parse(text) as unknown;
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      return parsed as Record<string, any>;
+    }
+  } catch {
+    /* ignore */
+  }
+  return null;
+}
 
+/** Root payload plus PushApp `style` / `templateData` nests (same shape as CTA URL resolution). */
+function recordsToScanForImages(data: Record<string, any>): Record<string, any>[] {
+  const out: Record<string, any>[] = [data];
+  const pushObj = (raw: unknown) => {
+    const obj = parseJsonObjectRecord(raw);
+    if (obj) out.push(obj);
+  };
+  pushObj(data.style);
+  const templateData = parseJsonObjectRecord(data.templateData);
+  if (templateData) {
+    out.push(templateData);
+    pushObj(templateData.style);
+  }
+  const template = parseJsonObjectRecord(data.template);
+  if (template) {
+    out.push(template);
+    pushObj(template.style);
+    pushObj(template.data);
+  }
+  return out;
+}
+
+function extractIndexedImageList(data: Record<string, any>): string[] {
   const indexed: string[] = [];
   for (let i = 1; i <= 20; i++) {
     const value = data?.[`image${i}`];
@@ -525,6 +568,47 @@ function resolveImageListFromData(data: Record<string, any>): string[] {
     if (trimmed) indexed.push(trimmed);
   }
   return indexed;
+}
+
+function resolveImageListFromData(data: Record<string, any>): string[] {
+  const listKeys = [
+    'imageUrls',
+    'image_urls',
+    'carousel_images',
+    'images',
+    'media-url',
+  ];
+  const candidates: string[][] = [];
+  for (const record of recordsToScanForImages(data)) {
+    for (const key of listKeys) {
+      const normalized = parseImageListRaw(record?.[key]);
+      if (normalized.length > 0) {
+        candidates.push(normalized);
+      }
+    }
+    const indexed = extractIndexedImageList(record);
+    if (indexed.length > 0) {
+      candidates.push(indexed);
+    }
+  }
+
+  const longest = candidates.reduce<string[]>(
+    (best, list) => (list.length > best.length ? list : best),
+    []
+  );
+  if (longest.length >= 2) {
+    return Array.from(new Set(longest));
+  }
+
+  const unique: string[] = [];
+  for (const list of candidates) {
+    for (const url of list) {
+      if (!unique.includes(url)) unique.push(url);
+    }
+  }
+  const single = resolveSingleImageFromData(data);
+  if (single && !unique.includes(single)) unique.push(single);
+  return unique;
 }
 
 function normalizedString(value: unknown): string {
@@ -804,86 +888,102 @@ export function registerFcmBackgroundHandler(): void {
   ensureBackgroundMessageHandlerRegistered();
 }
 
+export async function handleBackgroundFcmMessage(
+  remoteMessage: FirebaseMessagingTypes.RemoteMessage
+): Promise<void> {
+  let serialized = '';
+  try {
+    serialized = JSON.stringify(remoteMessage);
+  } catch {
+    try {
+      serialized = JSON.stringify({
+        messageId: remoteMessage?.messageId,
+        from: remoteMessage?.from,
+        data: remoteMessage?.data,
+        notification: remoteMessage?.notification,
+      });
+    } catch {
+      serialized = '(could not serialize remoteMessage)';
+    }
+  }
+  sdkLog.log('📨 Background FCM message:', serialized);
+
+  const messageId = remoteMessage?.messageId || '';
+  if (messageId && seenBackgroundMessageIds.has(messageId)) {
+    sdkLog.log('⏭️ Duplicate background FCM message ignored:', messageId);
+    return;
+  }
+  if (messageId) {
+    seenBackgroundMessageIds.add(messageId);
+    if (seenBackgroundMessageIds.size > BACKGROUND_MESSAGE_CACHE_LIMIT) {
+      const oldest = seenBackgroundMessageIds.values().next().value as
+        | string
+        | undefined;
+      if (oldest) seenBackgroundMessageIds.delete(oldest);
+    }
+  }
+
+  const data = remoteMessage.data || {};
+
+  if (isSilentKeepAlive(data) || isSilentKeepAlive(remoteMessage)) {
+    await replySilentKeepAlive({
+      ...data,
+      messageId: remoteMessage?.messageId,
+    });
+    return;
+  }
+
+  if (fcmBackgroundMessageListener) {
+    try {
+      await fcmBackgroundMessageListener(remoteMessage);
+    } catch (e) {
+      sdkLog.warn('[SDK] FCM background listener failed (non-fatal):', e);
+    }
+  }
+
+  const { title, message } = resolvePushNotificationText(remoteMessage, data);
+
+  const image =
+    remoteMessage.notification?.android?.imageUrl ||
+    remoteMessage.notification?.image ||
+    resolveSingleImageFromData(data) ||
+    null;
+
+  if (Platform.OS === 'android') {
+    sdkLog.log(
+      '📲 Android background: native MyFirebaseMessagingService builds the tray notification; this log matches foreground field resolution (JS runs for data/headless messages).'
+    );
+  }
+  sdkLog.log('📲 Displaying local notification:', title, message, image);
+
+  const actionPairs = extractForegroundCtaPairs(data);
+  if (actionPairs.length > 0) {
+    const actionTitles = actionPairs.map((item) => item.title as string);
+    const actionMap = buildForegroundActionUrlMap(data);
+    const actionMapJson = JSON.stringify(actionMap);
+    try {
+      pushCtaLog('background FCM (JS) parsed CTAs — actions shown by native', {
+        actions: actionTitles,
+        pairs: actionPairs.map((p) => ({ title: p.title, url: p.url })),
+        actionMapJson,
+      });
+    } catch (e) {
+      pushCtaLog('log background CTA payload failed', e);
+    }
+  }
+}
+
 function ensureBackgroundMessageHandlerRegistered(): void {
   if (backgroundHandlerRegistered) return;
   backgroundHandlerRegistered = true;
-  messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    let serialized = '';
-    try {
-      serialized = JSON.stringify(remoteMessage);
-    } catch {
-      try {
-        serialized = JSON.stringify({
-          messageId: remoteMessage?.messageId,
-          from: remoteMessage?.from,
-          data: remoteMessage?.data,
-          notification: remoteMessage?.notification,
-        });
-      } catch {
-        serialized = '(could not serialize remoteMessage)';
-      }
-    }
-    sdkLog.log('📨 Background FCM message:', serialized);
-
-    const messageId = remoteMessage?.messageId || '';
-    if (messageId && seenBackgroundMessageIds.has(messageId)) {
-      sdkLog.log('⏭️ Duplicate background FCM message ignored:', messageId);
-      return;
-    }
-    if (messageId) {
-      seenBackgroundMessageIds.add(messageId);
-      if (seenBackgroundMessageIds.size > BACKGROUND_MESSAGE_CACHE_LIMIT) {
-        const oldest = seenBackgroundMessageIds.values().next().value as
-          | string
-          | undefined;
-        if (oldest) seenBackgroundMessageIds.delete(oldest);
-      }
-    }
-
-    const data = remoteMessage.data || {};
-
-    if (fcmBackgroundMessageListener) {
-      try {
-        await fcmBackgroundMessageListener(remoteMessage);
-      } catch (e) {
-        sdkLog.warn('[SDK] FCM background listener failed (non-fatal):', e);
-      }
-    }
-
-    const { title, message } = resolvePushNotificationText(remoteMessage, data);
-
-    const image =
-      remoteMessage.notification?.android?.imageUrl ||
-      remoteMessage.notification?.image ||
-      resolveSingleImageFromData(data) ||
-      null;
-
-    if (Platform.OS === 'android') {
-      sdkLog.log(
-        '📲 Android background: native MyFirebaseMessagingService builds the tray notification; this log matches foreground field resolution (JS runs for data/headless messages).'
-      );
-    }
-    sdkLog.log('📲 Displaying local notification:', title, message, image);
-
-    const actionPairs = extractForegroundCtaPairs(data);
-    if (actionPairs.length > 0) {
-      const actionTitles = actionPairs.map((item) => item.title as string);
-      const actionMap = buildForegroundActionUrlMap(data);
-      const actionMapJson = JSON.stringify(actionMap);
-      try {
-        pushCtaLog(
-          'background FCM (JS) parsed CTAs — actions shown by native',
-          {
-            actions: actionTitles,
-            pairs: actionPairs.map((p) => ({ title: p.title, url: p.url })),
-            actionMapJson,
-          }
-        );
-      } catch (e) {
-        pushCtaLog('log background CTA payload failed', e);
-      }
-    }
-  });
+  try {
+    messaging().setBackgroundMessageHandler(handleBackgroundFcmMessage);
+  } catch (e) {
+    sdkLog.warn(
+      '[SDK] setBackgroundMessageHandler skipped (already registered at host index):',
+      e
+    );
+  }
 }
 
 function isRetryableFcmError(error: unknown): boolean {
@@ -1179,6 +1279,13 @@ export function setupForegroundNotificationListener(): () => void {
             rawData as Record<string, unknown>
           ) as Record<string, any>)
         : rawData;
+    if (isSilentKeepAlive(data)) {
+      void replySilentKeepAlive({
+        ...data,
+        messageId: remoteMessage.messageId,
+      });
+      return;
+    }
     if (Platform.OS === 'android' && !resolveNotificationUrl(data)) {
       pushCtaLog(
         'FCM data has no notification_url — body tap will open the app, not a browser link',

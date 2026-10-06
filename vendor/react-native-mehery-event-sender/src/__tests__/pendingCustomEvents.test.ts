@@ -37,7 +37,9 @@ jest.mock('../helpers/buildCommonHeaders', () => ({
 }));
 
 jest.mock('../helpers/tenantContext', () => ({
-  getApiBaseUrl: jest.fn().mockResolvedValue('https://demo.pushapp.ai/pushapp/api'),
+  getApiBaseUrl: jest
+    .fn()
+    .mockResolvedValue('https://demo.pushapp.ai/pushapp/api'),
 }));
 
 jest.mock('../helpers/sdkLogger', () => ({
@@ -140,8 +142,8 @@ describe('pending custom event queue', () => {
     mockShouldBlockInteractiveBeforeLink.mockResolvedValue(false);
     await flushPendingCustomEvents();
 
-    const names = fetchMock.mock.calls.map((call) =>
-      JSON.parse(call[1].body).event_name
+    const names = fetchMock.mock.calls.map(
+      (call) => JSON.parse(call[1].body).event_name
     );
     expect(names[0]).toBe('evt_2');
     expect(names[names.length - 1]).toBe('evt_51');

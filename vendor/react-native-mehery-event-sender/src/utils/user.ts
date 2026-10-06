@@ -1,6 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
-import { OnAppOpen, flushPendingCustomEvents } from '../events/custom/CustomEvents';
+import {
+  OnAppOpen,
+  flushPendingCustomEvents,
+} from '../events/custom/CustomEvents';
 import { buildCommonHeaders } from '../helpers/buildCommonHeaders';
 import { sdkLog } from '../helpers/sdkLogger';
 import {
@@ -14,9 +17,12 @@ import {
   settleAfterRegister,
 } from './ensureDeviceRegistered';
 import { waitForGeoIp } from './geoIpContext';
+import { attachDeviceInfo } from './resolveDeviceHeaders';
+import { pickApnsToken } from './pushToken';
 import { clearStoredProfileSnapshot } from './profileSnapshot';
 import {
   extractContactIdFromRegisterResponse,
+  extractProfileIdFromRegisterResponse,
   extractSessionIdFromRegisterResponse,
   extractUserIdFromRegisterResponse,
   isAcceptableEventUserId,
@@ -27,6 +33,7 @@ import { reauthenticateWebSocket } from '../socket/WebSock';
 
 export {
   extractContactIdFromRegisterResponse,
+  extractProfileIdFromRegisterResponse,
   extractSessionIdFromRegisterResponse,
   extractUserIdFromRegisterResponse,
   isAcceptableEventUserId,
@@ -38,6 +45,9 @@ export const SESSION_ID_STORAGE_KEY = 'sessionId';
 
 /** Server-assigned guest id from `/device/register` (`device.user_id`). */
 export const REGISTERED_USER_ID_STORAGE_KEY = 'registered_user_id';
+
+/** Profile document id from register/link (`device.p_id`). */
+export const PROFILE_ID_STORAGE_KEY = 'p_id';
 
 const USER_ID_POLL_MS = 400;
 export const DEFAULT_USER_ID_WAIT_MS = 15_000;
@@ -60,9 +70,18 @@ export async function persistRegisteredChannelId(
   channelId: string
 ): Promise<void> {
   const normalized = channelId.trim();
-  if (normalized) {
-    await AsyncStorage.setItem(REGISTERED_CHANNEL_ID_KEY, normalized);
-  }
+  if (!normalized) return;
+
+  const initChannel =
+    (await AsyncStorage.getItem('mehery_channel_id'))?.trim() ?? '';
+  // Keep the full tenant_channel (`ecommerce_123`) even if register retried
+  // with the numeric segment — `/device/link` must match initSdk's identifier.
+  const toStore =
+    initChannel && extractChannelSegment(initChannel) === normalized
+      ? initChannel
+      : normalized;
+
+  await AsyncStorage.setItem(REGISTERED_CHANNEL_ID_KEY, toStore);
 }
 
 export async function getEffectiveLinkChannelId(): Promise<string> {
@@ -70,6 +89,17 @@ export async function getEffectiveLinkChannelId(): Promise<string> {
     REGISTERED_CHANNEL_ID_KEY,
     'mehery_channel_id',
   ]).then((entries) => entries.map(([_, value]) => value?.trim() ?? ''));
+
+  if (initChannel) {
+    const initSegment = extractChannelSegment(initChannel);
+    if (
+      !registeredChannel ||
+      registeredChannel === initChannel ||
+      registeredChannel === initSegment
+    ) {
+      return initChannel;
+    }
+  }
 
   return registeredChannel || initChannel || '';
 }
@@ -98,6 +128,7 @@ export async function persistRegisterIdentity(data: unknown): Promise<void> {
   const registeredUserId = extractUserIdFromRegisterResponse(data);
   const contactId = extractContactIdFromRegisterResponse(data);
   const sessionId = extractSessionIdFromRegisterResponse(data);
+  const profileId = extractProfileIdFromRegisterResponse(data);
   const valuesToStore: [string, string][] = [];
 
   if (registeredUserId) {
@@ -109,11 +140,17 @@ export async function persistRegisterIdentity(data: unknown): Promise<void> {
   if (sessionId) {
     valuesToStore.push([SESSION_ID_STORAGE_KEY, sessionId]);
   }
+  if (profileId) {
+    valuesToStore.push([PROFILE_ID_STORAGE_KEY, profileId]);
+  }
 
   if (valuesToStore.length > 0) {
     await AsyncStorage.multiSet(valuesToStore);
     if (registeredUserId) {
       sdkLog.log('✅ registered_user_id stored:', registeredUserId);
+    }
+    if (profileId) {
+      sdkLog.log('✅ p_id stored:', profileId);
     }
   }
 }
@@ -128,13 +165,24 @@ export async function hasStoredGuestUserId(): Promise<boolean> {
   return isAcceptableEventUserId(await getStoredRegisteredUserId());
 }
 
+/**
+ * Event attribution id: logged-in `user_id` only while UserLoggedIn is true.
+ * Otherwise prefer guest `registered_user_id` from `/device/register` so
+ * logout / pre-link do not keep sending (or blocking) as the customer.
+ */
 export async function getEffectiveUserId(): Promise<string> {
-  const [loginUserId, registeredUserId] = await AsyncStorage.multiGet([
-    'user_id',
-    REGISTERED_USER_ID_STORAGE_KEY,
-  ]).then((entries) => entries.map(([_, value]) => value?.trim() ?? ''));
+  const [loginUserId, registeredUserId, userLoggedInFlag] =
+    await AsyncStorage.multiGet([
+      'user_id',
+      REGISTERED_USER_ID_STORAGE_KEY,
+      'UserLoggedIn',
+    ]).then((entries) => entries.map(([_, value]) => value?.trim() ?? ''));
 
-  return loginUserId || registeredUserId || '';
+  const loggedIn = (userLoggedInFlag ?? '').toLowerCase() === 'true';
+  if (loggedIn && loginUserId) {
+    return loginUserId;
+  }
+  return registeredUserId || '';
 }
 
 /** Poll until login or register API user id is available (never returns hardcoded guest). */
@@ -153,9 +201,7 @@ export async function waitForEffectiveUserId(
   return isAcceptableEventUserId(finalUserId) ? finalUserId.trim() : '';
 }
 
-export async function getEffectiveContactId(
-  deviceId: string
-): Promise<string> {
+export async function getEffectiveContactId(deviceId: string): Promise<string> {
   const trimmedDeviceId = deviceId.trim();
   if (!trimmedDeviceId) return '';
 
@@ -210,7 +256,10 @@ async function waitForStoredRegistrationToken(
         'fcmToken',
       ]).then((entries) => entries.map(([_, v]) => v || ''));
 
-    const token = lastRegisteredToken || apnsToken || '';
+    const token =
+      Platform.OS === 'ios'
+        ? pickApnsToken(apnsToken, lastRegisteredToken)
+        : lastRegisteredToken || apnsToken || '';
     const normalizedFcmToken = fcmToken || '';
     if (token) {
       return { token, fcmToken: normalizedFcmToken };
@@ -241,20 +290,21 @@ async function recoverDeviceRegistration(
 ): Promise<boolean> {
   const { token, fcmToken } = await waitForStoredRegistrationToken();
   if (!token) {
-    sdkLog.warn(
-      '⚠️ Cannot auto-register device: token is missing in storage.'
-    );
+    sdkLog.warn('⚠️ Cannot auto-register device: token is missing in storage.');
     return false;
   }
 
   const geoIP = await waitForGeoIp();
-  const payload: Record<string, unknown> = {
-    device_id: deviceId,
-    channel_id: channelId,
-    platform: Platform.OS,
-    token,
-    geoIP,
-  };
+  const payload: Record<string, unknown> = attachDeviceInfo(
+    {
+      device_id: deviceId,
+      channel_id: channelId,
+      platform: Platform.OS,
+      token,
+      geoIP,
+    },
+    commonHeaders
+  );
   if (Platform.OS === 'ios' && fcmToken) {
     payload.fcm_token = fcmToken;
   }
@@ -320,9 +370,7 @@ export function logUserDetails(details: UserDetails) {
   storedUserDetails = details;
 }
 
-export async function OnUserLogin(
-  user_id: string
-): Promise<OnUserLoginResult> {
+export async function OnUserLogin(user_id: string): Promise<OnUserLoginResult> {
   const normalizedUserId = user_id.trim();
   if (!normalizedUserId) {
     sdkLog.warn('⏭️ [SDK][OnUserLogin] Skipped: user_id is missing/empty.');
@@ -385,9 +433,7 @@ export async function OnUserLogin(
     const loginUserId = (userID || normalizedUserId).trim();
 
     if (!device_id) {
-      sdkLog.warn(
-        '⏭️ [SDK][OnUserLogin] Skipped: device_id is not available.'
-      );
+      sdkLog.warn('⏭️ [SDK][OnUserLogin] Skipped: device_id is not available.');
       return failAfterStoringUserId('device_id is not available');
     }
     if (!loginUserId) {
@@ -398,18 +444,24 @@ export async function OnUserLogin(
     }
 
     const currentContactId = `${loginUserId}_${device_id}`;
-    const initChannelId = (await AsyncStorage.getItem('mehery_channel_id')) ?? '';
+    const initChannelId =
+      (await AsyncStorage.getItem('mehery_channel_id')) ?? '';
     const linkChannelId = await getEffectiveLinkChannelId();
     const currentHostRoot =
       (await AsyncStorage.getItem(MEHERY_PUSHAPP_HOST_ROOT_KEY))?.trim() ?? '';
-    const [storedContactId, userLoggedInFlag, storedSessionId, lastLinkedChannel, lastLinkedHost] =
-      await AsyncStorage.multiGet([
-        'contact_id',
-        'UserLoggedIn',
-        SESSION_ID_STORAGE_KEY,
-        LAST_LINKED_CHANNEL_KEY,
-        LAST_LINKED_HOST_KEY,
-      ]).then((entries) => entries.map(([_, v]) => v || ''));
+    const [
+      storedContactId,
+      userLoggedInFlag,
+      storedSessionId,
+      lastLinkedChannel,
+      lastLinkedHost,
+    ] = await AsyncStorage.multiGet([
+      'contact_id',
+      'UserLoggedIn',
+      SESSION_ID_STORAGE_KEY,
+      LAST_LINKED_CHANNEL_KEY,
+      LAST_LINKED_HOST_KEY,
+    ]).then((entries) => entries.map(([_, v]) => v || ''));
     const isUserLoggedIn = (userLoggedInFlag ?? '').toLowerCase() === 'true';
     const loginContextMatches =
       storedContactId === currentContactId &&
@@ -454,12 +506,26 @@ export async function OnUserLogin(
 
     const linkDevice = async (channelIdValue: string) => {
       const geoIP = await waitForGeoIp();
-      const payload = {
-        device_id,
-        user_id: loginUserId,
-        channel_id: channelIdValue,
-        geoIP,
-      };
+      const [apnsToken, lastToken, fcmToken] = await AsyncStorage.multiGet([
+        'APNStoken',
+        'lastRegisteredToken',
+        'fcmToken',
+      ]).then((entries) => entries.map(([_, v]) => v?.trim() ?? ''));
+      const iosToken = pickApnsToken(apnsToken, lastToken);
+      const payload: Record<string, unknown> = attachDeviceInfo(
+        {
+          device_id,
+          user_id: loginUserId,
+          channel_id: channelIdValue,
+          platform: Platform.OS,
+          geoIP,
+        },
+        commonHeaders
+      );
+      if (Platform.OS === 'ios') {
+        if (iosToken) payload.token = iosToken;
+        if (fcmToken) payload.fcm_token = fcmToken;
+      }
       sdkLog.log('📦 Payload of login:', payload);
       const response = await fetch(`${apiBaseUrl}/device/link`, {
         method: 'POST',
@@ -491,7 +557,7 @@ export async function OnUserLogin(
     };
 
     try {
-      let { response, text } = (await retryLinkOnNotFound(primaryChannelId));
+      let { response, text } = await retryLinkOnNotFound(primaryChannelId);
       sdkLog.log('Response text:', text);
 
       const parsedChannelSegment = extractChannelSegment(primaryChannelId);
@@ -558,6 +624,7 @@ export async function OnUserLogin(
       sdkLog.log('✅ Log in successfully:', data);
 
       const sessionFromLink = extractSessionIdFromLinkResponse(data);
+      const profileFromLink = extractProfileIdFromRegisterResponse(data);
       const responseContactId =
         typeof data?.device?.contact_id === 'string'
           ? data.device.contact_id.trim()
@@ -575,12 +642,18 @@ export async function OnUserLogin(
       } else {
         sdkLog.warn('⚠️ /device/link response had no device.session_id');
       }
+      if (profileFromLink) {
+        valuesToStore.push([PROFILE_ID_STORAGE_KEY, profileFromLink]);
+      }
 
       await AsyncStorage.multiSet(valuesToStore);
       sdkLog.log('🟢 UserLoggedIn set to true');
       sdkLog.log('✅ contact_id stored:', finalContactId);
       if (sessionFromLink) {
         sdkLog.log('✅ session_id stored from /device/link');
+      }
+      if (profileFromLink) {
+        sdkLog.log('✅ p_id stored from /device/link');
       }
 
       await reauthenticateWebSocket();
@@ -622,10 +695,14 @@ export async function OnUserLogOut(user_id: string) {
 
   await clearStoredProfileSnapshot(userID);
 
+  // Drop login identity immediately so events attribute to guest
+  // `registered_user_id` and interactive sends are not blocked as "pre-link".
   await AsyncStorage.multiRemove([
     SESSION_ID_STORAGE_KEY,
+    PROFILE_ID_STORAGE_KEY,
     'UserLoggedIn',
     'contact_id',
+    'user_id',
     LAST_LINKED_CHANNEL_KEY,
     LAST_LINKED_HOST_KEY,
   ]);

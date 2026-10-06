@@ -1,11 +1,13 @@
 {
   "name": "react-native-mehery-event-sender",
-  "version": "0.0.49",
+  "version": "0.0.50",
   "description": "A React Native SDK for event tracking that works with both Expo Go and bare React Native applications",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
+  "react-native": "./src/index.tsx",
   "exports": {
     ".": {
+      "react-native": "./src/index.tsx",
       "types": "./lib/typescript/src/index.d.ts",
       "default": "./lib/module/index.js"
     },

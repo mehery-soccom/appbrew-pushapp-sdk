@@ -48,7 +48,12 @@ class LiveActivityModule(private val reactContext: ReactApplicationContext) :
                     dataMap.getString(key)?.let { data[key] = it }
                 }
                 ReadableType.Array -> {
-                    if (key == "images") {
+                    if (
+                        key == "images" ||
+                        key == "imageUrls" ||
+                        key == "image_urls" ||
+                        key == "carousel_images"
+                    ) {
                         val arr = dataMap.getArray(key)
                         val list = mutableListOf<String>()
                         if (arr != null) {

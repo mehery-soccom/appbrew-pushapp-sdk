@@ -57,6 +57,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         NotificationPayloadUtils.mergeEmbeddedJsonObjectStringsInto(data)
 
+        if (data["type"] == "silent_keepalive") {
+            Log.i(
+                TAG,
+                "[Mehery SDK] silent ping: FCM received type=silent_keepalive " +
+                    "(skip tray; JS replySilentKeepAlive should POST /pushapp/silent/ping) " +
+                    "messageId=${remoteMessage.messageId} dataKeys=${data.keys.joinToString(",")}"
+            )
+            return
+        }
+
         if (data.isEmpty()) {
             Log.w(TAG, "FCM: merged data empty after notification merge; nothing to display")
             return

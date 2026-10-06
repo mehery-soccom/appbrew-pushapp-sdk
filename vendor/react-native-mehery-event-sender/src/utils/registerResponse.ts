@@ -57,3 +57,32 @@ export function extractSessionIdFromRegisterResponse(data: unknown): string {
   }
   return '';
 }
+
+/** Profile document id from register/link (`device.p_id` / profile._id). */
+export function extractProfileIdFromRegisterResponse(data: unknown): string {
+  if (!data || typeof data !== 'object') return '';
+  const root = data as Record<string, unknown>;
+  const device = root.device;
+  if (device && typeof device === 'object') {
+    const d = device as Record<string, unknown>;
+    for (const key of ['p_id', 'profile_id', 'profileId'] as const) {
+      const v = d[key];
+      if (typeof v === 'string' && v.trim()) return v.trim();
+    }
+  }
+  for (const key of ['p_id', 'profile_id', 'profileId'] as const) {
+    const v = root[key];
+    if (typeof v === 'string' && v.trim()) return v.trim();
+  }
+  const profile = root.profile;
+  if (profile && typeof profile === 'object') {
+    const id = (profile as Record<string, unknown>)._id;
+    if (typeof id === 'string' && id.trim()) return id.trim();
+  }
+  const customerProfile = root.customerProfile;
+  if (customerProfile && typeof customerProfile === 'object') {
+    const id = (customerProfile as Record<string, unknown>).id;
+    if (typeof id === 'string' && id.trim()) return id.trim();
+  }
+  return '';
+}

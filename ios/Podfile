@@ -87,6 +87,30 @@ target 'natori' do
         end
       end
     end
+
+    # Xcode codegen script uses `/bin/sh -c "$WITH_ENVIRONMENT $SCRIPT_PHASES_SCRIPT"`
+    # which breaks when the repo path contains spaces (e.g. "APP Brew").
+    # Patch via the in-memory project so CocoaPods does not overwrite a disk-only edit.
+    installer.pods_project.targets.each do |target|
+      target.build_phases.each do |phase|
+        next unless phase.respond_to?(:shell_script) && phase.shell_script
+        next unless phase.shell_script.include?('$WITH_ENVIRONMENT $SCRIPT_PHASES_SCRIPT')
+        phase.shell_script = phase.shell_script.gsub(
+          '/bin/sh -c "$WITH_ENVIRONMENT $SCRIPT_PHASES_SCRIPT"',
+          '/bin/sh -c "\"$WITH_ENVIRONMENT\" \"$SCRIPT_PHASES_SCRIPT\""'
+        )
+      end
+    end
+
+    # Xcode 27: minimum supported deployment target is 15.0.
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        deployment_target = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+        if deployment_target.nil? || deployment_target.to_f < 15.0
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+        end
+      end
+    end
   end
 end
 

@@ -18,8 +18,10 @@ export async function meheryOnUserLogOut(userId: string) {
 
 export async function meheryUpdateUserProfile(
   additionalInfo: Record<string, unknown>,
-  cohorts?: Record<string, unknown>
+  cohorts: Record<string, unknown> = {},
+  options?: { force?: boolean }
 ) {
   const sdk = await ensureSdkReady()
-  return sdk.updateUserProfile(additionalInfo, cohorts)
+  // Official signature: updateUserProfile(additionalInfo, cohorts?, options?)
+  return sdk.updateUserProfile(additionalInfo, cohorts, options)
 }

@@ -10,7 +10,14 @@ import { ProductQuantitySelector } from '@gauntlet/components/molecules/product-
 import * as React from 'react'
 import { Pressable, View } from 'react-native'
 import { sendMeheryCustomEvent } from './sendCustomEvent'
-import { toAppBrewEventName } from './eventNames'
+import {
+  cartPayloadFromLineItem,
+  cartPayloadFromProduct,
+} from './itemPayload'
+import { resolveShopDomain } from './shopDomain'
+import { getCartId } from './commerceIds'
+import { TrackedNotifyAddToCartShell } from './notifyPressEvents'
+import { upsertLocalCartLine } from './localCart/store'
 
 function currencyCode(): string | undefined {
   try {
@@ -21,71 +28,58 @@ function currencyCode(): string | undefined {
   }
 }
 
-function cartPayloadFromLineItem(item: {
-  variantId?: string
-  title?: string
-  image?: string
-  priceAfterDiscount?: string
-  originalPrice?: string | null
-  productHandle?: string
-  quantity?: number
-}): Record<string, unknown> {
-  const price = Number(item.priceAfterDiscount ?? 0)
-  const original = Number(item.originalPrice ?? price)
+function cartOptions() {
   return {
     currency: currencyCode(),
-    value: price,
-    items: [
-      {
-        item_id: item.variantId,
-        handle: item.productHandle,
-        item_name: item.title,
-        item_variant: item.variantId,
-        price,
-        original_price: original,
-        discount: original > price ? original - price : 0,
-        img_url: item.image,
-        quantity: 1,
-      },
-    ],
+    shopDomain: resolveShopDomain(),
+    cartId: getCartId(),
   }
 }
 
-function cartPayloadFromProduct(productData: any): Record<string, unknown> {
-  const variantId =
-    productData?.selectedVariantId ?? productData?.defaultVariantId
-  const variant = variantId
-    ? productData?.variants?.items?.[variantId]
-    : undefined
-  const price = Number(variant?.price?.amount ?? variant?.price ?? 0)
-  const original = Number(
-    variant?.compareAtPrice?.amount ?? variant?.compareAtPrice ?? price
-  )
-  return {
-    currency: currencyCode() ?? variant?.price?.currencyCode,
-    value: price,
-    items: [
-      {
-        item_id: variantId,
-        handle: productData?.handle,
-        item_name: productData?.title,
-        item_variant: variantId,
-        price,
-        original_price: original,
-        discount: original > price ? original - price : 0,
-        img_url: productData?.images?.items?.[0]?.url,
-        sku: variant?.sku,
-        quantity: productData?.lineItem?.quantity ?? 1,
-      },
-    ],
+function mirrorProductToLocalCart(productData: any, qty = 1): void {
+  try {
+    const variantId =
+      productData?.selectedVariantId ?? productData?.defaultVariantId
+    if (!variantId && !productData?.handle) return
+    const variant = variantId
+      ? productData?.variants?.items?.[variantId]
+      : undefined
+    const price = Number(variant?.price?.amount ?? variant?.price ?? 0)
+    const original = Number(
+      variant?.compareAtPrice?.amount ?? variant?.compareAtPrice ?? price
+    )
+    const img =
+      variant?.image?.url ??
+      productData?.images?.items?.[0]?.url ??
+      productData?.images?.[0]
+    upsertLocalCartLine({
+      variantId: String(variantId || productData.handle),
+      productId: productData?.id != null ? String(productData.id) : undefined,
+      productHandle: productData?.handle,
+      title: productData?.title || 'Product',
+      image: typeof img === 'string' ? img : undefined,
+      price,
+      originalPrice: original,
+      quantity: qty,
+      vendor: productData?.vendor,
+      productType: productData?.productType,
+      sku: variant?.sku,
+      currency: currencyCode() || 'INR',
+    })
+  } catch (e) {
+    console.warn('[Mehery] local cart mirror failed', e)
   }
 }
 
 function emitCartCustomEvent(
   ga4Name: 'add_to_cart' | 'remove_from_cart',
-  payload: Record<string, unknown>
+  payload: Record<string, unknown> | null
 ): void {
-  void sendMeheryCustomEvent(toAppBrewEventName(ga4Name), payload)
+  if (!payload) {
+    return
+  }
+  // LOG so Event Analytics POSTs without waiting for /device/link
+  void sendMeheryCustomEvent(ga4Name, payload, 'LOG')
 }
 
 function TrackedProductQuantitySelector(props: any) {
@@ -104,7 +98,7 @@ function TrackedProductQuantitySelector(props: any) {
           onPress={() => {
             emitCartCustomEvent(
               'remove_from_cart',
-              cartPayloadFromProduct(props.productData)
+              cartPayloadFromProduct(props.productData, cartOptions())
             )
             if (quantity > 1 && handle) {
               updateQuantity(quantity - 1, handle)
@@ -123,7 +117,7 @@ function TrackedProductQuantitySelector(props: any) {
           onPress={() => {
             emitCartCustomEvent(
               'add_to_cart',
-              cartPayloadFromProduct(props.productData)
+              cartPayloadFromProduct(props.productData, cartOptions())
             )
             if (handle) {
               updateQuantity(quantity + 1, handle)
@@ -152,24 +146,18 @@ function TrackedAddToCart(props: any) {
     return <AddToCart {...props} />
   }
 
+  // OOS + Notify Me: dual-send notify_back_in_stock (not empty ATC shells).
   return (
-    <Pressable
-      onPress={() =>
-        emitCartCustomEvent(
-          'add_to_cart',
-          cartPayloadFromProduct(props.productData)
-        )
-      }
-    >
+    <TrackedNotifyAddToCartShell productData={props.productData}>
       <AddToCart {...props} />
-    </Pressable>
+    </TrackedNotifyAddToCartShell>
   )
 }
 
 let installed = false
 
 /**
- * Fire AppBrew-add_to_cart / AppBrew-remove_from_cart on every plus/minus
+ * Fire add_to_cart / remove_from_cart on every plus/minus
  * (and OOS add-to-cart tap) via sendCustomEvent, even if Shopify rejects the mutation.
  */
 export function installMeheryCartPressTracking(): void {
@@ -184,13 +172,33 @@ export function installMeheryCartPressTracking(): void {
     }
     emitCartCustomEvent(
       next > prev ? 'add_to_cart' : 'remove_from_cart',
-      cartPayloadFromLineItem(lineItem)
+      cartPayloadFromLineItem(lineItem, cartOptions())
     )
     return undefined
   })
 
   atcInterceptors.push(async (productData) => {
-    emitCartCustomEvent('add_to_cart', cartPayloadFromProduct(productData))
+    emitCartCustomEvent(
+      'add_to_cart',
+      cartPayloadFromProduct(productData, cartOptions())
+    )
+    mirrorProductToLocalCart(productData, 1)
+    // If Zustand still holds a cart id from a previous shop (catalog fallback
+    // race), clear it so createEmptyCart runs on the active Storefront shop.
+    try {
+      const cart = useAppStore.getState().cart
+      const id = cart?.data?.id != null ? String(cart.data.id).trim() : ''
+      const lines = cart?.data?.lineItems?.length ?? 0
+      if (id && lines === 0) {
+        console.warn(
+          '[Mehery] Clearing stale empty cart id before ATC',
+          id
+        )
+        cart.resetCart()
+      }
+    } catch {
+      /* ignore */
+    }
     return undefined
   })
 
@@ -199,3 +207,5 @@ export function installMeheryCartPressTracking(): void {
   productCardComponentsMap['add-to-cart'] =
     TrackedAddToCart as typeof AddToCart
 }
+
+export { cartPayloadFromLineItem, cartPayloadFromProduct }

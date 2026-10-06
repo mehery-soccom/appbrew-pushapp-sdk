@@ -11,6 +11,7 @@ class PushTokenManager: RCTEventEmitter {
 
   /// Buffered when sendTokenEvent runs before the RN module is constructed.
   private static var pendingToken: (type: String, token: String)?
+  private static let lastTokenDefaultsKey = "mehery_last_push_token"
 
   private var hasListeners = false
   private var lastToken: (type: String, token: String)?
@@ -22,6 +23,8 @@ class PushTokenManager: RCTEventEmitter {
     if let pending = PushTokenManager.pendingToken {
       lastToken = pending
       PushTokenManager.pendingToken = nil
+    } else if lastToken == nil {
+      lastToken = PushTokenManager.storedLastToken()
     }
     DispatchQueue.main.async {
       PushTokenManager.flushPendingNotificationFromColdStartIfNeeded()
@@ -56,6 +59,7 @@ class PushTokenManager: RCTEventEmitter {
   }
 
   @objc static func sendTokenEvent(_ type: String, token: String) {
+    persistLastToken(type: type, token: token)
     DispatchQueue.main.async {
       guard let instance = PushTokenManager.shared else {
         print("⚠️ PushTokenManager.shared is nil — buffering \(type) token for RN init")
@@ -74,6 +78,26 @@ class PushTokenManager: RCTEventEmitter {
         print("⚠️ No JS listeners for PushTokenEvent yet — saved for later.")
       }
     }
+  }
+
+  /// JS bridge used by the SDK (`NativeModules.PushTokenManager.sendPushToken`).
+  /// Declared in PushTokenManager.m — missing Swift impl logs "JS method signature NOT FOUND".
+  @objc func sendPushToken(_ type: String, token: String) {
+    PushTokenManager.sendTokenEvent(type, token: token)
+  }
+
+  private static func persistLastToken(type: String, token: String) {
+    UserDefaults.standard.set(["type": type, "token": token], forKey: lastTokenDefaultsKey)
+  }
+
+  private static func storedLastToken() -> (type: String, token: String)? {
+    guard let dict = UserDefaults.standard.dictionary(forKey: lastTokenDefaultsKey),
+          let type = dict["type"] as? String,
+          let token = dict["token"] as? String,
+          !token.isEmpty else {
+      return nil
+    }
+    return (type, token)
   }
 
   private static func persistPendingNotification(_ payload: [AnyHashable: Any]) {
@@ -143,6 +167,11 @@ class PushTokenManager: RCTEventEmitter {
     identifierPrefix: String = "mehery",
     deliverToJs: Bool = true
   ) {
+    if isSilentNoUiType(data["type"]) {
+      print("⏭️ Mehery: skip scheduleDisplayNotification for silent keep-alive")
+      return
+    }
+
     let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
     let trimmedBody = body.trimmingCharacters(in: .whitespacesAndNewlines)
     let imageUrls = extractImageUrlStrings(from: data)
@@ -293,11 +322,17 @@ class PushTokenManager: RCTEventEmitter {
 
   @objc func showForegroundNotification(_ payload: NSDictionary) {
     DispatchQueue.main.async {
+      if Self.isSilentNoUiType(payload["type"]) {
+        return
+      }
       let title = (payload["title"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
       let body = (payload["body"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
       let category = (payload["category"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
         ?? "CAROUSEL_CATEGORY"
       let data = payload["data"] as? [String: Any] ?? [:]
+      if Self.isSilentNoUiType(data["type"]) {
+        return
+      }
 
       PushTokenManager.scheduleDisplayNotification(
         title: title,
@@ -309,32 +344,101 @@ class PushTokenManager: RCTEventEmitter {
     }
   }
 
-  private static func extractImageUrlStrings(from data: [String: Any]) -> [String] {
+  private static func isSilentNoUiType(_ value: Any?) -> Bool {
+    guard let s = value as? String else { return false }
+    return s == "silent_keepalive" || s == "silent_daily_ping"
+  }
+
+    private static func extractImageUrlStrings(from data: [String: Any]) -> [String] {
     let listKeys = ["image_urls", "imageUrls", "carousel_images", "images", "media-url"]
-    for key in listKeys {
-      if let values = parseStringList(data[key]), !values.isEmpty {
-        return values
+    var listCandidates: [[String]] = []
+
+    for dict in dictsToScanForImages(data) {
+      for key in listKeys {
+        if let values = parseStringList(dict[key])?.filter({ isHttpUrl($0) }), values.count >= 2 {
+          listCandidates.append(values)
+        }
+      }
+      var indexed: [String] = []
+      for index in 1...32 {
+        if let value = parseSingleString(dict["image\(index)"]), isHttpUrl(value) {
+          indexed.append(value)
+        } else if index == 1 {
+          continue
+        } else {
+          break
+        }
+      }
+      if indexed.count >= 2 {
+        listCandidates.append(indexed)
       }
     }
 
-    var indexed: [String] = []
-    var index = 1
-    while index <= 32 {
-      let key = "image\(index)"
-      guard let value = parseSingleString(data[key]), !value.isEmpty else { break }
-      indexed.append(value)
-      index += 1
-    }
-    if !indexed.isEmpty {
-      return indexed
+    if let longest = listCandidates.max(by: { $0.count < $1.count }) {
+      return uniquedStrings(longest)
     }
 
-    for key in ["image_url", "imageUrl", "image"] {
-      if let value = parseSingleString(data[key]), !value.isEmpty {
-        return [value]
+    if let fcmOptions = jsonObject(from: data["fcm_options"]),
+       let nested = parseSingleString(fcmOptions["image"]),
+       isHttpUrl(nested) {
+      return [nested]
+    }
+
+    for dict in dictsToScanForImages(data) {
+      for key in ["image_url", "imageUrl", "image", "media-url"] {
+        if let value = parseSingleString(dict[key]), isHttpUrl(value) {
+          return [value]
+        }
+      }
+      for key in listKeys {
+        if let values = parseStringList(dict[key])?.filter({ isHttpUrl($0) }), values.count == 1 {
+          return values
+        }
       }
     }
     return []
+  }
+
+  private static func isHttpUrl(_ value: String) -> Bool {
+    let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+    return trimmed.hasPrefix("http://") || trimmed.hasPrefix("https://")
+  }
+
+  private static func dictsToScanForImages(_ data: [String: Any]) -> [[String: Any]] {
+    var dicts: [[String: Any]] = [data]
+    if let obj = jsonObject(from: data["templateData"]) {
+      dicts.append(obj)
+      if let style = jsonObject(from: obj["style"]) { dicts.append(style) }
+    }
+    if let style = jsonObject(from: data["style"]) { dicts.append(style) }
+    if let tmpl = jsonObject(from: data["template"]) {
+      if let nested = jsonObject(from: tmpl["data"]) { dicts.append(nested) }
+      if let style = jsonObject(from: tmpl["style"]) { dicts.append(style) }
+    }
+    return dicts
+  }
+
+  private static func jsonObject(from raw: Any?) -> [String: Any]? {
+    if let dict = raw as? [String: Any] { return dict }
+    if let dict = raw as? [AnyHashable: Any] {
+      var out: [String: Any] = [:]
+      for (k, v) in dict { out[String(describing: k)] = v }
+      return out
+    }
+    if let str = raw as? String,
+       let data = str.data(using: .utf8),
+       let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+      return obj
+    }
+    return nil
+  }
+
+  private static func uniquedStrings(_ values: [String]) -> [String] {
+    var out: [String] = []
+    for value in values where !out.contains(value) {
+      out.append(value)
+    }
+    return out
   }
 
   private static func parseSingleString(_ value: Any?) -> String? {
@@ -374,7 +478,7 @@ class PushTokenManager: RCTEventEmitter {
     _ resolve: RCTPromiseResolveBlock,
     rejecter reject: RCTPromiseRejectBlock
   ) {
-    if let saved = lastToken {
+    if let saved = lastToken ?? PushTokenManager.storedLastToken() {
       resolve([
         "type": saved.type,
         "token": saved.token

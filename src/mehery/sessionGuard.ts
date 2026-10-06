@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ensureMeheryChannelPinned } from './channelPin'
 
 /**
  * PushApp SESSION_PUSHAPP._id must be a 24-char Mongo ObjectId.
@@ -80,6 +81,7 @@ export async function rotatePushAppDeviceIdentity(reason: string): Promise<strin
   console.log('[Mehery] Rotating PushApp device identity:', reason)
   await Promise.all(DEVICE_IDENTITY_KEYS.map((key) => AsyncStorage.removeItem(key)))
   await AsyncStorage.setItem('device_id', nextId)
+  await ensureMeheryChannelPinned()
   console.log('[Mehery] New device_id:', nextId)
   return nextId
 }

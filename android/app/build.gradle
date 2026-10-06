@@ -129,8 +129,8 @@ android {
         applicationId "com.app.appbrew"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 17
+        versionName "1.3.1"
     }
     signingConfigs {
         debug {

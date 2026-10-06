@@ -6,12 +6,19 @@ import { bootstrapMeherySdk } from './bootstrap'
 import { loadMeherySdk } from './sdk'
 import { sendMeheryLifecycleCustomEvents } from './sendCustomEvent'
 import { installMeheryCartPressTracking } from './cartPressEvents'
+import { installMeheryWishlistPressTracking } from './wishlistPressEvents'
+import { installMeheryNotifyPressTracking } from './notifyPressEvents'
+import { installMeheryProductUrlEnrichment } from './productUrlEnrichment'
+import { installMeherySearchTracking } from './searchEvents'
 import { recoverFromFailedDeviceLink } from './deviceLinkRepair'
 import { wireMeheryIdentityListeners } from './identityListeners'
+import { ensureMeheryChannelPinned } from './channelPin'
 import {
   isPoisonedSessionId,
   rotateStalePushAppDeviceIfNeeded,
 } from './sessionGuard'
+import { installMeherySessionKeepAlive } from './sessionKeepAlive'
+import { installMeheryPushPermissionTracking } from './pushPermissionEvents'
 
 /**
  * `react-native-push-notification` (Mehery peer) imports
@@ -41,23 +48,34 @@ function assertIosPushNativeReady(): void {
  *    fireImmediately, so already-logged-in / early login would otherwise miss
  *    OnUserLogin permanently.
  */
+let startPromise: Promise<void> | null = null
+
 export async function startMehery(): Promise<void> {
-  assertIosPushNativeReady()
-  await rotateStalePushAppDeviceIfNeeded()
-
-  const sdk = await loadMeherySdk()
-  try {
-    if (typeof sdk.registerFcmBackgroundHandler === 'function') {
-      sdk.registerFcmBackgroundHandler()
-    } else {
-      console.warn('[Mehery] registerFcmBackgroundHandler missing on SDK')
-    }
-  } catch (e) {
-    console.warn('[Mehery] registerFcmBackgroundHandler failed', e)
+  if (!startPromise) {
+    startPromise = runStartMehery().catch((e) => {
+      startPromise = null
+      throw e
+    })
   }
+  return startPromise
+}
 
+async function runStartMehery(): Promise<void> {
+  assertIosPushNativeReady()
+  await ensureMeheryChannelPinned()
+  await rotateStalePushAppDeviceIfNeeded()
+  await ensureMeheryChannelPinned()
+
+  await loadMeherySdk()
   const tracker = registerMeheryTracker()
   installMeheryCartPressTracking()
+  installMeheryProductUrlEnrichment()
+  installMeheryWishlistPressTracking()
+  installMeheryNotifyPressTracking()
+  installMeherySearchTracking()
+  installMeherySessionKeepAlive()
+  // Baseline OS push state BEFORE bootstrap's messaging().requestPermission().
+  await installMeheryPushPermissionTracking()
   // Before bootstrap so a fast OTP login during init still queues OnUserLogin.
   wireMeheryIdentityListeners()
 

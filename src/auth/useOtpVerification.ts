@@ -9,6 +9,10 @@ import { useAppStore, useBottomSheetModal, useLink, useUser } from '@gauntlet/st
 import useCountDownTimer from '@gauntlet/components/atoms/countdown-timer'
 import EnvConfig from 'react-native-config'
 import Toast from 'react-native-toast-message'
+import {
+  formatOtpPhone,
+  mergeMeheryIdentityFields,
+} from '../mehery/buildMeheryProfileInfo'
 import { getMeheryTracker } from '../mehery/MeheryTracker'
 
 function signInErrorMessage(result: unknown): string | null {
@@ -120,17 +124,31 @@ export function useOtpVerification({
     }, 300)
 
     // Belt-and-suspenders PushApp identity (in case SIGNIN_SUCCESS was missed).
+    // Merge OTP phone/email — Shopify Customer fields are often null for OTP accounts.
     const userDetails = useAppStore.getState().user?.data?.userDetails
     if (userDetails?.status === 'idle' && userDetails?.data) {
+      const otpPhone = formatOtpPhone(callingCode, phoneNumber)
+      const customer = mergeMeheryIdentityFields(userDetails.data, {
+        phone: otpPhone,
+        email,
+      })
       console.log('[OtpVerification] syncing Mehery identity after OTP sign-in')
-      void getMeheryTracker().setUserDetails(userDetails.data)
+      void getMeheryTracker().setUserDetails(customer)
     }
 
     Toast.show({
       type: 'success',
       text1: 'Sign in successfully.',
     })
-  }, [closeModal, gotoLink, redirectParams, successRedirectScreen])
+  }, [
+    callingCode,
+    closeModal,
+    email,
+    gotoLink,
+    phoneNumber,
+    redirectParams,
+    successRedirectScreen,
+  ])
 
   const handleResendOtp = React.useCallback(async () => {
     try {

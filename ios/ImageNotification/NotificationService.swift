@@ -1,3 +1,4 @@
+import UIKit
 import UserNotifications
 
 class NotificationService: UNNotificationServiceExtension {
@@ -291,13 +292,33 @@ class NotificationService: UNNotificationServiceExtension {
 
                 do {
                     try FileManager.default.moveItem(at: location, to: fileUrl)
-                    completion(fileUrl)
+                    // picsum and most CDNs return progressive JPEG. iOS thumbnails
+                    // that, but the expanded notification image stays a white card.
+                    // Rewrite as a baseline JPEG before attaching.
+                    completion(Self.baselineJPEG(at: fileUrl) ?? fileUrl)
                 } catch {
                     completion(nil)
                 }
             }
 
         task.resume()
+    }
+
+    private static func baselineJPEG(at fileUrl: URL) -> URL? {
+        guard let data = try? Data(contentsOf: fileUrl),
+              let image = UIImage(data: data),
+              let jpeg = image.jpegData(compressionQuality: 0.9) else {
+            return nil
+        }
+        let output = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("img_\(UUID().uuidString).jpg")
+        do {
+            try jpeg.write(to: output, options: .atomic)
+            try? FileManager.default.removeItem(at: fileUrl)
+            return output
+        } catch {
+            return nil
+        }
     }
 
     private static func fileExtension(for response: URLResponse?, fallbackURL: URL) -> String {

@@ -30,10 +30,20 @@ import {
 import { FacebookTracker } from '@gauntlet/facebook'
 import { registerContainers } from './register-containers'
 import { FirebasePush } from '@gauntlet/firebase-push'
-import { ensureWorkingCatalog } from '../mehery/catalogFallback'
+import RNBootSplash from 'react-native-bootsplash'
+import { ensureWorkingCatalog, markCatalogProbeFinished } from '../mehery/catalogFallback'
 import { installNotifeePushAppDeduper } from '../mehery/pushCoexistence'
 import { registerMeheryTracker } from '../mehery/MeheryTracker'
 import { installMeheryCartPressTracking } from '../mehery/cartPressEvents'
+import { installMeheryWishlistPressTracking } from '../mehery/wishlistPressEvents'
+import { installMeheryProductUrlEnrichment } from '../mehery/productUrlEnrichment'
+import { installMeherySessionKeepAlive } from '../mehery/sessionKeepAlive'
+import { installMeherySearchTracking } from '../mehery/searchEvents'
+import { presentLoginFirstIfNeeded } from '../auth/presentLoginFirst'
+import { MeheryPageOpenListener } from '../mehery/MeheryPageOpenListener'
+import { MeheryPdpActionOverlay } from '../mehery/MeheryPdpActionOverlay'
+import { MeheryCartOverlay } from '../mehery/localCart/MeheryCartOverlay'
+import { MeheryOrderScreensOverlay } from '../mehery/localOrders/MeheryOrderScreensOverlay'
 
 const EnvConfig = Config.getConstants()
 
@@ -43,6 +53,11 @@ function initApp() {
   // Dual-send ecom events in __DEV__ and release so PushApp is not empty in Metro.
   registerMeheryTracker(AnalyticsProvider.getInstance())
   installMeheryCartPressTracking()
+  installMeheryProductUrlEnrichment()
+  installMeheryWishlistPressTracking()
+  installMeherySearchTracking()
+  // Early wrap so cold-start getUserDetails renews CAT before resetUser.
+  installMeherySessionKeepAlive()
 
   if (!__DEV__) {
     Sentry.init({
@@ -103,22 +118,11 @@ function MeheryPollOverlay() {
 
   React.useEffect(() => {
     let cancelled = false
-    import('../mehery/sdk')
-      .then(async (m) => {
-        // Same peer as startMehery — avoid loading Mehery JS (and NativeEventEmitter)
-        // when RNCPushNotificationIOS is not in the binary yet.
-        const { NativeModules, Platform } = await import('react-native')
-        if (
-          Platform.OS === 'ios' &&
-          !NativeModules.RNCPushNotificationIOS
-        ) {
-          console.warn(
-            '[Mehery] PollOverlay skipped — RNCPushNotificationIOS missing'
-          )
-          return null
-        }
-        return m.loadMeherySdk()
-      })
+    // After initSdk (skill order): startMehery is idempotent with App's boot effect.
+    import('../mehery/startMehery')
+      .then((m) => m.startMehery())
+      .then(() => import('../mehery/sdk'))
+      .then((m) => m.loadMeherySdk())
       .then((sdk) => {
         if (!sdk || cancelled) {
           return
@@ -169,6 +173,23 @@ const App = Sentry.wrap((props: any) => {
           useAppStore.getState().gift.init(EnvConfig.APP_ID)
         }
       })
+      .catch((e) => {
+        // Release mode with no published App Brew release throws inside
+        // applyEnvOverrides(null) and leaves NavigationContainer unmounted —
+        // native BootSplash would stay forever without this.
+        console.warn('[App] config/catalog init failed', e)
+        markCatalogProbeFinished()
+        try {
+          useAppStore.getState().splash.hide()
+        } catch {
+          // ignore
+        }
+        RNBootSplash.hide({ fade: false }).catch(() => {})
+      })
+  }, [])
+
+  React.useEffect(() => {
+    return presentLoginFirstIfNeeded()
   }, [])
 
   React.useEffect(() => {
@@ -201,6 +222,10 @@ const App = Sentry.wrap((props: any) => {
             routingInstrumentation={reactNavigationIntegration}
           />
           <MeheryPollOverlay />
+          <MeheryPageOpenListener />
+          <MeheryPdpActionOverlay />
+          <MeheryCartOverlay />
+          <MeheryOrderScreensOverlay />
         </SafeAreaProvider>
       </GestureHandlerRootView>
     </Sentry.ErrorBoundary>

@@ -69,13 +69,11 @@
 		679E80582C0835C3395E033C /* DeliveryActivityLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD835209B131521BB633FCE /* DeliveryActivityLiveActivity.swift */; };
 		692E5848E3F2A80362E4E496 /* poppins_500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A2676123B63CB481D08DF81 /* poppins_500.ttf */; };
 		6A3A15507E1601652D5D56CF /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFE436873C5BA4B4E40A6AA /* NotificationViewController.swift */; };
-		7C4E91A0B2D34F8E9A1C6D5B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F0F60F4AC42121F5AFE1BF /* MainInterface.storyboard */; };
-		8D5F02B1C3E45A9F0B2D7E6C /* ImagePreviewExtension Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8FA0FE40E43C70F4A7B6162 /* Assets.xcassets */; };
 		6DB4DBBD4B9F8CBD3C13359D /* montserrat_700italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F6056A074803064301BD872 /* montserrat_700italic.ttf */; };
 		6E5B5E370100BACD5BB5E405 /* dm_sans_100italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F1062956C2518D1F0AE41B4 /* dm_sans_100italic.ttf */; };
 		6E6A884C6F7D85F62F6657AC /* dm_sans_200italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD4A1E192F6940A4451C03AD /* dm_sans_200italic.ttf */; };
 		71EC67002C8D8FA064505232 /* inter_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93B143181D2F912578D4C0CF /* inter_regular.ttf */; };
-		7264441583440CE74EFE668E /* ImageNotification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8D02AD1662C442097F50CE36 /* ImageNotification.appex */; };
+		7264441583440CE74EFE668E /* ImageNotification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8D02AD1662C442097F50CE36 /* ImageNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		7722F2F377B687CA515F3FB3 /* poppins_700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA4E9F51D216E25BCCEED72E /* poppins_700.ttf */; };
 		77C8F0357CA4110E9313E963 /* dm_sans_800italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E3D64EFB8415F640398533E /* dm_sans_800italic.ttf */; };
@@ -84,12 +82,14 @@
 		78F1AA427CCD7E37B382B18B /* ImagePreviewExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C1C3C21237E27F8404721A8C /* ImagePreviewExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		79B30B915B9B240A662BE268 /* playfair_display_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF671D377EB1D87AC8C71053 /* playfair_display_regular.ttf */; };
 		7BCE66F6380440C6BCA7AF5D /* montserrat_500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C711A7726CDF610D142A598A /* montserrat_500.ttf */; };
+		7C4E91A0B2D34F8E9A1C6D5B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F0F60F4AC42121F5AFE1BF /* MainInterface.storyboard */; };
 		7D5F158893FA524B3D95CFA6 /* inter_200italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E596769939AC399B12DB53D5 /* inter_200italic.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		838F6A77A075FC01907B49E7 /* montserrat_800.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26F0F91E7E0C81AD92895609 /* montserrat_800.ttf */; };
 		83AC8AE1FA91DBCA9BA2EE4B /* roboto_condensed_300italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68AE3C1CAC0CDA3024B357E5 /* roboto_condensed_300italic.ttf */; };
 		89F72B7417633362A186C63A /* inter_700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41A3D41CB2422B7470A2ACF6 /* inter_700.ttf */; };
 		8AD2D7FA184FEF8901847510 /* playfair_display_600.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90895F168492FD0704868FE6 /* playfair_display_600.ttf */; };
+		8D5F02B1C3E45A9F0B2D7E6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8FA0FE40E43C70F4A7B6162 /* Assets.xcassets */; };
 		8FD3F99977BF35971827F116 /* poppins_700italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0C2DC93748AE7A463174FB8 /* poppins_700italic.ttf */; };
 		91D43041DE8B53F5E2491E94 /* inter_200.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80F8492FC4423B3FB4FD5C37 /* inter_200.ttf */; };
 		92575955728EC7F9D8C2B3F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0F583ADDC9192724B7D6EC /* GoogleService-Info.plist */; };
@@ -99,6 +99,7 @@
 		9D1C759E42E254973FE9681D /* Bauer Bodoni Roman 500.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3160B0AE7EDC35902BE2CA0C /* Bauer Bodoni Roman 500.otf */; };
 		9DED880AA3C6AA1966AE6B89 /* dm_sans_300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D0AA81C6FDD655C7FB8F5F7 /* dm_sans_300.ttf */; };
 		9E8444422341321BD84B447F /* roboto_condensed_700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21FC59E9B53A15D1B6A5F274 /* roboto_condensed_700.ttf */; };
+		A1B2C3D4E5F60718293A4B5C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5B /* SceneDelegate.swift */; };
 		A1DA116258D919FFA920F7A3 /* montserrat_800italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EE850190C94ED14E3D70205 /* montserrat_800italic.ttf */; };
 		A358F902857930DBE8BD609F /* inter_900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6161F544F3BDA2F8B7E6CF53 /* inter_900.ttf */; };
 		A394A33E0228F6692F6B3FF4 /* montserrat_900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B4174222669DBF7F47B8F82 /* montserrat_900.ttf */; };
@@ -115,6 +116,8 @@
 		B1215BDEF49F05A5071ECE5C /* poppins_800italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FFA9EF69F9843821EED2450 /* poppins_800italic.ttf */; };
 		B2F67FB82BCF0E989D6EBFAE /* dm_sans_500italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019234A011BAE2CFFDDE0B1C /* dm_sans_500italic.ttf */; };
 		B7277C2A55F64F830B9DB2C3 /* playfair_display_700italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B6E7C38D4FF3B95A029F3D9 /* playfair_display_700italic.ttf */; };
+		B7C81D2E3F4A5061728394A1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C81D2E3F4A5061728394A2 /* UserNotifications.framework */; };
+		B7C81D2E3F4A5061728394A3 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C81D2E3F4A5061728394A4 /* UserNotificationsUI.framework */; };
 		B81A01968AE7ACAE29F37483 /* poppins_900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB948D54639FFCEB19F29886 /* poppins_900.ttf */; };
 		B8F9A01B2C3D4E5F60718293 /* PushTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E8F9A01B2C3D4E5F607182 /* PushTokenManager.swift */; };
 		BA2ED04ACFB60E09BE61EBBC /* HelveticaNeueBlack.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BA2D50E30DD28BA60F95D75 /* HelveticaNeueBlack.ttf */; };
@@ -218,7 +221,6 @@
 		231DF3A42A3FF2CD4E01B73D /* inter_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_900italic.ttf; path = natori/Fonts/inter_900italic.ttf; sourceTree = "<group>"; };
 		23E2C2844C1A8326F0B27C12 /* playfair_display_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_700.ttf; path = natori/Fonts/playfair_display_700.ttf; sourceTree = "<group>"; };
 		23EE36F1111570CA2CDCF3F1 /* HelveticaNeueHeavy.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueHeavy.ttf; path = natori/Fonts/HelveticaNeueHeavy.ttf; sourceTree = "<group>"; };
-		24844426A497AEE2AB569C4B /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; path = Contents.json; sourceTree = "<group>"; };
 		26F0F91E7E0C81AD92895609 /* montserrat_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_800.ttf; path = natori/Fonts/montserrat_800.ttf; sourceTree = "<group>"; };
 		27E6BF46CF3CFDD83AEEEE17 /* Pods-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		27FEA913299B49DA8EA79847 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -279,7 +281,6 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = natori/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8601D47D4FE377B3C2BB5367 /* MeheryAppGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeheryAppGroup.swift; sourceTree = "<group>"; };
 		88EC640B433162C271C79770 /* roboto_condensed_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_700italic.ttf; path = natori/Fonts/roboto_condensed_700italic.ttf; sourceTree = "<group>"; };
-		8B615059A6663B8750B9F086 /* logos.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = logos.png; sourceTree = "<group>"; };
 		8C605A16A9FC9C523AB06C0B /* roboto_condensed_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_300.ttf; path = natori/Fonts/roboto_condensed_300.ttf; sourceTree = "<group>"; };
 		8D02AD1662C442097F50CE36 /* ImageNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F9458B492FDAE75AC40134F /* poppins_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_100.ttf; path = natori/Fonts/poppins_100.ttf; sourceTree = "<group>"; };
@@ -290,7 +291,6 @@
 		93B143181D2F912578D4C0CF /* inter_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_regular.ttf; path = natori/Fonts/inter_regular.ttf; sourceTree = "<group>"; };
 		955BAA34BA5969D6AB5EDE00 /* montserrat_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_300.ttf; path = natori/Fonts/montserrat_300.ttf; sourceTree = "<group>"; };
 		95EC5F8F47540A3EB7879E7C /* montserrat_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_700.ttf; path = natori/Fonts/montserrat_700.ttf; sourceTree = "<group>"; };
-		9892DD5A79696B5E056F0CCD /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; path = Contents.json; sourceTree = "<group>"; };
 		9AD835209B131521BB633FCE /* DeliveryActivityLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeliveryActivityLiveActivity.swift; sourceTree = "<group>"; };
 		9BA2D50E30DD28BA60F95D75 /* HelveticaNeueBlack.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueBlack.ttf; path = natori/Fonts/HelveticaNeueBlack.ttf; sourceTree = "<group>"; };
 		9DF6491B778B8546BC76677D /* inter_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_100italic.ttf; path = natori/Fonts/inter_100italic.ttf; sourceTree = "<group>"; };
@@ -298,6 +298,7 @@
 		9F1B613A226CE2921B725FE3 /* dm_sans_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_700.ttf; path = natori/Fonts/dm_sans_700.ttf; sourceTree = "<group>"; };
 		9F6056A074803064301BD872 /* montserrat_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_700italic.ttf; path = natori/Fonts/montserrat_700italic.ttf; sourceTree = "<group>"; };
 		A05E9B69ED07F20A447B8746 /* MeheryLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MeheryLiveActivity.swift; path = natori/MeheryLiveActivity.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = natori/SceneDelegate.swift; sourceTree = "<group>"; };
 		A3497F2AF3456B27BA295128 /* playfair_display_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_900italic.ttf; path = natori/Fonts/playfair_display_900italic.ttf; sourceTree = "<group>"; };
 		A3DD4AA404D1825643299E93 /* Pods-ImagePreviewExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImagePreviewExtension.debug.xcconfig"; path = "Target Support Files/Pods-ImagePreviewExtension/Pods-ImagePreviewExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		A420F76BAC7EFAC2DACEF140 /* poppins_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_600italic.ttf; path = natori/Fonts/poppins_600italic.ttf; sourceTree = "<group>"; };
@@ -305,7 +306,10 @@
 		A7E8F9A01B2C3D4E5F607182 /* PushTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PushTokenManager.swift; path = natori/PushTokenManager.swift; sourceTree = "<group>"; };
 		AD4A1E192F6940A4451C03AD /* dm_sans_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_200italic.ttf; path = natori/Fonts/dm_sans_200italic.ttf; sourceTree = "<group>"; };
 		AE5A42B398E58AF972360F2F /* dm_sans_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_900.ttf; path = natori/Fonts/dm_sans_900.ttf; sourceTree = "<group>"; };
+		B7C81D2E3F4A5061728394A2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		B7C81D2E3F4A5061728394A4 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		B8E3237CA56AFA5899B667D9 /* playfair_display_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_900.ttf; path = natori/Fonts/playfair_display_900.ttf; sourceTree = "<group>"; };
+		B8FA0FE40E43C70F4A7B6162 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B95EA8EA9BC68D4800602A05 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA4E9F51D216E25BCCEED72E /* poppins_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_700.ttf; path = natori/Fonts/poppins_700.ttf; sourceTree = "<group>"; };
 		BAE3F2551B1141343FE09057 /* roboto_condensed_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_100italic.ttf; path = natori/Fonts/roboto_condensed_100italic.ttf; sourceTree = "<group>"; };
@@ -387,6 +391,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7C81D2E3F4A5061728394A3 /* UserNotificationsUI.framework in Frameworks */,
+				B7C81D2E3F4A5061728394A1 /* UserNotifications.framework in Frameworks */,
 				A6EAD5F1D9C223A8D89FC635 /* Foundation.framework in Frameworks */,
 				E7E517E074A32905A999DCD9 /* libPods-ImagePreviewExtension.a in Frameworks */,
 			);
@@ -416,6 +422,7 @@
 			children = (
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
+				A1B2C3D4E5F60718293A4B5B /* SceneDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
@@ -618,23 +625,10 @@
 			children = (
 				F918D7BED11DB5E2A7E0BD1E /* Foundation.framework */,
 				63DEED8B4495FFD5B88B9435 /* Foundation.framework */,
+				B7C81D2E3F4A5061728394A2 /* UserNotifications.framework */,
+				B7C81D2E3F4A5061728394A4 /* UserNotificationsUI.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		B8FA0FE40E43C70F4A7B6162 /* Assets.xcassets */ = {
-			isa = PBXFileReference;
-			lastKnownFileType = folder.assetcatalog;
-			path = Assets.xcassets;
-			sourceTree = "<group>";
-		};
-		B9B03966E6C21978FC5A12EC /* logo.imageset */ = {
-			isa = PBXGroup;
-			children = (
-				24844426A497AEE2AB569C4B /* Contents.json */,
-				8B615059A6663B8750B9F086 /* logos.png */,
-			);
-			name = logo.imageset;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -911,7 +905,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C4E91A0B2D34F8E9A1C6D5B /* MainInterface.storyboard in Resources */,
-				8D5F02B1C3E45A9F0B2D7E6C /* ImagePreviewExtension Assets.xcassets in Resources */,
+				8D5F02B1C3E45A9F0B2D7E6C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1092,6 +1086,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* SceneDelegate.swift in Sources */,
 				44D5501D48D48D23BF26FCEB /* MeheryLiveActivity.swift in Sources */,
 				B8F9A01B2C3D4E5F60718293 /* PushTokenManager.swift in Sources */,
 				D0B1C2D3E4F5061728394A5B /* PushTokenManager.m in Sources */,
@@ -1158,7 +1153,7 @@
 				CODE_SIGN_ENTITLEMENTS = DeliveryActivity/DeliveryActivityExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				EXECUTABLE_NAME = DeliveryActivityExtension;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1170,7 +1165,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.appbrew.DeliveryActivity;
 				PRODUCT_NAME = DeliveryActivityExtension;
 				SDKROOT = iphoneos;
@@ -1189,7 +1184,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = natori/natori.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = natori/Info.plist;
@@ -1198,7 +1193,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1222,7 +1217,7 @@
 				CODE_SIGN_ENTITLEMENTS = natori/natori.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				INFOPLIST_FILE = natori/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -1230,7 +1225,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1252,7 +1247,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 24;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1260,13 +1255,13 @@
 				INFOPLIST_FILE = ImageNotification/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ImageNotification;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.appbrew.ImageNotification;
 				PRODUCT_NAME = ImageNotification;
@@ -1285,17 +1280,17 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ImagePreviewExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.appbrew.ImagePreviewExtension;
 				PRODUCT_NAME = ImagePreviewExtension;
 				SDKROOT = iphoneos;
@@ -1313,7 +1308,7 @@
 				CODE_SIGN_ENTITLEMENTS = DeliveryActivity/DeliveryActivityExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				EXECUTABLE_NAME = DeliveryActivityExtension;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1325,7 +1320,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.appbrew.DeliveryActivity;
 				PRODUCT_NAME = DeliveryActivityExtension;
 				SDKROOT = iphoneos;
@@ -1489,7 +1484,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 24;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1497,13 +1492,13 @@
 				INFOPLIST_FILE = ImageNotification/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ImageNotification;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.appbrew.ImageNotification;
 				PRODUCT_NAME = ImageNotification;
@@ -1521,17 +1516,17 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ImagePreviewExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.appbrew.ImagePreviewExtension;
 				PRODUCT_NAME = ImagePreviewExtension;
 				SDKROOT = iphoneos;

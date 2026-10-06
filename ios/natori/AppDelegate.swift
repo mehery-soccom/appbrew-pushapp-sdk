@@ -17,6 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
+    // Firebase must be configured before React Native native modules initialize
+    // (RNFB Messaging / Analytics crash if the default app is missing).
+    if FirebaseApp.app() == nil {
+      FirebaseApp.configure()
+    }
+    Messaging.messaging().delegate = self
+    UNUserNotificationCenter.current().delegate = self
+    registerNotificationCategories()
+
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
     delegate.dependencyProvider = RCTAppDependencyProvider()
@@ -24,33 +33,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     reactNativeDelegate = delegate
     reactNativeFactory = factory
 
-    window = UIWindow(frame: UIScreen.main.bounds)
+    // Window + startReactNative move to SceneDelegate (required on iOS 27+ /
+    // Xcode 27 SDK). Creating UIWindow(frame:) here triggers
+    // UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption.
 
-    factory.startReactNative(
-      withModuleName: "natori",
-      in: window,
-      launchOptions: launchOptions
-    )
-
-    // Match Mehery example: Firebase + Messaging + notification permission + APNs.
-    FirebaseApp.configure()
-    Messaging.messaging().delegate = self
-    UNUserNotificationCenter.current().delegate = self
-    registerNotificationCategories()
-
+    // APNs token is independent of alert permission. Waiting on granted=true
+    // delayed / skipped registration on TestFlight when the prompt was already
+    // answered or the callback raced RN init.
+    application.registerForRemoteNotifications()
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
       print("🔐 Notification permission granted: \(granted)")
       if let error = error {
         print("⚠️ Authorization error: \(error.localizedDescription)")
       }
-      if granted {
-        DispatchQueue.main.async {
-          application.registerForRemoteNotifications()
-        }
+      DispatchQueue.main.async {
+        application.registerForRemoteNotifications()
       }
     }
 
     return true
+  }
+
+  // MARK: - UIScene configuration
+
+  func application(
+    _ application: UIApplication,
+    configurationForConnecting connectingSceneSession: UISceneSession,
+    options: UIScene.ConnectionOptions
+  ) -> UISceneConfiguration {
+    let configuration = UISceneConfiguration(
+      name: "Default Configuration",
+      sessionRole: connectingSceneSession.role
+    )
+    configuration.delegateClass = SceneDelegate.self
+    return configuration
   }
 
   // MARK: - APNs registration (RNCPushNotificationIOS + Mehery PushTokenManager)
@@ -96,14 +112,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
   ) {
     print("📦 Background push received: \(userInfo)")
 
-    if let type = userInfo["type"] as? String, type == "silent_daily_ping" {
+    let merged = mergedNotificationFields(userInfo)
+
+    if isSilentNoUiPush(merged: merged, userInfo: userInfo) {
+      PushTokenManager.sendNotificationEventOrQueue(dictToAnyHashable(merged))
       RNCPushNotificationIOS.didReceiveRemoteNotification(userInfo)
       completionHandler(.newData)
       return
     }
 
+    PushTokenManager.sendNotificationEventOrQueue(dictToAnyHashable(merged))
+
+    // Data-only FCM (no `aps.alert`) reaches the app but iOS never draws a banner.
+    if UIApplication.shared.applicationState != .active,
+       !apnsPayloadIncludesVisibleAlert(userInfo) {
+      let title = stringFromAny(merged["title"])?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+      let body = stringFromAny(merged["body"])?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+      let category = stringFromAny(merged["category"])?.trimmingCharacters(in: .whitespacesAndNewlines)
+        ?? "CAROUSEL_CATEGORY"
+      PushTokenManager.scheduleDisplayNotification(
+        title: title,
+        body: body,
+        category: category,
+        data: merged,
+        identifierPrefix: "mehery-bg",
+        deliverToJs: false
+      )
+    }
+
     if #available(iOS 16.1, *) {
-      let merged = mergedNotificationFields(userInfo)
       if shouldStartLiveActivity(merged: merged) {
         RNCPushNotificationIOS.didReceiveRemoteNotification(userInfo)
         startLiveActivity(userInfo: userInfo) {
@@ -149,6 +186,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     willPresent notification: UNNotification,
     withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
   ) {
+    let userInfo = notification.request.content.userInfo
+    let merged = mergedNotificationFields(userInfo)
+    PushTokenManager.sendNotificationEventOrQueue(dictToAnyHashable(merged))
+    if isSilentNoUiPush(merged: merged, userInfo: userInfo) {
+      completionHandler([])
+      return
+    }
     if #available(iOS 14.0, *) {
       completionHandler([.banner, .list, .sound, .badge])
     } else {
@@ -163,6 +207,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
   ) {
     RNCPushNotificationIOS.didReceive(response)
     let userInfo = response.notification.request.content.userInfo
+    var merged = mergedNotificationFields(userInfo)
+    merged["actionIdentifier"] = response.actionIdentifier
+    merged["categoryIdentifier"] = response.notification.request.content.categoryIdentifier
+    PushTokenManager.sendNotificationEventOrQueue(dictToAnyHashable(merged))
     if let url = urlForNotificationBody(userInfo: userInfo) {
       DispatchQueue.main.async {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)

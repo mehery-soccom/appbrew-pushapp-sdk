@@ -1,7 +1,7 @@
 import { Button } from '@gauntlet/components/atoms/button'
 import { AddressFormInputField } from '@gauntlet/components/organisms/address-form-input-field'
 import { getModifiedSections } from '@gauntlet/components/organisms/address-form'
-import { useLink, useUser } from '@gauntlet/state'
+import { useAppStore, useLink, useUser } from '@gauntlet/state'
 import EnvConfig from 'react-native-config'
 import React from 'react'
 import { FieldErrors, useForm } from 'react-hook-form'
@@ -15,6 +15,11 @@ import {
 import Toast from 'react-native-toast-message'
 import { formatDateToYYYYMMDD } from '@gauntlet/components/organisms/profile-edit/utils'
 import { parsePhoneNumberWithError } from 'libphonenumber-js'
+import { getMeheryTracker } from '../mehery/MeheryTracker'
+import {
+  formatOtpPhone,
+  mergeMeheryIdentityFields,
+} from '../mehery/buildMeheryProfileInfo'
 
 interface CreateUserFormInputs {
   firstName: string
@@ -218,6 +223,45 @@ export function OtpSignUp({
               : res.error
           console.log('[OtpSignUp] birthdate profile update failed', message)
         }
+      }
+
+      // PushApp profile: form has firstName/lastName before the store may.
+      // Flat { name, phones, email } → SDK PUT string name + phones[] + additionalInfo.email.
+      try {
+        const storeDetails = useAppStore.getState().user?.data?.userDetails
+        const storeCustomer =
+          storeDetails?.status === 'idle' && storeDetails?.data
+            ? storeDetails.data
+            : {}
+        const otpPhone = formatOtpPhone(
+          phoneParts.callingCode,
+          phoneParts.phoneNumber
+        )
+        const customer = mergeMeheryIdentityFields(
+          {
+            ...(typeof storeCustomer === 'object' && storeCustomer
+              ? storeCustomer
+              : {}),
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email || (storeCustomer as { email?: string })?.email,
+          },
+          {
+            phone: otpPhone,
+            email: data.email || (storeCustomer as { email?: string })?.email,
+          }
+        )
+        console.log('[OtpSignUp] syncing Mehery profile after account create', {
+          name: `${data.firstName} ${data.lastName}`.trim(),
+          email: data.email,
+          hasPhone: Boolean(otpPhone),
+        })
+        await getMeheryTracker().setUserDetails(customer)
+      } catch (meheryError) {
+        console.warn(
+          '[OtpSignUp] Mehery profile sync after create failed',
+          meheryError
+        )
       }
 
       gotoLink({

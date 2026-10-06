@@ -1,0 +1,122 @@
+type,event_or_attribute,property,notes
+event,app_install,version,Also accept app_install_ios / app_install_android
+event,app_install,sizeWidth,
+event,app_install,sizeHeight,
+event,screen_view,screen_name,
+event,screen_view,screen_class,
+event,push_notification_subscribed,push_enabled,
+event,push_notification_unsubscribed,push_enabled,
+event,login,method,
+event,signup,method,
+event,logout,,No properties
+event,view_item,currency,
+event,view_item,value,
+event,view_item,items[],See item_field rows for nested fields
+event,view_item_list,item_list_id,
+event,view_item_list,handle,
+event,view_item_list,item_list_name,
+event,view_item_list,url,
+event,search,search_term,
+event,add_to_cart,currency,
+event,add_to_cart,value,
+event,add_to_cart,cart_id,Shopify Storefront cart id
+event,add_to_cart,shopify_id,Shop domain (every custom event)
+event,add_to_cart,items[],See item_field rows; quantity mainly used here
+event,remove_from_cart,currency,
+event,remove_from_cart,value,
+event,remove_from_cart,cart_id,Shopify Storefront cart id
+event,remove_from_cart,shopify_id,Shop domain (every custom event)
+event,remove_from_cart,items[],See item_field rows; quantity mainly used here
+event,add_to_wishlist,currency,
+event,add_to_wishlist,value,
+event,add_to_wishlist,items[],See item_field rows for nested fields
+event,remove_from_wishlist,currency,
+event,remove_from_wishlist,value,
+event,remove_from_wishlist,items[],See item_field rows for nested fields
+event,notify_back_in_stock,currency,
+event,notify_back_in_stock,value,
+event,notify_back_in_stock,items[],See item_field rows for nested fields
+event,view_cart,url,
+event,view_cart,value,
+event,view_cart,checkout_token,
+event,view_cart,sub_total,
+event,view_cart,discount,
+event,view_cart,currency,
+event,view_cart,coupon,
+event,view_cart,cart_id,Shopify Storefront cart id
+event,view_cart,shopify_id,Shop domain (every custom event)
+event,view_cart,items[],See item_field rows; quantity mainly used here
+event,begin_checkout,url,
+event,begin_checkout,value,
+event,begin_checkout,checkout_token,
+event,begin_checkout,sub_total,
+event,begin_checkout,discount,
+event,begin_checkout,currency,
+event,begin_checkout,coupon,
+event,begin_checkout,cart_id,Shopify Storefront cart id
+event,begin_checkout,shopify_id,Shop domain (every custom event)
+event,begin_checkout,items[],See item_field rows; quantity mainly used here
+event,add_shipping_info,url,
+event,add_shipping_info,value,
+event,add_shipping_info,checkout_token,
+event,add_shipping_info,sub_total,
+event,add_shipping_info,discount,
+event,add_shipping_info,currency,
+event,add_shipping_info,coupon,
+event,add_shipping_info,cart_id,Shopify Storefront cart id
+event,add_shipping_info,shopify_id,Shop domain (every custom event)
+event,add_shipping_info,items[],See item_field rows; quantity mainly used here
+event,add_payment_info,url,Fired from dummy checkout payment step
+event,add_payment_info,value,
+event,add_payment_info,checkout_token,
+event,add_payment_info,sub_total,
+event,add_payment_info,discount,
+event,add_payment_info,currency,
+event,add_payment_info,coupon,
+event,add_payment_info,cart_id,Shopify Storefront cart id
+event,add_payment_info,shopify_id,Shop domain (every custom event)
+event,add_payment_info,items[],See item_field rows; quantity mainly used here
+event,apply_coupon,coupon,
+event,apply_coupon,isApplicable,
+event,remove_coupon,coupon,
+event,purchase,transaction_id,
+event,purchase,shopify_order_id,Demo gid://shopify/Order/demo_N from dummy checkout
+event,purchase,url,
+event,purchase,value,
+event,purchase,checkout_token,
+event,purchase,sub_total,
+event,purchase,discount,
+event,purchase,currency,
+event,purchase,coupon,
+event,purchase,cart_id,Shopify Storefront cart id
+event,purchase,shopify_id,Shop domain (every custom event)
+event,purchase,items[],See item_field rows; quantity mainly used here
+event,refund,reason,
+event,refund,transaction_id,
+event,refund,shopify_order_id,Same as purchase
+event,refund,shopify_id,Shop domain (every custom event)
+event,refund,value,
+event,refund,currency,
+item_field,items[],item_id,Nested under events that send items[]
+item_field,items[],handle,Nested under events that send items[]
+item_field,items[],item_name,Nested under events that send items[]
+item_field,items[],item_variant,Nested under events that send items[]
+item_field,items[],price,Nested under events that send items[]
+item_field,items[],original_price,Nested under events that send items[]
+item_field,items[],discount,Nested under events that send items[]
+item_field,items[],url,Nested under events that send items[]
+item_field,items[],sku,Nested under events that send items[]
+item_field,items[],item_category,Nested under events that send items[]
+item_field,items[],item_brand,Nested under events that send items[]
+item_field,items[],img_url,Nested under events that send items[]
+item_field,items[],quantity,Mainly cart-style events (add/remove_from_cart view_cart begin_checkout add_shipping_info purchase)
+profile,user_id,,Sent via updateUserProfile / login identity
+profile,email,,Sent via updateUserProfile / login identity
+profile,phone,,Sent via updateUserProfile / login identity
+profile,name,,Sent via updateUserProfile / login identity
+profile,additionalInfo,,SDK available; not populated
+profile,cohorts,,SDK available; not populated
+lifecycle,OnAppLaunch,,Call after initSdk; outside analytics bus
+lifecycle,OnAppOpen,,Call after initSdk; outside analytics bus
+lifecycle,OnUserLogin,,Identity lifecycle; pairs with profile attrs
+lifecycle,OnUserLogOut,,Identity lifecycle

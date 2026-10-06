@@ -7,8 +7,10 @@
             <certificates src="@raw/isrg_root_x2" />
         </trust-anchors>
     </base-config>
+    <!-- Dev Metro: emulator (10.0.2.2) or USB + `adb reverse` (localhost / 127.0.0.1) -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">10.0.2.2</domain>
         <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
     </domain-config>
 </network-security-config>

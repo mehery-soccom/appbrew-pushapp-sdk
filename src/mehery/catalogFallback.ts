@@ -98,6 +98,16 @@ function resetShopifyClients(options?: { keepAuth?: boolean }): void {
   } catch {
     // Storage may be unavailable during tests.
   }
+  // Critical: MMKV alone is not enough. Shell may have already created a cart
+  // on the original shop while the catalog probe ran; Zustand still holds that
+  // cart id. ATC then calls cartLinesAdd against the fallback shop with a
+  // foreign cart GID → failure → empty cart UI (while press tracking still
+  // fires add_to_cart).
+  try {
+    useAppStore.getState().cart.resetCart()
+  } catch {
+    // Store may be unavailable during tests.
+  }
 }
 
 /**
@@ -166,11 +176,31 @@ async function collectionsWithProducts(
   return ids
 }
 
+let catalogProbeFinished = false
+
 /**
  * If the live Storefront catalog is empty, point Shopify + theme collection
  * GIDs at a shop that has products so PDP / add-to-cart / remove-from-cart work.
  */
+
+/** True after `ensureWorkingCatalog` has run (success, skip, or failure). */
+export function hasEnsuredWorkingCatalog(): boolean {
+  return catalogProbeFinished
+}
+
+export function markCatalogProbeFinished(): void {
+  catalogProbeFinished = true
+}
+
 export async function ensureWorkingCatalog(): Promise<void> {
+  try {
+    await runEnsureWorkingCatalog()
+  } finally {
+    catalogProbeFinished = true
+  }
+}
+
+async function runEnsureWorkingCatalog(): Promise<void> {
   const store = useAppStore.getState()
   const config = store.config.data
   const shopify = config?.integrations?.shopify
@@ -270,6 +300,13 @@ export async function ensureWorkingCatalog(): Promise<void> {
   resetShopifyClients({ keepAuth: true })
   lockAuthToOriginalShop(config, originalAuthShop)
   store.config.update(remapped, 'idle')
+  // Clear again after publish in case an in-flight fetchCart from the original
+  // shop resolved and rewrote Zustand with a foreign cart id.
+  try {
+    store.cart.resetCart()
+  } catch {
+    /* ignore */
+  }
   console.log(
     '[Mehery] Catalog fallback ready — open Home → a product → Add to Bag → Cart to track view_item / add_to_cart / remove_from_cart'
   )

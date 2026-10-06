@@ -6,12 +6,12 @@ import {
 } from './pushCoexistence'
 import { loadMeherySdk } from './sdk'
 import { rotateStalePushAppDeviceIfNeeded } from './sessionGuard'
+import { ensureMeheryChannelPinned, MEHERY_CHANNEL_ID } from './channelPin'
+
+export { MEHERY_CHANNEL_ID }
 
 /** Third argument to initSdk: production (`false`), sandbox (`true`), or `'development'`. */
 export type SdkInitEnvironmentParam = boolean | 'development'
-
-/** Client tenant_channel from PushApp dashboard. */
-export const MEHERY_CHANNEL_ID = 'ecommerce_1786525308082'
 
 /** Production: pushapp.ai (`.ai` domain). Use `true` for sandbox, `'development'` for co.in. */
 export const MEHERY_ENVIRONMENT: SdkInitEnvironmentParam = false
@@ -19,16 +19,25 @@ export const MEHERY_ENVIRONMENT: SdkInitEnvironmentParam = false
 let bootstrapPromise: Promise<void> | null = null
 
 /**
+ * Forget a completed bootstrap so recovery can run the full auth/init sequence
+ * again after clearing the SDK's persisted guest/device state.
+ */
+export function resetBootstrapPromise(): void {
+  bootstrapPromise = null
+}
+
+/**
  * Cold-start sequence matching the Mehery example app:
  * setGeoIP → readCredentialsForEnvironment → pushappAuth → initSdk
  * → (waitForSdkReady) → messaging.requestPermission + getToken
  *
- * Lifecycle (app_install / app_launch) runs inside initSdk via trackDefaultLifecycleEvents
- * after /device/register — do not call OnAppLaunch again here.
+ * Lifecycle (app_install / app_launch) also runs inside initSdk via
+ * trackDefaultLifecycleEvents after /device/register. Host still sends
+ * app_install / app_launch / app_open via sendMeheryLifecycleCustomEvents
+ * (app_open is not fired by the SDK until after login link).
  */
 export async function bootstrapMeherySdk(options?: {
   environment?: SdkInitEnvironmentParam
-  channelId?: string
   logs?: boolean
 }): Promise<void> {
   if (bootstrapPromise) {
@@ -37,11 +46,12 @@ export async function bootstrapMeherySdk(options?: {
 
   bootstrapPromise = (async () => {
     const environment = options?.environment ?? MEHERY_ENVIRONMENT
-    const channelId = options?.channelId ?? MEHERY_CHANNEL_ID
     const logs = options?.logs ?? __DEV__
 
     // Before any SDK call that caches device_id (setGeoIP → common headers).
+    await ensureMeheryChannelPinned()
     await rotateStalePushAppDeviceIfNeeded()
+    await ensureMeheryChannelPinned()
 
     const sdk = await loadMeherySdk()
 
@@ -57,10 +67,12 @@ export async function bootstrapMeherySdk(options?: {
       })
     }
 
-    const { xApiId, xApiKey } =
-      await sdk.readCredentialsForEnvironment(environment)
+    const { xApiId, xApiKey } = await sdk.readCredentialsForEnvironment(
+      environment
+    )
     await sdk.pushappAuth(xApiId, xApiKey)
-    await sdk.initSdk(null, channelId, environment, logs)
+    await sdk.initSdk(null, MEHERY_CHANNEL_ID, environment, logs)
+    await ensureMeheryChannelPinned()
     // Host coordination only — example sets sdkReady after initSdk; we await readiness.
     // Must check the boolean: false means timeout or markSdkReady(false) after init error.
     const ready = await sdk.waitForSdkReady()
@@ -82,6 +94,9 @@ export async function bootstrapMeherySdk(options?: {
       const token = await messaging().getToken()
       if (__DEV__) {
         console.log('[Mehery] Firebase Cloud Messaging Token:', token)
+      }
+      if (typeof sdk.iosChecker === 'function') {
+        sdk.iosChecker()
       }
     } catch (e) {
       console.warn('[Mehery] Failed to get FCM token after init', e)

@@ -1,6 +1,11 @@
 import { Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { loadMeherySdk } from './sdk'
+import { MEHERY_CHANNEL_ID, MEHERY_TENANT } from './channelPin'
+import {
+  DEVICE_REREGISTER_DELAY_MS,
+  DEVICE_REREGISTER_MAX_ATTEMPTS,
+} from './linkGate'
 import {
   clearDeviceLinkFailed,
   isPoisonedLinkError,
@@ -20,6 +25,12 @@ const HOST_GEO = {
 
 let recoveryPromise: Promise<boolean> | null = null
 
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
+}
+
 function persistableString(value: unknown): string {
   return typeof value === 'string' ? value.trim() : ''
 }
@@ -28,9 +39,10 @@ function extractRegisterIdentity(data: unknown): {
   userId: string
   sessionId: string
   contactId: string
+  profileId: string
 } {
   if (!data || typeof data !== 'object') {
-    return { userId: '', sessionId: '', contactId: '' }
+    return { userId: '', sessionId: '', contactId: '', profileId: '' }
   }
   const root = data as Record<string, unknown>
   const device =
@@ -43,11 +55,25 @@ function extractRegisterIdentity(data: unknown): {
     persistableString(device.session_id) ||
     persistableString(root.session_id) ||
     persistableString(root.sessionId)
-  return { userId, sessionId, contactId }
+  const profile =
+    root.profile && typeof root.profile === 'object'
+      ? (root.profile as Record<string, unknown>)
+      : {}
+  const customerProfile =
+    root.customerProfile && typeof root.customerProfile === 'object'
+      ? (root.customerProfile as Record<string, unknown>)
+      : {}
+  const profileId =
+    persistableString(device.p_id) ||
+    persistableString(root.p_id) ||
+    persistableString(profile._id) ||
+    persistableString(customerProfile.id)
+  return { userId, sessionId, contactId, profileId }
 }
 
 async function getApiBaseUrlFromStorage(): Promise<string> {
-  const tenant = (await AsyncStorage.getItem('mehery_tenant'))?.trim() || 'ecommerce'
+  const tenant =
+    (await AsyncStorage.getItem('mehery_tenant'))?.trim() || MEHERY_TENANT
   const host =
     (await AsyncStorage.getItem('mehery_pushapp_host_root'))?.trim() || 'pushapp.ai'
   return `https://${tenant}.${host}/pushapp/api`
@@ -60,7 +86,9 @@ async function persistRegisterSuccess(params: {
   channelId: string
   data: unknown
 }): Promise<boolean> {
-  const { userId, sessionId, contactId } = extractRegisterIdentity(params.data)
+  const { userId, sessionId, contactId, profileId } = extractRegisterIdentity(
+    params.data
+  )
   if (!userId) {
     console.warn(
       '[Mehery] Host re-register returned no device.user_id — cannot recover /device/link'
@@ -93,6 +121,7 @@ async function persistRegisterSuccess(params: {
   ]
   if (sessionId) pairs.push(['sessionId', sessionId])
   if (contactId) pairs.push(['contact_id', contactId])
+  if (profileId) pairs.push(['p_id', profileId])
   if (params.channelId) {
     pairs.push(['mehery_registered_channel_id', params.channelId])
   }
@@ -109,29 +138,30 @@ async function persistRegisterSuccess(params: {
 /**
  * POST /device/register for the current device_id using the stored push token.
  * Bypasses the SDK 15s register cooldown so login recovery can run immediately.
+ * Still waits {@link DEVICE_REREGISTER_DELAY_MS} and retries — immediate POST
+ * after link/delink often fails.
  */
 async function hostRegisterCurrentDevice(): Promise<boolean> {
-  const [
-    deviceId,
-    channelId,
-    apnsToken,
-    lastToken,
-    fcmToken,
-    apiId,
-    apiKey,
-  ] = await AsyncStorage.multiGet([
-    'device_id',
-    'mehery_channel_id',
-    'APNStoken',
-    'lastRegisteredToken',
-    'fcmToken',
-    'mehery_x_api_id',
-    'mehery_x_api_key',
-  ]).then((entries) => entries.map(([_, value]) => value?.trim() ?? ''))
+  const [deviceId, apnsToken, lastToken, fcmToken, apiId, apiKey] =
+    await AsyncStorage.multiGet([
+      'device_id',
+      'APNStoken',
+      'lastRegisteredToken',
+      'fcmToken',
+      'mehery_x_api_id',
+      'mehery_x_api_key',
+    ]).then((entries) => entries.map(([_, value]) => value?.trim() ?? ''))
 
-  const token = apnsToken || lastToken || fcmToken
-  if (!deviceId || !channelId || !token || !apiId || !apiKey) {
-    console.warn('[Mehery] Host re-register skipped — missing device, channel, token, or credentials')
+  const channelId = MEHERY_CHANNEL_ID
+  const token =
+    Platform.OS === 'ios'
+      ? [apnsToken, lastToken].find((value) => value && !value.includes(':')) ??
+        ''
+      : apnsToken || lastToken || fcmToken
+  if (!deviceId || !token || !apiId || !apiKey) {
+    console.warn(
+      '[Mehery] Host re-register skipped — missing device, token, or credentials'
+    )
     return false
   }
 
@@ -142,45 +172,66 @@ async function hostRegisterCurrentDevice(): Promise<boolean> {
     platform: Platform.OS,
     token,
     geoIP: HOST_GEO,
+    device_info: {
+      os_name: Platform.OS.toUpperCase(),
+      os_version: String(Platform.Version),
+    },
   }
   if (Platform.OS === 'ios' && fcmToken && fcmToken !== token) {
     payload.fcm_token = fcmToken
   }
 
-  const response = await fetch(`${apiBaseUrl}/device/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-id': apiId,
-      'x-api-key': apiKey,
-      'X-Device-ID': deviceId,
-    },
-    body: JSON.stringify(payload),
-  })
-  const text = await response.text()
-  let data: unknown = null
-  try {
-    data = text ? JSON.parse(text) : null
-  } catch {
-    data = null
+  const attemptOnce = async (): Promise<boolean> => {
+    const response = await fetch(`${apiBaseUrl}/device/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-id': apiId,
+        'x-api-key': apiKey,
+        'X-Device-ID': deviceId,
+      },
+      body: JSON.stringify(payload),
+    })
+    const text = await response.text()
+    let data: unknown = null
+    try {
+      data = text ? JSON.parse(text) : null
+    } catch {
+      data = null
+    }
+
+    if (!response.ok && !/device already exists/i.test(text)) {
+      console.warn(
+        '[Mehery] Host re-register failed',
+        response.status,
+        text.slice(0, 300)
+      )
+      return false
+    }
+
+    return persistRegisterSuccess({
+      deviceId,
+      token,
+      fcmToken,
+      channelId,
+      data,
+    })
   }
 
-  if (!response.ok && !/device already exists/i.test(text)) {
-    console.warn(
-      '[Mehery] Host re-register failed',
-      response.status,
-      text.slice(0, 300)
+  for (let attempt = 1; attempt <= DEVICE_REREGISTER_MAX_ATTEMPTS; attempt++) {
+    console.log(
+      `[Mehery] Host re-register attempt ${attempt}/${DEVICE_REREGISTER_MAX_ATTEMPTS} after ${DEVICE_REREGISTER_DELAY_MS}ms`
     )
-    return false
+    await delay(DEVICE_REREGISTER_DELAY_MS)
+    try {
+      if (await attemptOnce()) {
+        return true
+      }
+    } catch (e) {
+      console.warn('[Mehery] Host re-register attempt threw', e)
+    }
   }
-
-  return persistRegisterSuccess({
-    deviceId,
-    token,
-    fcmToken,
-    channelId,
-    data,
-  })
+  return false
 }
 
 async function runDeviceLinkRecovery(reason: string): Promise<boolean> {

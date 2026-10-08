@@ -9,9 +9,8 @@ import {
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useAppStore, useLink } from '@gauntlet/state'
-import { sendMeheryCustomEvent } from '../sendCustomEvent'
+import { sendMeheryCustomEvent, PUSHAPP_CHECKOUT_EVENTS } from 'react-native-pushapp-appbrew/appbrew'
 import { buildDummyCheckoutPayload } from '../dummyCheckout/buildDummyCheckoutPayload'
-import { PUSHAPP_CHECKOUT_EVENTS } from '../checkoutBridge'
 import {
   LocalCartLine,
   getLocalCartLines,

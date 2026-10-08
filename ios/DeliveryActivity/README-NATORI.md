@@ -33,3 +33,10 @@ Background / content-available push with:
 | `DeliveryActivityLiveActivity.swift` | Lock Screen / Island UI + Attributes |
 | `MeheryAppGroup.swift` | Shared group id constant |
 | `../natori/MeheryLiveActivity.swift` | Start/update from AppDelegate |
+
+## Notes
+
+- `DeliveryActivityLiveActivity.swift` and `MeheryAppGroup.swift` are compiled into **both** the app and the widget target.
+- `progressPercent` is a 0–1 fraction. Image URLs must be https.
+- `DeliveryActivity.swift`, `AppIntent.swift` and `DeliveryActivityControl.swift` are unused Xcode template files and are not compiled.
+- Full setup: [SDK README → iOS extensions](../../vendor/react-native-pushapp-appbrew/README.md#c-live-activity-widget-extension).

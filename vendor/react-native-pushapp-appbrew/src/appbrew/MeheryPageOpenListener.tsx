@@ -3,9 +3,9 @@ import { useAppStore } from '@gauntlet/state'
 import { meheryOnPageOpen } from './navigation'
 import { resolveOwnedMeheryPageOpen } from './pageOpenConstants'
 import {
-  ACCOUNT_INLINE_PLACEHOLDER_ID,
   ACCOUNT_PAGE_NAME,
-  ACCOUNT_TOOLTIP_PLACEHOLDER_ID,
+  accountInlinePlaceholderId,
+  accountTooltipPlaceholderId,
 } from './accountPollConstants'
 
 /**
@@ -30,7 +30,7 @@ export function MeheryPageOpenListener() {
     }
     const widgetOpenCompares =
       page === ACCOUNT_PAGE_NAME
-        ? [ACCOUNT_INLINE_PLACEHOLDER_ID, ACCOUNT_TOOLTIP_PLACEHOLDER_ID]
+        ? [accountInlinePlaceholderId(), accountTooltipPlaceholderId()]
         : undefined
     return meheryOnPageOpen(page, { widgetOpenCompares })
   }, [page])

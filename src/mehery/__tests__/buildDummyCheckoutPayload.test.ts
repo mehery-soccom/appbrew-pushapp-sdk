@@ -1,11 +1,9 @@
-jest.mock('../commerceIds', () => ({
+// The demo code imports from the package entry; keep the pure item helpers real.
+jest.mock('react-native-pushapp-appbrew/appbrew', () => ({
+  ...jest.requireActual('../../../vendor/react-native-pushapp-appbrew/src/appbrew/itemPayload'),
   getCartId: () => 'gid://shopify/Cart/abc',
   getShopifyId: () => '882211',
-}))
-
-jest.mock('../shopDomain', () => ({
   resolveShopDomain: () => 'natori-appbrew.myshopify.com',
-  MEHERY_FALLBACK_SHOP_DOMAIN: 'natori-appbrew.myshopify.com',
 }))
 
 import { buildDummyCheckoutPayload } from '../dummyCheckout/buildDummyCheckoutPayload'

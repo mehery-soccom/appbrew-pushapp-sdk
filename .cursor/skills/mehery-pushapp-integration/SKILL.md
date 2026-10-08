@@ -12,36 +12,37 @@ description: >-
 
 ## Non-negotiables
 
-1. **Never edit** `Desktop/msdk/react-native-pushapp-appbrew/**` (SDK is read-only).
-2. Install from local path: `file:../msdk/react-native-pushapp-appbrew`.
+0. **Source of truth:** `vendor/react-native-pushapp-appbrew/README.md` (App Brew integration guide).
+1. Treat `vendor/react-native-pushapp-appbrew/**` as the SDK; only change it deliberately.
+2. Install from local path: `file:./vendor/react-native-pushapp-appbrew`. Never import the SDK statically; use `loadMeherySdk()` / `ensureSdkReady()` from `react-native-pushapp-appbrew/appbrew`.
 3. Cold-start order is mandatory:
    `readCredentialsForEnvironment(env)` → `pushappAuth` → `await initSdk` → mount `PollOverlayProvider`.
 4. Dual-send every Excel/GA4 event through `MeheryTracker` → `sendCustomEvent(exactGa4Name, payload)`.
 5. Mehery owns PushApp rich tray; keep `modules['push'] = FirebasePush.getInstance`.
 6. Android: remove RNFB default messaging service (`tools:node="remove"`). Background rich push needs **data-only** high-priority FCM.
 
-Default env on `pushapp_neilo`: `'development'` → host `pushapp.co.in`.
+Env and channel: `setupPushApp({ environment, channelId })` in `src/app/App.tsx` (currently `false` → `pushapp.ai`).
 
 ## Host layout (this repo)
 
 | Area | Path |
 |------|------|
-| JS helpers | `src/mehery/` |
-| App wire | `src/app/App.tsx`, `index.js` |
+| JS glue | `vendor/react-native-pushapp-appbrew/src/appbrew/` (public entry: `react-native-pushapp-appbrew/appbrew`); host-only demo code stays in `src/mehery/` |
+| App wire | `src/app/App.tsx` (`setupPushApp`, `<PushAppRoot />`), `index.js` |
 | Android | `android/app/src/main/AndroidManifest.xml`, `.../values/strings.xml` |
 | iOS credentials / modes | `ios/natori/Info.plist` |
 | iOS categories + URL body | `ios/natori/AppDelegate.swift` |
 | iOS NSE | `ios/ImageNotification/` (Mehery multi-image NSE) |
 | iOS NCE | `ios/ImagePreviewExtension/` |
 | Live Activity sources | `ios/DeliveryActivity/` (target may need Xcode/App Groups) |
-| Client guide | `docs/mehery-pushapp-integration-guide.md` (+ `.pdf`, `.docx`) |
+| Integration guide | `vendor/react-native-pushapp-appbrew/README.md` (old `docs/mehery-*.md` are superseded) |
 
 ## Bootstrap checklist
 
 - [ ] Peer deps: `react-native-push-notification`, `@react-native-async-storage/async-storage`
 - [ ] Credentials in Info.plist + `strings.xml` (prod/sandbox/dev)
 - [ ] `UIBackgroundModes` → `remote-notification`
-- [ ] `registerFcmBackgroundHandler()` in `index.js` before `AppRegistry`
+- [ ] `messaging().setBackgroundMessageHandler` in `index.js` before `AppRegistry`, lazy-loading the SDK → `handleBackgroundFcmMessage` (not `registerFcmBackgroundHandler`)
 - [ ] `MeheryTracker` registered in **and out of** `__DEV__`
 - [ ] `PollOverlayProvider` once at root
 - [ ] Android RNFB messaging service removed from merged manifest
@@ -68,9 +69,9 @@ Payload keys and E2E steps: [reference.md](reference.md).
 ## Coexistence
 
 - Keep FirebasePush module contract.
-- Suppress duplicate Notifee foreground tray for PushApp payloads (`src/mehery/pushCoexistence.ts`).
+- Suppress duplicate Notifee foreground tray for PushApp payloads (`src/appbrew/pushCoexistence.ts`; installed by `setupPushApp`).
 - Do not patch `@gauntlet/*` call sites for dual-send — use tracker fan-out only.
 
 ## After integrating
 
-Update `docs/mehery-pushapp-integration-guide.md` with the real file inventory, then export PDF + DOCX for the client.
+Update `vendor/react-native-pushapp-appbrew/README.md` (`setupPushApp` options, "Where each value goes", known issues) to match the code.

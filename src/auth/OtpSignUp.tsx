@@ -15,11 +15,7 @@ import {
 import Toast from 'react-native-toast-message'
 import { formatDateToYYYYMMDD } from '@gauntlet/components/organisms/profile-edit/utils'
 import { parsePhoneNumberWithError } from 'libphonenumber-js'
-import { getMeheryTracker } from '../mehery/MeheryTracker'
-import {
-  formatOtpPhone,
-  mergeMeheryIdentityFields,
-} from '../mehery/buildMeheryProfileInfo'
+import { getMeheryTracker, formatOtpPhone, mergeMeheryIdentityFields } from 'react-native-pushapp-appbrew/appbrew'
 
 interface CreateUserFormInputs {
   firstName: string

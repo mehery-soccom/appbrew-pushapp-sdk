@@ -17,7 +17,7 @@ import {
 import { resolveShopDomain } from './shopDomain'
 import { getCartId } from './commerceIds'
 import { TrackedNotifyAddToCartShell } from './notifyPressEvents'
-import { upsertLocalCartLine } from './localCart/store'
+import { peekPushAppConfig } from './config'
 
 function currencyCode(): string | undefined {
   try {
@@ -38,36 +38,9 @@ function cartOptions() {
 
 function mirrorProductToLocalCart(productData: any, qty = 1): void {
   try {
-    const variantId =
-      productData?.selectedVariantId ?? productData?.defaultVariantId
-    if (!variantId && !productData?.handle) return
-    const variant = variantId
-      ? productData?.variants?.items?.[variantId]
-      : undefined
-    const price = Number(variant?.price?.amount ?? variant?.price ?? 0)
-    const original = Number(
-      variant?.compareAtPrice?.amount ?? variant?.compareAtPrice ?? price
-    )
-    const img =
-      variant?.image?.url ??
-      productData?.images?.items?.[0]?.url ??
-      productData?.images?.[0]
-    upsertLocalCartLine({
-      variantId: String(variantId || productData.handle),
-      productId: productData?.id != null ? String(productData.id) : undefined,
-      productHandle: productData?.handle,
-      title: productData?.title || 'Product',
-      image: typeof img === 'string' ? img : undefined,
-      price,
-      originalPrice: original,
-      quantity: qty,
-      vendor: productData?.vendor,
-      productType: productData?.productType,
-      sku: variant?.sku,
-      currency: currencyCode() || 'INR',
-    })
+    peekPushAppConfig()?.onAddToCart?.(productData, qty)
   } catch (e) {
-    console.warn('[Mehery] local cart mirror failed', e)
+    console.warn('[Mehery] onAddToCart hook failed', e)
   }
 }
 

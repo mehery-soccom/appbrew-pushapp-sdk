@@ -1,6 +1,6 @@
 {
   "name": "react-native-pushapp-appbrew",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React Native SDK for event tracking that works with both Expo Go and bare React Native applications",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
@@ -11,6 +11,21 @@
       "types": "./lib/typescript/src/index.d.ts",
       "default": "./lib/module/index.js"
     },
+    "./appbrew": {
+      "react-native": "./src/appbrew/index.ts",
+      "types": "./src/appbrew/index.ts",
+      "default": "./src/appbrew/index.ts"
+    },
+    "./appbrew/sdk": {
+      "react-native": "./src/appbrew/sdk.ts",
+      "types": "./src/appbrew/sdk.ts",
+      "default": "./src/appbrew/sdk.ts"
+    },
+    "./appbrew/asyncStorageCompat": {
+      "react-native": "./src/appbrew/asyncStorageCompat.ts",
+      "types": "./src/appbrew/asyncStorageCompat.ts",
+      "default": "./src/appbrew/asyncStorageCompat.ts"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -18,6 +33,7 @@
     "lib",
     "android",
     "ios",
+    "templates",
     "cpp",
     "*.podspec",
     "react-native.config.js",
@@ -30,7 +46,8 @@
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
-    "!**/.*"
+    "!**/.*",
+    "KNOWN_ISSUES.md"
   ],
   "scripts": {
     "test": "jest --no-watchman",
@@ -88,7 +105,16 @@
     "expo-notifications": "^0.20.0",
     "react": "*",
     "react-native": "*",
-    "react-native-push-notification": "^8.1.1"
+    "react-native-push-notification": "^8.1.1",
+    "@gauntlet/analytics": "*",
+    "@gauntlet/components": "*",
+    "@gauntlet/event-emitter": "*",
+    "@gauntlet/icons": "*",
+    "@gauntlet/local-storage": "*",
+    "@gauntlet/state": "*",
+    "@gauntlet/types": "*",
+    "@gauntlet/ui-builder": "*",
+    "@notifee/react-native": "*"
   },
   "packageManager": "yarn@3.6.1",
   "jest": {
@@ -145,7 +171,8 @@
           "project": "tsconfig.build.json"
         }
       ]
-    ]
+    ],
+    "exclude": "**/{__tests__,__fixtures__,__mocks__,appbrew}/**"
   },
   "create-react-native-library": {
     "type": "legacy-view",
@@ -165,5 +192,34 @@
     "react-native-video": "^6.17.0",
     "react-native-webview": "^13.15.0",
     "socket.io-client": "^4.8.1"
+  },
+  "peerDependenciesMeta": {
+    "@gauntlet/analytics": {
+      "optional": true
+    },
+    "@gauntlet/components": {
+      "optional": true
+    },
+    "@gauntlet/event-emitter": {
+      "optional": true
+    },
+    "@gauntlet/icons": {
+      "optional": true
+    },
+    "@gauntlet/local-storage": {
+      "optional": true
+    },
+    "@gauntlet/state": {
+      "optional": true
+    },
+    "@gauntlet/types": {
+      "optional": true
+    },
+    "@gauntlet/ui-builder": {
+      "optional": true
+    },
+    "@notifee/react-native": {
+      "optional": true
+    }
   }
 }

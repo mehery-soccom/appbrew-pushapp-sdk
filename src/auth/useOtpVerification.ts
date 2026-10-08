@@ -9,11 +9,7 @@ import { useAppStore, useBottomSheetModal, useLink, useUser } from '@gauntlet/st
 import useCountDownTimer from '@gauntlet/components/atoms/countdown-timer'
 import EnvConfig from 'react-native-config'
 import Toast from 'react-native-toast-message'
-import {
-  formatOtpPhone,
-  mergeMeheryIdentityFields,
-} from '../mehery/buildMeheryProfileInfo'
-import { getMeheryTracker } from '../mehery/MeheryTracker'
+import { formatOtpPhone, mergeMeheryIdentityFields, getMeheryTracker } from 'react-native-pushapp-appbrew/appbrew'
 
 function signInErrorMessage(result: unknown): string | null {
   if (!result) return null

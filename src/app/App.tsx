@@ -32,15 +32,10 @@ import { registerContainers } from './register-containers'
 import { FirebasePush } from '@gauntlet/firebase-push'
 import RNBootSplash from 'react-native-bootsplash'
 import { ensureWorkingCatalog, markCatalogProbeFinished } from '../mehery/catalogFallback'
-import { installNotifeePushAppDeduper } from '../mehery/pushCoexistence'
-import { registerMeheryTracker } from '../mehery/MeheryTracker'
-import { installMeheryCartPressTracking } from '../mehery/cartPressEvents'
-import { installMeheryWishlistPressTracking } from '../mehery/wishlistPressEvents'
-import { installMeheryProductUrlEnrichment } from '../mehery/productUrlEnrichment'
-import { installMeherySessionKeepAlive } from '../mehery/sessionKeepAlive'
-import { installMeherySearchTracking } from '../mehery/searchEvents'
+import { setupPushApp, PushAppRoot } from 'react-native-pushapp-appbrew/appbrew'
+import { DemoOrdersEntry } from '../mehery/localOrders/DemoOrdersEntry'
+import { mirrorProductToLocalCart } from '../mehery/localCart/mirrorProduct'
 import { presentLoginFirstIfNeeded } from '../auth/presentLoginFirst'
-import { MeheryPageOpenListener } from '../mehery/MeheryPageOpenListener'
 import { MeheryPdpActionOverlay } from '../mehery/MeheryPdpActionOverlay'
 import { MeheryCartOverlay } from '../mehery/localCart/MeheryCartOverlay'
 import { MeheryOrderScreensOverlay } from '../mehery/localOrders/MeheryOrderScreensOverlay'
@@ -50,14 +45,26 @@ const EnvConfig = Config.getConstants()
 const reactNavigationIntegration = Sentry.reactNavigationIntegration()
 
 function initApp() {
-  // Dual-send ecom events in __DEV__ and release so PushApp is not empty in Metro.
-  registerMeheryTracker(AnalyticsProvider.getInstance())
-  installMeheryCartPressTracking()
-  installMeheryProductUrlEnrichment()
-  installMeheryWishlistPressTracking()
-  installMeherySearchTracking()
-  // Early wrap so cold-start getUserDetails renews CAT before resetUser.
-  installMeherySessionKeepAlive()
+  setupPushApp({
+    channelId: 'ecommerce_1786525308082',
+    environment: false, // false = pushapp.ai
+    appScheme: 'mehery2',
+    httpsHosts: ['mehery2.myshopify.com'],
+    shopDomain: 'natori-appbrew.myshopify.com',
+    geo: {
+      ip: '103.21.244.0',
+      location: { lat: 19.076, lng: 72.8777 },
+      country: { iso_code: 'IN', name: 'India' },
+      region: { iso_code: 'MH', name: 'Maharashtra' },
+      city: { name: 'Mumbai' },
+      area: { name: 'Parel' },
+    },
+    // Optional .env overrides (must match the campaign placeholder_id; rebuild natively after changing)
+    accountInlinePlaceholderId: EnvConfig.MEHERY_ACCOUNT_INLINE_PLACEHOLDER_ID,
+    accountTooltipPlaceholderId: EnvConfig.MEHERY_ACCOUNT_TOOLTIP_PLACEHOLDER_ID,
+    accountExtras: DemoOrdersEntry,
+    onAddToCart: mirrorProductToLocalCart,
+  })
 
   if (!__DEV__) {
     Sentry.init({
@@ -100,53 +107,11 @@ function initApp() {
   modules['currency'] = AppbrewCurrencyProvider.getInstance
   // Keep AppBrew push module contract; Mehery owns PushApp rich tray (see src/mehery/pushCoexistence.ts).
   modules['push'] = FirebasePush.getInstance
-  // Patch Notifee before FirebasePush.init so foreground FCM is not shown twice.
-  installNotifeePushAppDeduper()
 
   state.modules.updateModules(modules)
 }
 
 once(initApp)()
-
-/**
- * PollOverlay from Mehery — loaded after mount via loadMeherySdk().
- */
-function MeheryPollOverlay() {
-  const [Provider, setProvider] = React.useState<
-    React.ComponentType | null
-  >(null)
-
-  React.useEffect(() => {
-    let cancelled = false
-    // After initSdk (skill order): startMehery is idempotent with App's boot effect.
-    import('../mehery/startMehery')
-      .then((m) => m.startMehery())
-      .then(() => import('../mehery/sdk'))
-      .then((m) => m.loadMeherySdk())
-      .then((sdk) => {
-        if (!sdk || cancelled) {
-          return
-        }
-        const Comp = sdk.PollOverlayProvider
-        if (Comp) {
-          setProvider(() => Comp)
-        } else {
-          console.warn('[Mehery] PollOverlayProvider missing')
-        }
-      })
-      .catch((e) => {
-        console.warn('[Mehery] PollOverlayProvider load failed', e)
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  if (!Provider) {
-    return null
-  }
-  return <Provider />
-}
 
 const App = Sentry.wrap((props: any) => {
   /**
@@ -192,23 +157,6 @@ const App = Sentry.wrap((props: any) => {
     return presentLoginFirstIfNeeded()
   }, [])
 
-  React.useEffect(() => {
-    import('../mehery/startMehery')
-      .then((m) => {
-        if (typeof m.startMehery !== 'function') {
-          console.warn(
-            '[Mehery] startMehery missing',
-            m && typeof m === 'object' ? Object.keys(m) : m
-          )
-          return
-        }
-        return m.startMehery()
-      })
-      .catch((e) => {
-        console.warn('[Mehery] bootstrap failed', e)
-      })
-  }, [])
-
   return (
     <Sentry.ErrorBoundary fallback={(props) => <FallbackUI {...props} />}>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -221,8 +169,7 @@ const App = Sentry.wrap((props: any) => {
             }}
             routingInstrumentation={reactNavigationIntegration}
           />
-          <MeheryPollOverlay />
-          <MeheryPageOpenListener />
+          <PushAppRoot />
           <MeheryPdpActionOverlay />
           <MeheryCartOverlay />
           <MeheryOrderScreensOverlay />

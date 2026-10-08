@@ -1,4 +1,4 @@
-import { sendMeheryCustomEvent } from '../sendCustomEvent'
+import { sendMeheryCustomEvent } from 'react-native-pushapp-appbrew/appbrew'
 import type { LocalOrder } from './store'
 
 /** Shared order identity props for every Track-order Mehery event. */

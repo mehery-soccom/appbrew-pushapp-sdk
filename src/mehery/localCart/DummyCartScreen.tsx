@@ -9,9 +9,8 @@ import {
 } from 'react-native'
 import { useLink } from '@gauntlet/state'
 import { BaseBlockProps } from '@gauntlet/types'
-import { sendMeheryCustomEvent } from '../sendCustomEvent'
+import { sendMeheryCustomEvent, PUSHAPP_CHECKOUT_EVENTS } from 'react-native-pushapp-appbrew/appbrew'
 import { buildDummyCheckoutPayload } from '../dummyCheckout/buildDummyCheckoutPayload'
-import { PUSHAPP_CHECKOUT_EVENTS } from '../checkoutBridge'
 import {
   LocalCartLine,
   getLocalCartLines,

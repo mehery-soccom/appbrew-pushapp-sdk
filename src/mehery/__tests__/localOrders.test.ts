@@ -14,7 +14,7 @@ jest.mock('@gauntlet/local-storage', () => ({
   },
 }))
 
-jest.mock('../sendCustomEvent', () => ({
+jest.mock('react-native-pushapp-appbrew/appbrew', () => ({
   sendMeheryCustomEvent: jest.fn(() => Promise.resolve(true)),
 }))
 
@@ -26,7 +26,7 @@ import {
   nextTransitStatus,
   refundLocalOrder,
 } from '../localOrders/store'
-import { sendMeheryCustomEvent } from '../sendCustomEvent'
+import { sendMeheryCustomEvent } from 'react-native-pushapp-appbrew/appbrew'
 
 describe('localOrders store', () => {
   beforeEach(() => {

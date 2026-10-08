@@ -3,12 +3,8 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Toast from 'react-native-toast-message'
 import { useAppStore, useLink, useProductByHandle } from '@gauntlet/state'
-import { sendMeheryCustomEvent } from './sendCustomEvent'
-import { cartPayloadFromProduct } from './itemPayload'
-import { resolveShopDomain } from './shopDomain'
-import { getCartId } from './commerceIds'
+import { sendMeheryCustomEvent, cartPayloadFromProduct, resolveShopDomain, getCartId, PUSHAPP_CHECKOUT_EVENTS } from 'react-native-pushapp-appbrew/appbrew'
 import { buildDummyCheckoutPayload } from './dummyCheckout/buildDummyCheckoutPayload'
-import { PUSHAPP_CHECKOUT_EVENTS } from './checkoutBridge'
 import {
   localCartToCheckoutShape,
   upsertLocalCartLine,

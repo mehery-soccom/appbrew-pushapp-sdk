@@ -1,19 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-/** Client tenant_channel from PushApp dashboard. Never use the SDK example `demo_*` id. */
-export const MEHERY_CHANNEL_ID = 'ecommerce_1786525308082'
-export const MEHERY_TENANT = 'ecommerce'
+import { getChannelAlias, getChannelId, getTenant } from './config'
+
+/** Channel the SDK example app writes; always treated as stale. */
+const SDK_EXAMPLE_CHANNEL_ALIAS = '1780031354415'
 
 /** Full id plus the numeric segment the SDK may persist via extractChannelSegment. */
-const PINNED_CHANNEL_ALIASES = new Set([
-  MEHERY_CHANNEL_ID,
-  '1786525308082',
-])
-
-const STALE_CHANNEL_IDS = new Set([
-  'demo_1780031354415',
-  '1780031354415',
-])
+function pinnedChannelAliases(): Set<string> {
+  return new Set([getChannelId(), getChannelAlias()])
+}
 
 const REGISTRATION_CACHE_KEYS = [
   'lastRegisteredState',
@@ -30,31 +25,23 @@ const REGISTRATION_CACHE_KEYS = [
 function isWrongChannel(value: string | null | undefined): boolean {
   const v = (value ?? '').trim()
   if (!v) return false
-  if (PINNED_CHANNEL_ALIASES.has(v)) return false
-  if (STALE_CHANNEL_IDS.has(v)) return true
-  if (v.startsWith('demo_') || v === 'demo') return true
+  if (pinnedChannelAliases().has(v)) return false
   return true
 }
 
 function lastStateHasWrongChannel(lastState: string): boolean {
   if (!lastState) return false
-  if (
-    lastState.includes('demo_1780031354415') ||
-    lastState.includes('1780031354415')
-  ) {
+  if (lastState.includes(SDK_EXAMPLE_CHANNEL_ALIAS)) {
     return true
   }
-  if (
-    lastState.includes(MEHERY_CHANNEL_ID) ||
-    lastState.includes('1786525308082')
-  ) {
+  if (lastState.includes(getChannelId()) || lastState.includes(getChannelAlias())) {
     return false
   }
   return lastState.includes('"channel_id"')
 }
 
 /**
- * Force AsyncStorage onto `ecommerce_1786525308082` before any SDK read.
+ * Force AsyncStorage onto the configured channel before any SDK read.
  * The SDK example app writes `demo_1780031354415`; getEffectiveLinkChannelId
  * prefers `mehery_registered_channel_id`, so a leftover demo id wins over initSdk.
  */
@@ -76,7 +63,7 @@ export async function ensureMeheryChannelPinned(): Promise<void> {
     lastStateHasWrongChannel(lastState)
 
   if (needsReRegister) {
-    console.warn('[Mehery] Pinning PushApp channel to', MEHERY_CHANNEL_ID, {
+    console.warn('[Mehery] Pinning PushApp channel to', getChannelId(), {
       wasChannel: channelId || '(empty)',
       wasRegistered: registered || '(empty)',
       wasTenant: tenant || '(empty)',
@@ -85,15 +72,15 @@ export async function ensureMeheryChannelPinned(): Promise<void> {
   }
 
   const pairs: Array<[string, string]> = [
-    ['mehery_channel_id', MEHERY_CHANNEL_ID],
-    ['mehery_tenant', MEHERY_TENANT],
+    ['mehery_channel_id', getChannelId()],
+    ['mehery_tenant', getTenant()],
   ]
   if (
     registered &&
-    PINNED_CHANNEL_ALIASES.has(registered) &&
-    registered !== MEHERY_CHANNEL_ID
+    pinnedChannelAliases().has(registered) &&
+    registered !== getChannelId()
   ) {
-    pairs.push(['mehery_registered_channel_id', MEHERY_CHANNEL_ID])
+    pairs.push(['mehery_registered_channel_id', getChannelId()])
   }
   await AsyncStorage.multiSet(pairs)
 }

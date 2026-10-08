@@ -2,9 +2,7 @@
  * Build cart-like PushApp payloads from the live Shopify cart for dummy checkout.
  */
 
-import { getCartId, getShopifyId } from '../commerceIds'
-import { buildExcelItem } from '../itemPayload'
-import { resolveShopDomain } from '../shopDomain'
+import { getCartId, getShopifyId, buildExcelItem, resolveShopDomain } from 'react-native-pushapp-appbrew/appbrew'
 
 export type DummyCartLike = {
   id?: string | number

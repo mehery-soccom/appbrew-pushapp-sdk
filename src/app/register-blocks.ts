@@ -1,7 +1,7 @@
 import { blockRegistry, registerCommonBlocks } from '@gauntlet/block-registry'
 import { BuyNowBar } from '@gauntlet/components/organisms/buy-now-bar'
 import { OtpVerification } from '../auth/OtpVerification'
-import { MeheryProfileUserGreeting } from '../mehery/accountPollBlocks'
+import { MeheryProfileUserGreeting } from 'react-native-pushapp-appbrew/appbrew'
 import { MeheryAddToCartBar } from '../mehery/MeheryAddToCartBar'
 import { DummyCheckoutScreen } from '../mehery/dummyCheckout/DummyCheckoutScreen'
 import { DummyCartScreen } from '../mehery/localCart/DummyCartScreen'

@@ -6,15 +6,11 @@ import {
 } from './pushCoexistence'
 import { loadMeherySdk } from './sdk'
 import { rotateStalePushAppDeviceIfNeeded } from './sessionGuard'
-import { ensureMeheryChannelPinned, MEHERY_CHANNEL_ID } from './channelPin'
-
-export { MEHERY_CHANNEL_ID }
+import { ensureMeheryChannelPinned } from './channelPin'
+import { getChannelId, getEnvironment, getPushAppConfig } from './config'
 
 /** Third argument to initSdk: production (`false`), sandbox (`true`), or `'development'`. */
 export type SdkInitEnvironmentParam = boolean | 'development'
-
-/** Production: pushapp.ai (`.ai` domain). Use `true` for sandbox, `'development'` for co.in. */
-export const MEHERY_ENVIRONMENT: SdkInitEnvironmentParam = false
 
 let bootstrapPromise: Promise<void> | null = null
 
@@ -45,7 +41,7 @@ export async function bootstrapMeherySdk(options?: {
   }
 
   bootstrapPromise = (async () => {
-    const environment = options?.environment ?? MEHERY_ENVIRONMENT
+    const environment = options?.environment ?? getEnvironment()
     const logs = options?.logs ?? __DEV__
 
     // Before any SDK call that caches device_id (setGeoIP → common headers).
@@ -55,23 +51,17 @@ export async function bootstrapMeherySdk(options?: {
 
     const sdk = await loadMeherySdk()
 
-    // Same hardcoded geo the example app sets before auth/init (avoids 4s empty wait).
-    if (typeof sdk.setGeoIP === 'function') {
-      sdk.setGeoIP({
-        ip: '103.21.244.0',
-        location: { lat: 19.076, lng: 72.8777 },
-        country: { iso_code: 'IN', name: 'India' },
-        region: { iso_code: 'MH', name: 'Maharashtra' },
-        city: { name: 'Mumbai' },
-        area: { name: 'Parel' },
-      })
+    // Optional fixed geo (config.geo) avoids the SDK's ~4s geo lookup wait.
+    const { geo } = getPushAppConfig()
+    if (geo && typeof sdk.setGeoIP === 'function') {
+      sdk.setGeoIP(geo)
     }
 
     const { xApiId, xApiKey } = await sdk.readCredentialsForEnvironment(
       environment
     )
     await sdk.pushappAuth(xApiId, xApiKey)
-    await sdk.initSdk(null, MEHERY_CHANNEL_ID, environment, logs)
+    await sdk.initSdk(null, getChannelId(), environment, logs)
     await ensureMeheryChannelPinned()
     // Host coordination only — example sets sdkReady after initSdk; we await readiness.
     // Must check the boolean: false means timeout or markSdkReady(false) after init error.

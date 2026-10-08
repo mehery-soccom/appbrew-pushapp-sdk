@@ -55,6 +55,8 @@ No Shopify store? **Get in touch with the Appbrew team** for studio dashboard ac
 
 ## Documentation
 
+**PushApp (Mehery) SDK:** see [vendor/react-native-pushapp-appbrew/README.md](./vendor/react-native-pushapp-appbrew/README.md) for what to add to an App Brew app, and where.
+
 The `docs/` folder is the full integration developer guide — prerequisites, how Appbrew apps work, screens & blocks, building integrations / blocks / trackers, metafields, checkout, testing & publishing, and connecting your store. Start at **[docs/index.md](./docs/index.md)**.
 
 For the hosted version, see the **Appbrew Integration Developer Docs**:

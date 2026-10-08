@@ -1,12 +1,10 @@
 /**
  * Resolve Shopify storefront domain for product URL enrichment.
- * Prefer live config; fall back to the Natori demo shop used by catalogFallback.
+ * Prefer live App Brew config; fall back to `shopDomain` from setupPushApp.
  */
 
 import { useAppStore } from '@gauntlet/state'
-
-/** Same demo shop as catalogFallback when headless config omits domain. */
-export const MEHERY_FALLBACK_SHOP_DOMAIN = 'natori-appbrew.myshopify.com'
+import { peekPushAppConfig } from './config'
 
 export function resolveShopDomain(): string | undefined {
   try {
@@ -27,5 +25,5 @@ export function resolveShopDomain(): string | undefined {
   } catch {
     /* ignore */
   }
-  return MEHERY_FALLBACK_SHOP_DOMAIN
+  return peekPushAppConfig()?.shopDomain
 }

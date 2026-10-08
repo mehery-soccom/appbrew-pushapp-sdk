@@ -1,3 +1,5 @@
+> **Superseded:** the current integration guide is [`vendor/react-native-pushapp-appbrew/README.md`](../vendor/react-native-pushapp-appbrew/README.md). This file is kept for history and may be out of date.
+
 # Mehery PushApp Integration Guide (App Brew / Natori)
 
 **Audience:** Client engineering team integrating or maintaining PushApp in this host app.  

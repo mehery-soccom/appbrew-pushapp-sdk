@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useLink } from '@gauntlet/state'
-import { sendMeheryCustomEvent } from '../sendCustomEvent'
+import { sendMeheryCustomEvent } from 'react-native-pushapp-appbrew/appbrew'
 import { trackOrderEvent } from './orderEvents'
 import { listLocalOrders, LocalOrder } from './store'
 

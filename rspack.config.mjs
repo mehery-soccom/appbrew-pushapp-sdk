@@ -12,8 +12,8 @@ const asyncStorageReal = require.resolve(
   '@react-native-async-storage/async-storage'
 )
 const asyncStorageCompat = path.resolve(
-  import.meta.dirname,
-  'src/mehery/asyncStorageCompat.ts'
+  path.dirname(meheryPkgJson),
+  'src/appbrew/asyncStorageCompat.ts'
 )
 
 const baseConfigFactory = createAppConfig({

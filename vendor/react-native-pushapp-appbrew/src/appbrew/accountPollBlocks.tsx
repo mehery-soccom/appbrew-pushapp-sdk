@@ -12,16 +12,16 @@ import { Button } from '@gauntlet/ui-builder'
 import { loadMeherySdk } from './sdk'
 import { startMehery } from './startMehery'
 import {
-  ACCOUNT_INLINE_PLACEHOLDER_ID,
-  ACCOUNT_TOOLTIP_PLACEHOLDER_DEFAULT,
+  accountInlinePlaceholderId,
+  accountTooltipPlaceholderId,
 } from './accountPollConstants'
-import { DemoOrdersEntry } from './localOrders/DemoOrdersEntry'
+import { peekPushAppConfig } from './config'
 
 export {
-  ACCOUNT_INLINE_PLACEHOLDER_ID,
   ACCOUNT_PAGE_NAME,
-  ACCOUNT_TOOLTIP_PLACEHOLDER_ID,
-  ACCOUNT_TOOLTIP_PLACEHOLDER_IDS,
+  accountInlinePlaceholderId,
+  accountTooltipPlaceholderId,
+  accountTooltipPlaceholderIds,
 } from './accountPollConstants'
 
 export type MeheryProfileUserGreetingProps = BaseBlockProps
@@ -83,6 +83,7 @@ export function MeheryProfileUserGreeting({
   instanceId,
   screenId,
 }: MeheryProfileUserGreetingProps) {
+  const AccountExtras = peekPushAppConfig()?.accountExtras
   const block = useBlock<any>(screenId, componentId, instanceId)
   const testID = useBlockTestID(block, screenId)
 
@@ -120,7 +121,7 @@ export function MeheryProfileUserGreeting({
   if (!isUserAuthenticated()) {
     return (
       <View style={{ paddingHorizontal: 16 }} testID={testID}>
-        <DemoOrdersEntry />
+        {AccountExtras ? <AccountExtras /> : null}
       </View>
     )
   }
@@ -161,7 +162,7 @@ export function MeheryProfileUserGreeting({
         pointerEvents="box-none"
       >
         <Tooltip
-          placeholderId={ACCOUNT_TOOLTIP_PLACEHOLDER_DEFAULT}
+          placeholderId={accountTooltipPlaceholderId()}
           tooltipTop={-110}
           tooltipLeft={16}
         >
@@ -211,9 +212,9 @@ export function MeheryProfileUserGreeting({
         </Text>
         {editWithTooltip}
         {Inline ? (
-          <Inline placeholderId={ACCOUNT_INLINE_PLACEHOLDER_ID} />
+          <Inline placeholderId={accountInlinePlaceholderId()} />
         ) : null}
-        <DemoOrdersEntry />
+        {AccountExtras ? <AccountExtras /> : null}
       </View>
     </View>
   )

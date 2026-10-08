@@ -1,7 +1,7 @@
 import { Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { loadMeherySdk } from './sdk'
-import { MEHERY_CHANNEL_ID, MEHERY_TENANT } from './channelPin'
+import { getChannelId, getPushAppConfig, getTenant } from './config'
 import {
   DEVICE_REREGISTER_DELAY_MS,
   DEVICE_REREGISTER_MAX_ATTEMPTS,
@@ -13,15 +13,6 @@ import {
   markDeviceLinkFailed,
   rotatePushAppDeviceIdentity,
 } from './sessionGuard'
-
-const HOST_GEO = {
-  ip: '103.21.244.0',
-  location: { lat: 19.076, lng: 72.8777 },
-  country: { iso_code: 'IN', name: 'India' },
-  region: { iso_code: 'MH', name: 'Maharashtra' },
-  city: { name: 'Mumbai' },
-  area: { name: 'Parel' },
-}
 
 let recoveryPromise: Promise<boolean> | null = null
 
@@ -73,7 +64,7 @@ function extractRegisterIdentity(data: unknown): {
 
 async function getApiBaseUrlFromStorage(): Promise<string> {
   const tenant =
-    (await AsyncStorage.getItem('mehery_tenant'))?.trim() || MEHERY_TENANT
+    (await AsyncStorage.getItem('mehery_tenant'))?.trim() || getTenant()
   const host =
     (await AsyncStorage.getItem('mehery_pushapp_host_root'))?.trim() || 'pushapp.ai'
   return `https://${tenant}.${host}/pushapp/api`
@@ -152,7 +143,7 @@ async function hostRegisterCurrentDevice(): Promise<boolean> {
       'mehery_x_api_key',
     ]).then((entries) => entries.map(([_, value]) => value?.trim() ?? ''))
 
-  const channelId = MEHERY_CHANNEL_ID
+  const channelId = getChannelId()
   const token =
     Platform.OS === 'ios'
       ? [apnsToken, lastToken].find((value) => value && !value.includes(':')) ??
@@ -171,7 +162,7 @@ async function hostRegisterCurrentDevice(): Promise<boolean> {
     channel_id: channelId,
     platform: Platform.OS,
     token,
-    geoIP: HOST_GEO,
+    ...(getPushAppConfig().geo ? { geoIP: getPushAppConfig().geo } : {}),
     device_info: {
       os_name: Platform.OS.toUpperCase(),
       os_version: String(Platform.Version),

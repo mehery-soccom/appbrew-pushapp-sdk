@@ -15,7 +15,7 @@ jest.mock('@gauntlet/local-storage', () => {
   }
 })
 
-jest.mock('../commerceIds', () => ({
+jest.mock('react-native-pushapp-appbrew/appbrew', () => ({
   getCartId: () => 'local_cart_test',
   getShopifyId: () => 'natori-appbrew.myshopify.com',
 }))

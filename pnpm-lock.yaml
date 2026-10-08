@@ -357,7 +357,7 @@ importers:
         version: 8.1.1(@react-native-community/push-notification-ios@1.12.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
       react-native-pushapp-appbrew:
         specifier: file:./vendor/react-native-pushapp-appbrew
-        version: file:vendor/react-native-pushapp-appbrew(f395f7e76e633b9685bdf6629a940e86)
+        version: file:vendor/react-native-pushapp-appbrew(8450d1504abf483e0a6b854158182299)
       react-native-radio-buttons-group:
         specifier: 3.1.0
         version: 3.1.0
@@ -7800,10 +7800,38 @@ packages:
   react-native-pushapp-appbrew@file:vendor/react-native-pushapp-appbrew:
     resolution: {directory: vendor/react-native-pushapp-appbrew, type: directory}
     peerDependencies:
+      '@gauntlet/analytics': '*'
+      '@gauntlet/components': '*'
+      '@gauntlet/event-emitter': '*'
+      '@gauntlet/icons': '*'
+      '@gauntlet/local-storage': '*'
+      '@gauntlet/state': '*'
+      '@gauntlet/types': '*'
+      '@gauntlet/ui-builder': '*'
+      '@notifee/react-native': '*'
       expo-notifications: ^0.20.0
       react: '*'
       react-native: '*'
       react-native-push-notification: ^8.1.1
+    peerDependenciesMeta:
+      '@gauntlet/analytics':
+        optional: true
+      '@gauntlet/components':
+        optional: true
+      '@gauntlet/event-emitter':
+        optional: true
+      '@gauntlet/icons':
+        optional: true
+      '@gauntlet/local-storage':
+        optional: true
+      '@gauntlet/state':
+        optional: true
+      '@gauntlet/types':
+        optional: true
+      '@gauntlet/ui-builder':
+        optional: true
+      '@notifee/react-native':
+        optional: true
 
   react-native-radio-buttons-group@3.1.0:
     resolution: {integrity: sha512-DiNM1yI6WfRygUZ+Z/bsjggyLypXsxRNXPNYpPHXSEVbRD6uF5Aei+HMIwyeRbfMKPtHwLq7cGsmUDV01i+rOQ==}
@@ -18516,7 +18544,7 @@ snapshots:
       '@react-native-community/push-notification-ios': 1.12.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
       react-native: 0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1)
 
-  react-native-pushapp-appbrew@file:vendor/react-native-pushapp-appbrew(f395f7e76e633b9685bdf6629a940e86):
+  react-native-pushapp-appbrew@file:vendor/react-native-pushapp-appbrew(8450d1504abf483e0a6b854158182299):
     dependencies:
       '@react-native-async-storage/async-storage': 3.1.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
       '@react-native-community/netinfo': 11.4.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
@@ -18534,6 +18562,16 @@ snapshots:
       react-native-video: 6.16.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
       react-native-webview: 13.16.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
       socket.io-client: 4.8.3(supports-color@8.1.1)
+    optionalDependencies:
+      '@gauntlet/analytics': 0.24.0(fbedcdd256f794bcefdd4dc70cec5441)
+      '@gauntlet/components': 0.24.0(5d74d903595f964fe40ba1801e487525)
+      '@gauntlet/event-emitter': 0.24.0
+      '@gauntlet/icons': 0.24.0(9a68507a6ec68f7d811616e79dd9e04e)
+      '@gauntlet/local-storage': 0.24.0(react-native-mmkv@3.3.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(type-fest@4.41.0)
+      '@gauntlet/state': 0.24.0(cc527f38b4f52f422d780a342af3cb74)
+      '@gauntlet/types': 0.24.0(962103accce483943d868b6b8401133e)
+      '@gauntlet/ui-builder': 0.24.0(f48eb91ea3d0cddc12835dcd0fbe092f)
+      '@notifee/react-native': 9.1.8(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
     transitivePeerDependencies:
       - '@expo/config-plugins'
       - bufferutil

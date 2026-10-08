@@ -15,9 +15,7 @@ import {
   useResetCart,
 } from '@gauntlet/state'
 import { BaseBlockProps } from '@gauntlet/types'
-import { allocateDemoOrderIds, getShopifyId } from '../commerceIds'
-import { sendMeheryCustomEvent } from '../sendCustomEvent'
-import { PUSHAPP_CHECKOUT_EVENTS } from '../checkoutBridge'
+import { allocateDemoOrderIds, getShopifyId, sendMeheryCustomEvent, PUSHAPP_CHECKOUT_EVENTS } from 'react-native-pushapp-appbrew/appbrew'
 import { buildDummyCheckoutPayload } from './buildDummyCheckoutPayload'
 import {
   LocalOrder,

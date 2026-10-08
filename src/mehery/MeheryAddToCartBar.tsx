@@ -20,12 +20,8 @@ import {
   useProductByHandle,
 } from '@gauntlet/state'
 import { BaseBlockProps, ProductHandle } from '@gauntlet/types'
-import { sendMeheryCustomEvent } from './sendCustomEvent'
-import { cartPayloadFromProduct } from './itemPayload'
-import { resolveShopDomain } from './shopDomain'
-import { getCartId } from './commerceIds'
+import { sendMeheryCustomEvent, cartPayloadFromProduct, resolveShopDomain, getCartId, PUSHAPP_CHECKOUT_EVENTS } from 'react-native-pushapp-appbrew/appbrew'
 import { buildDummyCheckoutPayload } from './dummyCheckout/buildDummyCheckoutPayload'
-import { PUSHAPP_CHECKOUT_EVENTS } from './checkoutBridge'
 import {
   localCartToCheckoutShape,
   upsertLocalCartLine,

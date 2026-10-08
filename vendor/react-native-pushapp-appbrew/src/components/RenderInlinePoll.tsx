@@ -567,7 +567,7 @@ function measureAndSend() {
       <WebView
         ref={webViewRef}
         originWhitelist={['*']}
-        source={{ html: injectedHTML, baseUrl: 'about:blank' }}
+        source={{ html: injectedHTML }}
         injectedJavaScript={injectedJS}
         injectedJavaScriptBeforeContentLoaded="true;"
         onMessage={onMessage}

@@ -273,7 +273,22 @@ After install or a token refresh, `Mehery FCM: onNewToken` confirms the service 
 
 ### iOS
 
-The SDK pod (`MeheryEventSender`, autolinked) contains only `MeheryAppConfig`, which reads credentials from `Info.plist`, plus a view manager. Everything else on iOS is code in **your** app. Ready-made copies of all of it ship in this package under [`templates/ios/`](./templates/ios), and the two extensions you need most are shown in full below.
+The SDK pod (`MeheryEventSender`, autolinked) contains only `MeheryAppConfig`, which reads credentials from `Info.plist`, plus a view manager. Everything else on iOS is code in **your** app. Ready-made copies of all of it ship in this package under `templates/ios/` (see [Where the template files are](#where-the-template-files-are)), and the two extensions you need most are shown in full below.
+
+#### Where the template files are
+
+They are inside the installed package, not in a repository you need access to:
+
+```
+node_modules/react-native-pushapp-appbrew/templates/ios/
+├── App/                    PushTokenManager, MeheryPushHelpers, Live Activity (real + stub), AppDelegate/SceneDelegate references
+├── minimal/                short service and content extensions (the code shown below)
+├── ImageNotification/      full service extension
+├── ImagePreviewExtension/  full content extension
+└── DeliveryActivity/       Live Activity widget extension
+```
+
+Copy files from there into your Xcode project. Your package manager may place `node_modules` elsewhere (for example `node_modules/.pnpm/...`); `pnpm list react-native-pushapp-appbrew` or `node -p "require.resolve('react-native-pushapp-appbrew/package.json')"` shows the real folder.
 
 #### 1. Capabilities (main app target)
 
@@ -309,7 +324,7 @@ Also add your URL scheme under `CFBundleURLTypes` (the same one you pass as `app
 
 #### 4. Native files to copy (required)
 
-Copy these from [`templates/ios/App/`](./templates/ios/App) into the main app target:
+Copy these from `templates/ios/App/` (see [Where the template files are](#where-the-template-files-are)) into the main app target:
 
 | File | Why |
 |---|---|
@@ -806,7 +821,7 @@ Action buttons come from the category you registered in `AppDelegate`; the syste
 #### C. Live Activity (widget extension)
 
 1. Create a **Widget Extension** target named `DeliveryActivityExtension` (deployment target **16.2**; untick "Include Live Activity" and "Include Control" if you want to start empty).
-2. Copy these from [`templates/ios/DeliveryActivity/`](./templates/ios/DeliveryActivity) into it: `DeliveryActivityBundle.swift`, `DeliveryActivityLiveActivity.swift`, `MeheryAppGroup.swift`, `Info.plist`, `DeliveryActivityExtension.entitlements`.
+2. Copy these from `templates/ios/DeliveryActivity/` into it: `DeliveryActivityBundle.swift`, `DeliveryActivityLiveActivity.swift`, `MeheryAppGroup.swift`, `Info.plist`, `DeliveryActivityExtension.entitlements`.
 3. **Also add `DeliveryActivityLiveActivity.swift` and `MeheryAppGroup.swift` to the main app target.** The app needs `DeliveryActivityAttributes` to start an activity.
 4. Put the **same App Group** on the app and on the extension. Change it in `MeheryAppGroup.swift` and in both entitlements files:
 
@@ -1055,7 +1070,18 @@ Run these in order. Each one tells you which step to re-check if it fails.
 
 If it's missing, `readCredentialsForEnvironment` or `initSdk` failed. See [Troubleshooting](#troubleshooting). In debug builds the console also prints `[Mehery] Firebase Cloud Messaging Token: …`. Copy that token for the pushes below.
 
-**2. Plain push (background).** Put the app in the background, then send a **data-only** message with Firebase's HTTP v1 API (or the Firebase console's "Test on device"):
+**How to send these.** Save a message as `message.json`, then post it to Firebase's HTTP v1 API. Replace `<FIREBASE_PROJECT_ID>`, and use an access token for an account that may send FCM messages (a service-account token, or `gcloud auth print-access-token`):
+
+```bash
+curl -X POST "https://fcm.googleapis.com/v1/projects/<FIREBASE_PROJECT_ID>/messages:send" \
+  -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+  -H "Content-Type: application/json" \
+  -d @message.json
+```
+
+Each message below is complete. Replace `<FCM_TOKEN>` with the token from step 1. Android values in `data` must be strings.
+
+**2. Plain push (background).** Put the app in the background, then send a **data-only** message (no top-level `notification` block):
 
 ```json
 {
@@ -1069,7 +1095,9 @@ If it's missing, `readCredentialsForEnvironment` or `initSdk` failed. See [Troub
     "android": { "priority": "HIGH" },
     "apns": {
       "headers": { "apns-priority": "10" },
-      "payload": { "aps": { "alert": { "title": "Hello from PushApp", "body": "It works" } } }
+      "payload": {
+        "aps": { "alert": { "title": "Hello from PushApp", "body": "It works" } }
+      }
     }
   }
 }
@@ -1078,33 +1106,78 @@ If it's missing, `readCredentialsForEnvironment` or `initSdk` failed. See [Troub
 - Android: `adb logcat -s MyFirebaseMessagingService:I` should print `Mehery FCM: onMessageReceived`.
 - Tapping the notification should open the product inside the app (needs `appScheme` and `httpsHosts`).
 
-**3. Image push.** Add an image URL.
+**3. Image push.** The same message with an image. iOS also needs `mutable-content: 1`, or the service extension never runs.
 
 ```json
-"data": { "title": "Sale", "body": "New arrivals", "image": "https://picsum.photos/800/450.jpg" }
+{
+  "message": {
+    "token": "<FCM_TOKEN>",
+    "data": {
+      "title": "Sale",
+      "body": "New arrivals",
+      "image": "https://picsum.photos/800/450.jpg"
+    },
+    "android": { "priority": "HIGH" },
+    "apns": {
+      "headers": { "apns-priority": "10" },
+      "payload": {
+        "aps": { "alert": { "title": "Sale", "body": "New arrivals" }, "mutable-content": 1 },
+        "image": "https://picsum.photos/800/450.jpg"
+      }
+    }
+  }
+}
 ```
 
-iOS also needs the service extension to run, so add `"mutable-content": 1` to `aps`:
+**4. Carousel.** Two to four images. On Android they go in `data.image_urls` as a JSON string; on iOS they go in `images` as an array, with the carousel `category`.
 
 ```json
-"apns": { "payload": { "aps": { "alert": { "title": "Sale", "body": "New arrivals" }, "mutable-content": 1 },
-                       "image": "https://picsum.photos/800/450.jpg" } }
-```
-
-**4. Carousel.** Two to four images.
-
-```json
-"data": { "title": "Lookbook", "body": "Swipe", "image_urls": "[\"https://picsum.photos/id/10/800/450.jpg\",\"https://picsum.photos/id/20/800/450.jpg\"]" }
-```
-
-```json
-"apns": { "payload": { "aps": { "alert": { "title": "Lookbook", "body": "Swipe" }, "mutable-content": 1, "category": "CAROUSEL_CATEGORY" },
-                       "images": ["https://picsum.photos/id/10/800/450.jpg", "https://picsum.photos/id/20/800/450.jpg"] } }
+{
+  "message": {
+    "token": "<FCM_TOKEN>",
+    "data": {
+      "title": "Lookbook",
+      "body": "Swipe",
+      "image_urls": "[\"https://picsum.photos/id/10/800/450.jpg\",\"https://picsum.photos/id/20/800/450.jpg\"]"
+    },
+    "android": { "priority": "HIGH" },
+    "apns": {
+      "headers": { "apns-priority": "10" },
+      "payload": {
+        "aps": {
+          "alert": { "title": "Lookbook", "body": "Swipe" },
+          "mutable-content": 1,
+          "category": "CAROUSEL_CATEGORY"
+        },
+        "images": [
+          "https://picsum.photos/id/10/800/450.jpg",
+          "https://picsum.photos/id/20/800/450.jpg"
+        ]
+      }
+    }
+  }
+}
 ```
 
 On iOS, **long-press or pull down** the notification to see the carousel and buttons.
 
-**5. Silent keep-alive.** Send `"data": { "type": "silent_keepalive" }` with no title or body (on iOS also `"apns": { "payload": { "aps": { "content-available": 1 } } }`). Nothing should appear, and the device should call `POST /pushapp/silent/ping`.
+**iOS Simulator shortcut.** You can test the iOS side without Firebase: save the `apns.payload` object from any message above as `payload.json`, adding the key `"Simulator Target Bundle": "<your-bundle-id>"`, and run `xcrun simctl push booted <your-bundle-id> payload.json`. The simulator must already have notification permission granted.
+
+**5. Silent keep-alive.** No title or body. Nothing should appear, and the device should call `POST /pushapp/silent/ping`.
+
+```json
+{
+  "message": {
+    "token": "<FCM_TOKEN>",
+    "data": { "type": "silent_keepalive" },
+    "android": { "priority": "HIGH" },
+    "apns": {
+      "headers": { "apns-priority": "5", "apns-push-type": "background" },
+      "payload": { "aps": { "content-available": 1 } }
+    }
+  }
+}
+```
 
 **6. Polls.** Create an inline or overlay campaign in PushApp for the placeholder id you configured, open the account tab, and check the poll appears.
 
@@ -1202,7 +1275,7 @@ Optional style keys: `*FontSize`, `*FontColorHex`, `line{1,2,3}_text_styles`, `b
 
 ### Known issues
 
-Open issues and their workarounds are tracked in [KNOWN_ISSUES.md](./KNOWN_ISSUES.md).
+Open issues and their workarounds are in `KNOWN_ISSUES.md`, at the root of the installed package (`node_modules/react-native-pushapp-appbrew/KNOWN_ISSUES.md`).
 
 ## ProGuard
 

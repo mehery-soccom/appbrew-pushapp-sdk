@@ -22,6 +22,7 @@ minimumReleaseAgeExclude:
   - '@app-brew/*'
   - '@gauntlet/*'
   - '@rsbuild/core@2.0.11'
+  - react-native-pushapp-appbrew@1.0.2
 
 patchedDependencies:
   react-native-render-html: patches/react-native-render-html.patch

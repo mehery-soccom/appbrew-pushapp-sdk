@@ -356,8 +356,8 @@ importers:
         specifier: ^8.1.1
         version: 8.1.1(@react-native-community/push-notification-ios@1.12.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0))(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))
       react-native-pushapp-appbrew:
-        specifier: file:./vendor/react-native-pushapp-appbrew
-        version: file:vendor/react-native-pushapp-appbrew(8450d1504abf483e0a6b854158182299)
+        specifier: 1.0.2
+        version: 1.0.2(8450d1504abf483e0a6b854158182299)
       react-native-radio-buttons-group:
         specifier: 3.1.0
         version: 3.1.0
@@ -7797,8 +7797,8 @@ packages:
       '@react-native-community/push-notification-ios': ^1.10.1
       react-native: '>=0.33'
 
-  react-native-pushapp-appbrew@file:vendor/react-native-pushapp-appbrew:
-    resolution: {directory: vendor/react-native-pushapp-appbrew, type: directory}
+  react-native-pushapp-appbrew@1.0.2:
+    resolution: {integrity: sha512-YwbpzmhW7AnxTRdXiOrGK7fy4juzNXqrZOvNjdyz11qPU0d5OKP7zC7Lg16d+YSGSvW9RlxbQwbM/dGsqG9Sxw==}
     peerDependencies:
       '@gauntlet/analytics': '*'
       '@gauntlet/components': '*'
@@ -18544,7 +18544,7 @@ snapshots:
       '@react-native-community/push-notification-ios': 1.12.0(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
       react-native: 0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1)
 
-  react-native-pushapp-appbrew@file:vendor/react-native-pushapp-appbrew(8450d1504abf483e0a6b854158182299):
+  react-native-pushapp-appbrew@1.0.2(8450d1504abf483e0a6b854158182299):
     dependencies:
       '@react-native-async-storage/async-storage': 3.1.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))(react@19.1.0)
       '@react-native-community/netinfo': 11.4.1(react-native@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native-community/cli@20.0.0(supports-color@8.1.1)(typescript@5.9.3))(@react-native/metro-config@0.81.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.17)(react@19.1.0)(supports-color@8.1.1))

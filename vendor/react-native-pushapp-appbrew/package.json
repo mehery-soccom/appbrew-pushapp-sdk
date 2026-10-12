@@ -1,6 +1,6 @@
 {
   "name": "react-native-pushapp-appbrew",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React Native SDK for event tracking that works with both Expo Go and bare React Native applications",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",

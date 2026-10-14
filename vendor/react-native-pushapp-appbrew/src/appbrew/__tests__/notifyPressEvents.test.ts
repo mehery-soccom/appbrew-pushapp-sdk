@@ -75,14 +75,14 @@ describe('notifyPayloadFromProduct / emitNotifyBackInStockFromProduct', () => {
     )
   })
 
-  it('emits notify_back_in_stock via LOG', () => {
+  it('emits notify_back_in_stock via INTERACTIVE', () => {
     expect(emitNotifyBackInStockFromProduct(product)).toBe(true)
     expect(sendMeheryCustomEvent).toHaveBeenCalledWith(
       'notify_back_in_stock',
       expect.objectContaining({
         items: [expect.objectContaining({ handle: 'silk-robe' })],
       }),
-      'LOG'
+      'INTERACTIVE'
     )
   })
 

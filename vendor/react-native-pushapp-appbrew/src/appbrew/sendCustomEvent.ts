@@ -144,14 +144,14 @@ function isDuplicate(name: string, data: Record<string, unknown>): boolean {
 
 /**
  * Single host path to PushApp `/v1/event` via SDK sendCustomEvent.
- * Defaults to LOG so Event Analytics POSTs without requiring /device/link
- * and without scheduling poll checks. Pass INTERACTIVE only for poll-driving UX.
+ * Defaults to INTERACTIVE (app-originated actions schedule poll checks).
+ * SDK-internal analytics (lifecycle, screen views, identity) pass 'LOG'.
  * Returns true only when the SDK reported a successful POST (`true`).
  */
 export async function sendMeheryCustomEvent(
   eventName: string,
   data: Record<string, unknown> = {},
-  eventType: EventType = 'LOG'
+  eventType: EventType = 'INTERACTIVE'
 ): Promise<boolean> {
   const name = toGa4EventName(eventName)
   const meheryUserId = await fetchMeheryUserId()
@@ -194,7 +194,7 @@ export async function sendMeheryCustomEvent(
     if (!ok && typeof sdk.flushPendingCustomEvents === 'function') {
       await new Promise((resolve) => setTimeout(resolve, 800))
       await sdk.flushPendingCustomEvents()
-      result = await send(name, normalized, { eventType: 'LOG' })
+      result = await send(name, normalized, { eventType })
       ok = result === true
     }
 

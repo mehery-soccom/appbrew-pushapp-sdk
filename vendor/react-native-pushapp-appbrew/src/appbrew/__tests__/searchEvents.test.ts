@@ -37,14 +37,14 @@ describe('emitMeherySearchEvent', () => {
     __resetMeherySearchTrackingForTests()
   })
 
-  it('forwards search_term via LOG custom event', () => {
+  it('forwards search_term via INTERACTIVE custom event', () => {
     emitMeherySearchEvent(`silk-robe-${Date.now()}`)
     expect(sendMeheryCustomEvent).toHaveBeenCalledWith(
       'search',
       expect.objectContaining({
         search_term: expect.stringContaining('silk-robe'),
       }),
-      'LOG'
+      'INTERACTIVE'
     )
   })
 
@@ -107,7 +107,7 @@ describe('termFromSearchLink / search commit', () => {
     expect(sendMeheryCustomEvent).toHaveBeenCalledWith(
       'search',
       { search_term: 'commit-term' },
-      'LOG'
+      'INTERACTIVE'
     )
     expect(gotoLink).toHaveBeenCalled()
   })

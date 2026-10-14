@@ -52,7 +52,7 @@ function emitCartCustomEvent(
     return
   }
   // LOG so Event Analytics POSTs without waiting for /device/link
-  void sendMeheryCustomEvent(ga4Name, payload, 'LOG')
+  void sendMeheryCustomEvent(ga4Name, payload, 'INTERACTIVE')
 }
 
 function TrackedProductQuantitySelector(props: any) {

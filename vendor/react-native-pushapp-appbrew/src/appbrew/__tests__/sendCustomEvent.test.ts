@@ -81,7 +81,7 @@ describe('sendMeheryCustomEvent', () => {
     resetMeheryCustomEventDedupeForTests()
   })
 
-  it('defaults to LOG event type', async () => {
+  it('defaults to INTERACTIVE event type', async () => {
     await sendMeheryCustomEvent('login', { method: 'otp' })
     expect(mockSend).toHaveBeenCalledWith(
       'login',
@@ -90,7 +90,7 @@ describe('sendMeheryCustomEvent', () => {
         shopify_id: '882211',
         cart_id: 'gid://shopify/Cart/test',
       }),
-      { eventType: 'LOG' }
+      { eventType: 'INTERACTIVE' }
     )
   })
 

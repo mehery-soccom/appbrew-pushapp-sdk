@@ -37,7 +37,7 @@ function emitWishlistCustomEvent(
   if (!payload) {
     return
   }
-  void sendMeheryCustomEvent(ga4Name, payload, 'LOG')
+  void sendMeheryCustomEvent(ga4Name, payload, 'INTERACTIVE')
 }
 
 /**

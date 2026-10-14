@@ -391,7 +391,7 @@ export class MeheryTracker extends AnalyticsTrackerV2 {
     ) {
       return
     }
-    await sendMeheryCustomEvent(name, data, 'LOG')
+    await sendMeheryCustomEvent(name, data, 'INTERACTIVE')
   }
 
   async sendScreenView(screenName?: string) {

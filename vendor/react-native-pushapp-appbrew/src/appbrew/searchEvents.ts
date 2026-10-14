@@ -30,7 +30,7 @@ export function emitMeherySearchEvent(searchTerm?: string): void {
   }
   lastTerm = term
   lastAt = now
-  void sendMeheryCustomEvent('search', { search_term: term }, 'LOG')
+  void sendMeheryCustomEvent('search', { search_term: term }, 'INTERACTIVE')
 }
 
 function termFromSearchLink(link: {

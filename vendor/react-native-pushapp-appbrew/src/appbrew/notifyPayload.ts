@@ -50,6 +50,6 @@ export function emitNotifyBackInStockFromProduct(productData: any): boolean {
   if (!payload) {
     return false
   }
-  void sendMeheryCustomEvent('notify_back_in_stock', payload, 'LOG')
+  void sendMeheryCustomEvent('notify_back_in_stock', payload, 'INTERACTIVE')
   return true
 }

@@ -20,7 +20,9 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const DATE_FIELD_KEY_REGEX = /(dob|date|birth|expiry|expires|expir)/i;
 
-let profileUpdateInProgress = false;
+// Calls run one at a time, in order: dropping an overlapping call lost the
+// newer profile (e.g. name edit during the login PUT) on iOS.
+let profileQueue: Promise<unknown> = Promise.resolve();
 let sessionProfileSyncKey: string | null = null;
 
 function buildSessionProfileSyncKey(
@@ -185,21 +187,22 @@ export type UpdateUserProfileOptions = {
 };
 
 // Updates customer profile (PUT) — skips API when payload matches last successful push.
-export async function updateUserProfile(
+export function updateUserProfile(
   info: Record<string, any> = {},
   cohorts: Record<string, any> = {},
   options?: UpdateUserProfileOptions
 ): Promise<UpdateUserProfileResult> {
+  const run = profileQueue.then(() => runUpdateUserProfile(info, cohorts, options));
+  profileQueue = run.catch(() => undefined);
+  return run;
+}
+
+async function runUpdateUserProfile(
+  info: Record<string, any>,
+  cohorts: Record<string, any>,
+  options?: UpdateUserProfileOptions
+): Promise<UpdateUserProfileResult> {
   sdkLog.log('🧩 [SDK][Profile] updateUserProfile called');
-
-  if (profileUpdateInProgress) {
-    const message =
-      'Skipped: profile update already in progress (duplicate call).';
-    sdkLog.log(`⏭️ [SDK][Profile] ${message}`);
-    return { skipped: true, message };
-  }
-
-  profileUpdateInProgress = true;
 
   try {
     const channel_code = await AsyncStorage.getItem('mehery_channel_id');
@@ -414,7 +417,6 @@ export async function updateUserProfile(
     sdkLog.error('❌ [SDK][Profile] updateUserProfile failed', err);
     throw err;
   } finally {
-    profileUpdateInProgress = false;
     sdkLog.log('🏁 [SDK][Profile] updateUserProfile finished');
   }
 }

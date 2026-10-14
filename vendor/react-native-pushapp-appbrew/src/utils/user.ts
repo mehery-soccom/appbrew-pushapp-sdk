@@ -29,7 +29,7 @@ import {
   tryParseRegisterResponse,
 } from './registerResponse';
 import { waitForSdkReady } from './sdkReadiness';
-import { reauthenticateWebSocket } from '../socket/WebSock';
+import { connectToServer, reauthenticateWebSocket } from '../socket/WebSock';
 
 export {
   extractContactIdFromRegisterResponse,
@@ -131,17 +131,25 @@ export async function persistRegisterIdentity(data: unknown): Promise<void> {
   const profileId = extractProfileIdFromRegisterResponse(data);
   const valuesToStore: [string, string][] = [];
 
+  // A late /device/register (iOS APNs token replay, host re-register) returns
+  // the guest contact/session/profile. Once /device/link succeeded those keys
+  // belong to the customer — overwriting them breaks the profile PUT (wrong p_id).
+  const linked =
+    (await AsyncStorage.getItem('UserLoggedIn'))?.toLowerCase() === 'true';
+
   if (registeredUserId) {
     valuesToStore.push([REGISTERED_USER_ID_STORAGE_KEY, registeredUserId]);
   }
-  if (contactId) {
-    valuesToStore.push(['contact_id', contactId]);
-  }
-  if (sessionId) {
-    valuesToStore.push([SESSION_ID_STORAGE_KEY, sessionId]);
-  }
-  if (profileId) {
-    valuesToStore.push([PROFILE_ID_STORAGE_KEY, profileId]);
+  if (!linked) {
+    if (contactId) {
+      valuesToStore.push(['contact_id', contactId]);
+    }
+    if (sessionId) {
+      valuesToStore.push([SESSION_ID_STORAGE_KEY, sessionId]);
+    }
+    if (profileId) {
+      valuesToStore.push([PROFILE_ID_STORAGE_KEY, profileId]);
+    }
   }
 
   if (valuesToStore.length > 0) {
@@ -152,6 +160,9 @@ export async function persistRegisterIdentity(data: unknown): Promise<void> {
     if (profileId) {
       sdkLog.log('✅ p_id stored:', profileId);
     }
+    // initSdk's connect is skipped when it runs before the guest id exists
+    // (slow iOS register); no-op if already connected/connecting.
+    if (registeredUserId) void connectToServer();
   }
 }
 
@@ -238,7 +249,8 @@ type UserDetails = {
 // let storedDeviceDetails: DeviceDetails | null = null;
 
 let storedUserDetails: UserDetails | null = null;
-let loginInProgress = false;
+let loginInFlight: { userId: string; promise: Promise<OnUserLoginResult> } | null =
+  null;
 const AUTO_REGISTER_TOKEN_WAIT_MS = 8000;
 const AUTO_REGISTER_TOKEN_POLL_MS = 400;
 
@@ -377,14 +389,24 @@ export async function OnUserLogin(user_id: string): Promise<OnUserLoginResult> {
     return { success: false, error: 'user_id is missing/empty' };
   }
 
-  if (loginInProgress) {
-    sdkLog.log(
-      '⏭️ [SDK][OnUserLogin] Skipped: login already in progress (duplicate call).'
-    );
-    return { success: false, error: 'login already in progress' };
+  // Same user: share the in-flight result. Different user: run after it.
+  while (loginInFlight) {
+    if (loginInFlight.userId === normalizedUserId) {
+      sdkLog.log('⏭️ [SDK][OnUserLogin] Joining in-flight login (duplicate call).');
+      return loginInFlight.promise;
+    }
+    await loginInFlight.promise.catch(() => undefined);
   }
-  loginInProgress = true;
+  const promise = runOnUserLogin(normalizedUserId).finally(() => {
+    if (loginInFlight?.promise === promise) loginInFlight = null;
+  });
+  loginInFlight = { userId: normalizedUserId, promise };
+  return promise;
+}
 
+async function runOnUserLogin(
+  normalizedUserId: string
+): Promise<OnUserLoginResult> {
   sdkLog.log('userid from front end:', normalizedUserId);
 
   let userIdStoredForLogin = false;
@@ -394,7 +416,6 @@ export async function OnUserLogin(user_id: string): Promise<OnUserLoginResult> {
     sdkLog.log('✅ user_id stored:', normalizedUserId);
   } catch (err) {
     sdkLog.error('❌ Failed to store user_id:', err);
-    loginInProgress = false;
     return { success: false, error: 'failed to store user_id' };
   }
 
@@ -671,7 +692,7 @@ export async function OnUserLogin(user_id: string): Promise<OnUserLoginResult> {
       return failAfterStoringUserId(message);
     }
   } finally {
-    loginInProgress = false;
+    // in-flight slot is released by OnUserLogin()
   }
 }
 

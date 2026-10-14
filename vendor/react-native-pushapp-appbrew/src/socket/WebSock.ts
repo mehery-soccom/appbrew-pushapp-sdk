@@ -87,7 +87,17 @@ function attachSocketHandlers(
   };
 }
 
-export const connectToServer = async () => {
+let connectInFlight: Promise<void> | null = null;
+
+// One connect at a time: initSdk and register-complete can both call this.
+export const connectToServer = (): Promise<void> => {
+  connectInFlight ??= doConnect().finally(() => {
+    connectInFlight = null;
+  });
+  return connectInFlight;
+};
+
+async function doConnect(): Promise<void> {
   const userID = await waitForEffectiveUserId();
   const device_id = await AsyncStorage.getItem('device_id');
 
@@ -114,7 +124,7 @@ export const connectToServer = async () => {
   } catch (err) {
     sdkLog.error('❌ WebSocket connection failed:', err);
   }
-};
+}
 
 /** Re-send auth after login (guest → live) or reconnect if the socket is not open. */
 export const reauthenticateWebSocket = async () => {

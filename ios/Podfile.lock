@@ -248,7 +248,7 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - MeheryEventSender (1.0.0):
+  - MeheryEventSender (1.0.3):
     - boost
     - DoubleConversion
     - fast_float
@@ -3989,7 +3989,7 @@ SPEC CHECKSUMS:
   libavif: 84bbb62fb232c3018d6f1bab79beea87e35de7b7
   libdav1d: 23581a4d8ec811ff171ed5e2e05cd27bad64c39f
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
-  MeheryEventSender: bf4540b8a85394bd7e2fd4f795f6374a6bc6bcaa
+  MeheryEventSender: d3b3ce18396834242daf59dca2ce59086dd0f559
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669

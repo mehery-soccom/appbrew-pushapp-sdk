@@ -67,8 +67,9 @@ export async function bootstrapMeherySdk(options?: {
     // Must check the boolean: false means timeout or markSdkReady(false) after init error.
     const ready = await sdk.waitForSdkReady()
     if (!ready) {
-      throw new Error(
-        '[Mehery] initSdk did not become ready (timeout or init failure)'
+      // Not fatal: initSdk keeps running (slow iOS register); sends queue until ready.
+      console.warn(
+        '[Mehery] initSdk not ready after wait (timeout or init failure) — continuing'
       )
     }
 

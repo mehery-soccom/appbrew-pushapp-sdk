@@ -111,8 +111,7 @@ export function MeheryPdpActionOverlay() {
       }
       void sendMeheryCustomEvent(
         PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
-        buildDummyCheckoutPayload(localCartToCheckoutShape()),
-        'LOG'
+        buildDummyCheckoutPayload(localCartToCheckoutShape())
       )
       gotoLink({
         kind: 'screen',
@@ -128,8 +127,7 @@ export function MeheryPdpActionOverlay() {
     addLocal()
     void sendMeheryCustomEvent(
       PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
-      buildDummyCheckoutPayload(localCartToCheckoutShape()),
-      'LOG'
+      buildDummyCheckoutPayload(localCartToCheckoutShape())
     )
     gotoLink({
       kind: 'screen',

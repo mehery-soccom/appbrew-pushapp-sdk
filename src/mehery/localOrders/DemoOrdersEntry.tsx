@@ -32,8 +32,7 @@ export function DemoOrdersEntry() {
             {
               action: next ? 'open_demo_orders' : 'close_demo_orders',
               click_label: 'Demo orders',
-            },
-            'LOG'
+            }
           )
           setOpen(next)
         }}
@@ -78,8 +77,7 @@ export function DemoOrdersEntry() {
             onPress={() => {
               void sendMeheryCustomEvent(
                 'order_click',
-                { action: 'refresh_orders', click_label: 'Refresh' },
-                'LOG'
+                { action: 'refresh_orders', click_label: 'Refresh' }
               )
               refresh()
             }}
@@ -90,8 +88,7 @@ export function DemoOrdersEntry() {
             onPress={() => {
               void sendMeheryCustomEvent(
                 'order_click',
-                { action: 'open_order_history', click_label: 'Order history' },
-                'LOG'
+                { action: 'open_order_history', click_label: 'Order history' }
               )
               gotoLink({ kind: 'screen', value: 'order-history' })
             }}

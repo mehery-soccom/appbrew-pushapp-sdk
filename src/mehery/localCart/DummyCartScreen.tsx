@@ -21,6 +21,7 @@ import {
   setLocalCartLineQuantity,
   subscribeLocalCart,
 } from './store'
+import { sendCartLineEvent, sendCartQuantityChange } from './lineEvents'
 
 /**
  * Host override of `cart-list` (also covered by MeheryCartOverlay).
@@ -45,7 +46,6 @@ export function DummyCartScreen(_props: BaseBlockProps) {
     void sendMeheryCustomEvent(
       PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
       buildDummyCheckoutPayload(localCartToCheckoutShape()),
-      'LOG'
     )
     gotoLink({
       kind: 'screen',
@@ -76,7 +76,8 @@ export function DummyCartScreen(_props: BaseBlockProps) {
               <Pressable
                 style={styles.qtyBtn}
                 onPress={() => {
-                  setLocalCartLineQuantity(line.id, line.quantity - 1)
+                  sendCartQuantityChange(line, line.quantity - 1)
+              setLocalCartLineQuantity(line.id, line.quantity - 1)
                   bump((n) => n + 1)
                 }}
               >
@@ -86,7 +87,8 @@ export function DummyCartScreen(_props: BaseBlockProps) {
               <Pressable
                 style={styles.qtyBtn}
                 onPress={() => {
-                  setLocalCartLineQuantity(line.id, line.quantity + 1)
+                  sendCartQuantityChange(line, line.quantity + 1)
+              setLocalCartLineQuantity(line.id, line.quantity + 1)
                   bump((n) => n + 1)
                 }}
               >
@@ -94,7 +96,8 @@ export function DummyCartScreen(_props: BaseBlockProps) {
               </Pressable>
               <Pressable
                 onPress={() => {
-                  removeLocalCartLine(line.id)
+                  sendCartLineEvent('remove_from_cart', line, line.quantity)
+              removeLocalCartLine(line.id)
                   bump((n) => n + 1)
                 }}
               >

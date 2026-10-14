@@ -22,6 +22,7 @@ import {
   subscribeLocalCart,
   upsertLocalCartLine,
 } from './store'
+import { sendCartLineEvent, sendCartQuantityChange } from './lineEvents'
 
 /**
  * Full-screen cart overlay when route is `cart`.
@@ -54,7 +55,6 @@ export function MeheryCartOverlay() {
     void sendMeheryCustomEvent(
       'view_cart',
       buildDummyCheckoutPayload(localCartToCheckoutShape()),
-      'LOG'
     )
   }, [onCart])
 
@@ -70,7 +70,6 @@ export function MeheryCartOverlay() {
     void sendMeheryCustomEvent(
       PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
       buildDummyCheckoutPayload(localCartToCheckoutShape()),
-      'LOG'
     )
     gotoLink({
       kind: 'screen',
@@ -113,13 +112,15 @@ export function MeheryCartOverlay() {
         <Pressable
           style={styles.addMore}
           onPress={() => {
-            upsertLocalCartLine({
+            const extra = {
               variantId: `demo_extra_${Date.now()}`,
               title: 'Extra Demo Item',
               price: 1500,
               quantity: 1,
               currency: 'INR',
-            })
+            }
+            upsertLocalCartLine(extra)
+            sendCartLineEvent('add_to_cart', { id: extra.variantId, ...extra }, 1)
             bump((n) => n + 1)
           }}
         >
@@ -173,6 +174,7 @@ function CartLineRow({
           <Pressable
             style={styles.qtyBtn}
             onPress={() => {
+              sendCartQuantityChange(line, line.quantity - 1)
               setLocalCartLineQuantity(line.id, line.quantity - 1)
               onBump()
             }}
@@ -183,6 +185,7 @@ function CartLineRow({
           <Pressable
             style={styles.qtyBtn}
             onPress={() => {
+              sendCartQuantityChange(line, line.quantity + 1)
               setLocalCartLineQuantity(line.id, line.quantity + 1)
               onBump()
             }}
@@ -192,6 +195,7 @@ function CartLineRow({
           <Pressable
             style={styles.removeBtn}
             onPress={() => {
+              sendCartLineEvent('remove_from_cart', line, line.quantity)
               removeLocalCartLine(line.id)
               onBump()
             }}

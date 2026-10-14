@@ -35,8 +35,7 @@ export function DummyCheckoutBar(props: BaseBlockProps) {
     }
     void sendMeheryCustomEvent(
       PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
-      buildDummyCheckoutPayload(shape),
-      'LOG'
+      buildDummyCheckoutPayload(shape)
     )
     gotoLink({
       kind: 'screen',

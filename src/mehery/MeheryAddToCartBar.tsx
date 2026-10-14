@@ -117,8 +117,7 @@ export function MeheryAddToCartBar(props: Props) {
       }
       void sendMeheryCustomEvent(
         PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
-        buildDummyCheckoutPayload(localCartToCheckoutShape()),
-        'LOG'
+        buildDummyCheckoutPayload(localCartToCheckoutShape())
       )
       Toast.show({ type: 'success', text1: 'Buy Now', text2: 'Opening checkout…' })
       gotoLink({
@@ -148,8 +147,7 @@ export function MeheryAddToCartBar(props: Props) {
     }
     void sendMeheryCustomEvent(
       PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
-      buildDummyCheckoutPayload(localCartToCheckoutShape()),
-      'LOG'
+      buildDummyCheckoutPayload(localCartToCheckoutShape())
     )
     gotoLink({
       kind: 'screen',

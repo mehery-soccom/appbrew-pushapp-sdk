@@ -82,8 +82,7 @@ export function DummyCheckoutScreen(props: BaseBlockProps) {
     beginCheckoutSent.current = true
     void sendMeheryCustomEvent(
       PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
-      buildDummyCheckoutPayload(cart),
-      'LOG'
+      buildDummyCheckoutPayload(cart)
     )
   }, [cart, lineItems.length])
 
@@ -122,8 +121,7 @@ export function DummyCheckoutScreen(props: BaseBlockProps) {
         ...buildDummyCheckoutPayload(localCartToCheckoutShape(), {
           coupon: code,
         }),
-      },
-      'LOG'
+      }
     )
   }
 
@@ -131,8 +129,7 @@ export function DummyCheckoutScreen(props: BaseBlockProps) {
     if (!appliedCoupon) return
     void sendMeheryCustomEvent(
       PUSHAPP_CHECKOUT_EVENTS.REMOVE_COUPON,
-      { coupon: appliedCoupon },
-      'LOG'
+      { coupon: appliedCoupon }
     )
     setAppliedCoupon(undefined)
     setCoupon('')
@@ -163,8 +160,7 @@ export function DummyCheckoutScreen(props: BaseBlockProps) {
     })
     await sendMeheryCustomEvent(
       PUSHAPP_CHECKOUT_EVENTS.PURCHASE,
-      payload,
-      'LOG'
+      payload
     )
     clearLocalCart()
     try {
@@ -221,8 +217,7 @@ export function DummyCheckoutScreen(props: BaseBlockProps) {
                 currency: placedOrder.currency,
                 status: placedOrder.status,
                 items: placedOrder.items,
-              },
-              'LOG'
+              }
             )
             setStep('track')
           }}
@@ -239,8 +234,7 @@ export function DummyCheckoutScreen(props: BaseBlockProps) {
                 shopify_order_id: placedOrder.shopify_order_id,
                 shopify_id: placedOrder.shopify_id,
                 status: placedOrder.status,
-              },
-              'LOG'
+              }
             )
             // Prefer Order History screen (CMS); Account as fallback via second tap if needed.
             gotoLink({ kind: 'screen', value: 'order-history' })
@@ -258,8 +252,7 @@ export function DummyCheckoutScreen(props: BaseBlockProps) {
                 shopify_order_id: placedOrder.shopify_order_id,
                 shopify_id: placedOrder.shopify_id,
                 status: placedOrder.status,
-              },
-              'LOG'
+              }
             )
             gotoLink({ kind: 'screen', value: 'home' })
           }}

@@ -99,8 +99,7 @@ describe('refund event payload shape', () => {
         shopify_id: refunded.shopify_id,
         value: refunded.value,
         currency: refunded.currency,
-      },
-      'LOG'
+      }
     )
     expect(sendMeheryCustomEvent).toHaveBeenCalledWith(
       'refund',
@@ -111,8 +110,7 @@ describe('refund event payload shape', () => {
         shopify_id: 'natori-appbrew.myshopify.com',
         value: 199,
         currency: 'INR',
-      }),
-      'LOG'
+      })
     )
   })
 })

@@ -70,7 +70,19 @@ export function MeheryAddToCartBar(props: Props) {
     productData?.selectedVariantId ?? productData?.defaultVariantId
   const quantity = Number(productData?.lineItem?.quantity ?? 1) || 1
 
-  const addToLocalAndEvents = React.useCallback(() => {
+  const sendAddToCartEvent = React.useCallback(() => {
+    if (!productData) return
+    const payload = cartPayloadFromProduct(productData, {
+      currency: 'INR',
+      shopDomain: resolveShopDomain(),
+      cartId: getCartId(),
+    })
+    if (payload) {
+      void sendMeheryCustomEvent('add_to_cart', payload)
+    }
+  }, [productData])
+
+  const addToLocalAndEvents = React.useCallback((sendEvent = true) => {
     if (!productData || !variantId) return
     const variant = productData.variants?.items?.[variantId]
     const price = Number(variant?.price?.amount ?? variant?.price ?? 0)
@@ -95,25 +107,19 @@ export function MeheryAddToCartBar(props: Props) {
       sku: variant?.sku,
       currency: 'INR',
     })
-    const payload = cartPayloadFromProduct(productData, {
-      currency: 'INR',
-      shopDomain: resolveShopDomain(),
-      cartId: getCartId(),
-    })
-    if (payload) {
-      void sendMeheryCustomEvent('add_to_cart', payload)
-    }
-  }, [productData, variantId, quantity])
+    if (sendEvent) sendAddToCartEvent()
+  }, [productData, variantId, quantity, sendAddToCartEvent])
 
   const handleBuyNow = React.useCallback(async () => {
     if (!productData || !variantId || busy) return
     setBusy(true)
     try {
-      addToLocalAndEvents()
+      // Successful Shopify add emits add_to_cart via the analytics tracker.
+      addToLocalAndEvents(false)
       try {
         await addItemsToCart([{ variantId, quantity }])
       } catch {
-        /* Shopify optional */
+        sendAddToCartEvent()
       }
       void sendMeheryCustomEvent(
         PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
@@ -136,6 +142,7 @@ export function MeheryAddToCartBar(props: Props) {
     variantId,
     busy,
     addToLocalAndEvents,
+    sendAddToCartEvent,
     addItemsToCart,
     quantity,
     gotoLink,

@@ -101,7 +101,7 @@ export function MeheryAddToCartBar(props: Props) {
       cartId: getCartId(),
     })
     if (payload) {
-      void sendMeheryCustomEvent('add_to_cart', payload, 'LOG')
+      void sendMeheryCustomEvent('add_to_cart', payload)
     }
   }, [productData, variantId, quantity])
 

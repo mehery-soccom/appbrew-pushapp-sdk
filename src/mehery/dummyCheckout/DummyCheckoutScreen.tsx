@@ -93,7 +93,7 @@ export function DummyCheckoutScreen(props: BaseBlockProps) {
         ...(appliedCoupon ? { coupon: appliedCoupon } : {}),
         ...extras,
       })
-      void sendMeheryCustomEvent(name, payload, 'LOG')
+      void sendMeheryCustomEvent(name, payload)
     },
     [appliedCoupon]
   )

@@ -24,5 +24,5 @@ export function trackOrderEvent(
   order: LocalOrder,
   extra: Record<string, unknown> = {}
 ): void {
-  void sendMeheryCustomEvent(name, buildOrderEventPayload(order, extra), 'LOG')
+  void sendMeheryCustomEvent(name, buildOrderEventPayload(order, extra))
 }

@@ -196,168 +196,168 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0117235F9E42E9ACBAC604BA /* dm_sans_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_100.ttf; path = natori/Fonts/dm_sans_100.ttf; sourceTree = "<group>"; };
-		013FC9DD761E4A1B08BC2609 /* poppins_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_500italic.ttf; path = natori/Fonts/poppins_500italic.ttf; sourceTree = "<group>"; };
+		0117235F9E42E9ACBAC604BA /* dm_sans_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_100.ttf; path = natori/Fonts/dm_sans_100.ttf; sourceTree = "<group>"; };
+		013FC9DD761E4A1B08BC2609 /* poppins_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_500italic.ttf; path = natori/Fonts/poppins_500italic.ttf; sourceTree = "<group>"; };
 		015D6D1D407A1AE892A77177 /* Pods-DeliveryActivityExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryActivityExtension.release.xcconfig"; path = "Target Support Files/Pods-DeliveryActivityExtension/Pods-DeliveryActivityExtension.release.xcconfig"; sourceTree = "<group>"; };
-		019234A011BAE2CFFDDE0B1C /* dm_sans_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_500italic.ttf; path = natori/Fonts/dm_sans_500italic.ttf; sourceTree = "<group>"; };
-		02CA1C8070F482904E41014F /* inter_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_300italic.ttf; path = natori/Fonts/inter_300italic.ttf; sourceTree = "<group>"; };
-		0AE2F7C101E8840B82E84918 /* montserrat_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_900italic.ttf; path = natori/Fonts/montserrat_900italic.ttf; sourceTree = "<group>"; };
-		0B4174222669DBF7F47B8F82 /* montserrat_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_900.ttf; path = natori/Fonts/montserrat_900.ttf; sourceTree = "<group>"; };
-		0DC8ABDDB5D38C0F6394AF81 /* roboto_condensed_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_200.ttf; path = natori/Fonts/roboto_condensed_200.ttf; sourceTree = "<group>"; };
-		0F0E4889839BBCF515266095 /* poppins_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_100italic.ttf; path = natori/Fonts/poppins_100italic.ttf; sourceTree = "<group>"; };
-		102B0271D39B0D659415DAC0 /* playfair_display_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_800.ttf; path = natori/Fonts/playfair_display_800.ttf; sourceTree = "<group>"; };
-		127BECC505D1DA966561C294 /* HelveticaNeueRoman.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueRoman.ttf; path = natori/Fonts/HelveticaNeueRoman.ttf; sourceTree = "<group>"; };
+		019234A011BAE2CFFDDE0B1C /* dm_sans_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_500italic.ttf; path = natori/Fonts/dm_sans_500italic.ttf; sourceTree = "<group>"; };
+		02CA1C8070F482904E41014F /* inter_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_300italic.ttf; path = natori/Fonts/inter_300italic.ttf; sourceTree = "<group>"; };
+		0AE2F7C101E8840B82E84918 /* montserrat_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_900italic.ttf; path = natori/Fonts/montserrat_900italic.ttf; sourceTree = "<group>"; };
+		0B4174222669DBF7F47B8F82 /* montserrat_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_900.ttf; path = natori/Fonts/montserrat_900.ttf; sourceTree = "<group>"; };
+		0DC8ABDDB5D38C0F6394AF81 /* roboto_condensed_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_200.ttf; path = natori/Fonts/roboto_condensed_200.ttf; sourceTree = "<group>"; };
+		0F0E4889839BBCF515266095 /* poppins_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_100italic.ttf; path = natori/Fonts/poppins_100italic.ttf; sourceTree = "<group>"; };
+		102B0271D39B0D659415DAC0 /* playfair_display_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_800.ttf; path = natori/Fonts/playfair_display_800.ttf; sourceTree = "<group>"; };
+		127BECC505D1DA966561C294 /* HelveticaNeueRoman.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = HelveticaNeueRoman.ttf; path = natori/Fonts/HelveticaNeueRoman.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* natori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = natori.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = natori/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = natori/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = natori/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		175004C1866F43B98A7A425B /* roboto_condensed_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_italic.ttf; path = natori/Fonts/roboto_condensed_italic.ttf; sourceTree = "<group>"; };
-		1B6E7C38D4FF3B95A029F3D9 /* playfair_display_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_700italic.ttf; path = natori/Fonts/playfair_display_700italic.ttf; sourceTree = "<group>"; };
-		1E851FE06D09C2BD4D1DDD32 /* HelveticaNeueUltraLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueUltraLight.ttf; path = natori/Fonts/HelveticaNeueUltraLight.ttf; sourceTree = "<group>"; };
-		1E9279CB4EE35CE3CB8E9179 /* inter_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_700italic.ttf; path = natori/Fonts/inter_700italic.ttf; sourceTree = "<group>"; };
-		200901B6F985053246236B4F /* dm_sans_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_700italic.ttf; path = natori/Fonts/dm_sans_700italic.ttf; sourceTree = "<group>"; };
-		20A6982D52B90577BC1917DA /* dm_sans_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_600.ttf; path = natori/Fonts/dm_sans_600.ttf; sourceTree = "<group>"; };
-		21FC59E9B53A15D1B6A5F274 /* roboto_condensed_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_700.ttf; path = natori/Fonts/roboto_condensed_700.ttf; sourceTree = "<group>"; };
-		231DF3A42A3FF2CD4E01B73D /* inter_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_900italic.ttf; path = natori/Fonts/inter_900italic.ttf; sourceTree = "<group>"; };
-		23E2C2844C1A8326F0B27C12 /* playfair_display_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_700.ttf; path = natori/Fonts/playfair_display_700.ttf; sourceTree = "<group>"; };
-		23EE36F1111570CA2CDCF3F1 /* HelveticaNeueHeavy.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueHeavy.ttf; path = natori/Fonts/HelveticaNeueHeavy.ttf; sourceTree = "<group>"; };
-		26F0F91E7E0C81AD92895609 /* montserrat_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_800.ttf; path = natori/Fonts/montserrat_800.ttf; sourceTree = "<group>"; };
+		175004C1866F43B98A7A425B /* roboto_condensed_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_italic.ttf; path = natori/Fonts/roboto_condensed_italic.ttf; sourceTree = "<group>"; };
+		1B6E7C38D4FF3B95A029F3D9 /* playfair_display_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_700italic.ttf; path = natori/Fonts/playfair_display_700italic.ttf; sourceTree = "<group>"; };
+		1E851FE06D09C2BD4D1DDD32 /* HelveticaNeueUltraLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = HelveticaNeueUltraLight.ttf; path = natori/Fonts/HelveticaNeueUltraLight.ttf; sourceTree = "<group>"; };
+		1E9279CB4EE35CE3CB8E9179 /* inter_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_700italic.ttf; path = natori/Fonts/inter_700italic.ttf; sourceTree = "<group>"; };
+		200901B6F985053246236B4F /* dm_sans_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_700italic.ttf; path = natori/Fonts/dm_sans_700italic.ttf; sourceTree = "<group>"; };
+		20A6982D52B90577BC1917DA /* dm_sans_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_600.ttf; path = natori/Fonts/dm_sans_600.ttf; sourceTree = "<group>"; };
+		21FC59E9B53A15D1B6A5F274 /* roboto_condensed_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_700.ttf; path = natori/Fonts/roboto_condensed_700.ttf; sourceTree = "<group>"; };
+		231DF3A42A3FF2CD4E01B73D /* inter_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_900italic.ttf; path = natori/Fonts/inter_900italic.ttf; sourceTree = "<group>"; };
+		23E2C2844C1A8326F0B27C12 /* playfair_display_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_700.ttf; path = natori/Fonts/playfair_display_700.ttf; sourceTree = "<group>"; };
+		23EE36F1111570CA2CDCF3F1 /* HelveticaNeueHeavy.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = HelveticaNeueHeavy.ttf; path = natori/Fonts/HelveticaNeueHeavy.ttf; sourceTree = "<group>"; };
+		26F0F91E7E0C81AD92895609 /* montserrat_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_800.ttf; path = natori/Fonts/montserrat_800.ttf; sourceTree = "<group>"; };
 		27E6BF46CF3CFDD83AEEEE17 /* Pods-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		27FEA913299B49DA8EA79847 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		291AFA961CD5BCF1DBD480E3 /* playfair_display_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_600italic.ttf; path = natori/Fonts/playfair_display_600italic.ttf; sourceTree = "<group>"; };
-		2C659C6CE6A58B5194502FBE /* montserrat_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_italic.ttf; path = natori/Fonts/montserrat_italic.ttf; sourceTree = "<group>"; };
+		291AFA961CD5BCF1DBD480E3 /* playfair_display_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_600italic.ttf; path = natori/Fonts/playfair_display_600italic.ttf; sourceTree = "<group>"; };
+		2C659C6CE6A58B5194502FBE /* montserrat_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_italic.ttf; path = natori/Fonts/montserrat_italic.ttf; sourceTree = "<group>"; };
 		2D16254511E75627DB916DCC /* DeliveryActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeliveryActivity.swift; sourceTree = "<group>"; };
 		3074BAC1C5FCA22458F79A59 /* Pods-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
-		3160B0AE7EDC35902BE2CA0C /* Bauer Bodoni Roman 500.otf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Bauer Bodoni Roman 500.otf"; path = "natori/Fonts/Bauer Bodoni Roman 500.otf"; sourceTree = "<group>"; };
-		347B3C43ABF657FCBF669D83 /* dm_sans_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_italic.ttf; path = natori/Fonts/dm_sans_italic.ttf; sourceTree = "<group>"; };
-		3A1DE5FE61F0A88DC953BB0B /* montserrat_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_600italic.ttf; path = natori/Fonts/montserrat_600italic.ttf; sourceTree = "<group>"; };
+		3160B0AE7EDC35902BE2CA0C /* Bauer Bodoni Roman 500.otf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Bauer Bodoni Roman 500.otf"; path = "natori/Fonts/Bauer Bodoni Roman 500.otf"; sourceTree = "<group>"; };
+		347B3C43ABF657FCBF669D83 /* dm_sans_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_italic.ttf; path = natori/Fonts/dm_sans_italic.ttf; sourceTree = "<group>"; };
+		3A1DE5FE61F0A88DC953BB0B /* montserrat_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_600italic.ttf; path = natori/Fonts/montserrat_600italic.ttf; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-natori.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natori.debug.xcconfig"; path = "Target Support Files/Pods-natori/Pods-natori.debug.xcconfig"; sourceTree = "<group>"; };
-		3B50CCD90495C5A686BA12E6 /* HelveticaNeueBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueBold.ttf; path = natori/Fonts/HelveticaNeueBold.ttf; sourceTree = "<group>"; };
-		3CABCD156568A46D11F57BE1 /* HelveticaNeueMedium.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueMedium.ttf; path = natori/Fonts/HelveticaNeueMedium.ttf; sourceTree = "<group>"; };
-		3E3D64EFB8415F640398533E /* dm_sans_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_800italic.ttf; path = natori/Fonts/dm_sans_800italic.ttf; sourceTree = "<group>"; };
-		41A3D41CB2422B7470A2ACF6 /* inter_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_700.ttf; path = natori/Fonts/inter_700.ttf; sourceTree = "<group>"; };
-		41D3FAFF2E7FE7C2237A090C /* montserrat_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_100italic.ttf; path = natori/Fonts/montserrat_100italic.ttf; sourceTree = "<group>"; };
-		447984A8B318256831492951 /* dm_sans_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_200.ttf; path = natori/Fonts/dm_sans_200.ttf; sourceTree = "<group>"; };
+		3B50CCD90495C5A686BA12E6 /* HelveticaNeueBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = HelveticaNeueBold.ttf; path = natori/Fonts/HelveticaNeueBold.ttf; sourceTree = "<group>"; };
+		3CABCD156568A46D11F57BE1 /* HelveticaNeueMedium.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = HelveticaNeueMedium.ttf; path = natori/Fonts/HelveticaNeueMedium.ttf; sourceTree = "<group>"; };
+		3E3D64EFB8415F640398533E /* dm_sans_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_800italic.ttf; path = natori/Fonts/dm_sans_800italic.ttf; sourceTree = "<group>"; };
+		41A3D41CB2422B7470A2ACF6 /* inter_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_700.ttf; path = natori/Fonts/inter_700.ttf; sourceTree = "<group>"; };
+		41D3FAFF2E7FE7C2237A090C /* montserrat_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_100italic.ttf; path = natori/Fonts/montserrat_100italic.ttf; sourceTree = "<group>"; };
+		447984A8B318256831492951 /* dm_sans_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_200.ttf; path = natori/Fonts/dm_sans_200.ttf; sourceTree = "<group>"; };
 		45F0F60F4AC42121F5AFE1BF /* MainInterface.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
-		4A2676123B63CB481D08DF81 /* poppins_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_500.ttf; path = natori/Fonts/poppins_500.ttf; sourceTree = "<group>"; };
-		4EE850190C94ED14E3D70205 /* montserrat_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_800italic.ttf; path = natori/Fonts/montserrat_800italic.ttf; sourceTree = "<group>"; };
-		4FFA9EF69F9843821EED2450 /* poppins_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_800italic.ttf; path = natori/Fonts/poppins_800italic.ttf; sourceTree = "<group>"; };
-		52141507E04E923619C7D26C /* playfair_display_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_italic.ttf; path = natori/Fonts/playfair_display_italic.ttf; sourceTree = "<group>"; };
-		52C574BDCD9C16099370DAAE /* poppins_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_800.ttf; path = natori/Fonts/poppins_800.ttf; sourceTree = "<group>"; };
-		56082B44772E6122E80EF598 /* roboto_condensed_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_800.ttf; path = natori/Fonts/roboto_condensed_800.ttf; sourceTree = "<group>"; };
+		4A2676123B63CB481D08DF81 /* poppins_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_500.ttf; path = natori/Fonts/poppins_500.ttf; sourceTree = "<group>"; };
+		4EE850190C94ED14E3D70205 /* montserrat_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_800italic.ttf; path = natori/Fonts/montserrat_800italic.ttf; sourceTree = "<group>"; };
+		4FFA9EF69F9843821EED2450 /* poppins_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_800italic.ttf; path = natori/Fonts/poppins_800italic.ttf; sourceTree = "<group>"; };
+		52141507E04E923619C7D26C /* playfair_display_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_italic.ttf; path = natori/Fonts/playfair_display_italic.ttf; sourceTree = "<group>"; };
+		52C574BDCD9C16099370DAAE /* poppins_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_800.ttf; path = natori/Fonts/poppins_800.ttf; sourceTree = "<group>"; };
+		56082B44772E6122E80EF598 /* roboto_condensed_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_800.ttf; path = natori/Fonts/roboto_condensed_800.ttf; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-natori.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natori.release.xcconfig"; path = "Target Support Files/Pods-natori/Pods-natori.release.xcconfig"; sourceTree = "<group>"; };
-		58FBDA4FD440E335598A7C69 /* roboto_condensed_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_500italic.ttf; path = natori/Fonts/roboto_condensed_500italic.ttf; sourceTree = "<group>"; };
-		59A15F259572B74435522E5A /* poppins_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_200.ttf; path = natori/Fonts/poppins_200.ttf; sourceTree = "<group>"; };
-		59D1DF572D8BD32EF79656B5 /* dm_sans_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_regular.ttf; path = natori/Fonts/dm_sans_regular.ttf; sourceTree = "<group>"; };
-		5A4925469BC3777585A34D52 /* roboto_condensed_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_900.ttf; path = natori/Fonts/roboto_condensed_900.ttf; sourceTree = "<group>"; };
-		5A9655480301215DD7E0468C /* HelveticaNeueThin.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueThin.ttf; path = natori/Fonts/HelveticaNeueThin.ttf; sourceTree = "<group>"; };
+		58FBDA4FD440E335598A7C69 /* roboto_condensed_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_500italic.ttf; path = natori/Fonts/roboto_condensed_500italic.ttf; sourceTree = "<group>"; };
+		59A15F259572B74435522E5A /* poppins_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_200.ttf; path = natori/Fonts/poppins_200.ttf; sourceTree = "<group>"; };
+		59D1DF572D8BD32EF79656B5 /* dm_sans_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_regular.ttf; path = natori/Fonts/dm_sans_regular.ttf; sourceTree = "<group>"; };
+		5A4925469BC3777585A34D52 /* roboto_condensed_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_900.ttf; path = natori/Fonts/roboto_condensed_900.ttf; sourceTree = "<group>"; };
+		5A9655480301215DD7E0468C /* HelveticaNeueThin.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = HelveticaNeueThin.ttf; path = natori/Fonts/HelveticaNeueThin.ttf; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-natori.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-natori.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5DE38CAC91951F966C58439E /* poppins_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_italic.ttf; path = natori/Fonts/poppins_italic.ttf; sourceTree = "<group>"; };
+		5DE38CAC91951F966C58439E /* poppins_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_italic.ttf; path = natori/Fonts/poppins_italic.ttf; sourceTree = "<group>"; };
 		5E5EF35F1E30B5812713565F /* Pods-ImagePreviewExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImagePreviewExtension.release.xcconfig"; path = "Target Support Files/Pods-ImagePreviewExtension/Pods-ImagePreviewExtension.release.xcconfig"; sourceTree = "<group>"; };
-		5E768FC622849F00DBDC4ED9 /* montserrat_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_regular.ttf; path = natori/Fonts/montserrat_regular.ttf; sourceTree = "<group>"; };
-		5FA2213BBAC0FF7660E7462E /* inter_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_italic.ttf; path = natori/Fonts/inter_italic.ttf; sourceTree = "<group>"; };
-		6161F544F3BDA2F8B7E6CF53 /* inter_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_900.ttf; path = natori/Fonts/inter_900.ttf; sourceTree = "<group>"; };
-		61B7A0747069B20EC776E6DC /* playfair_display_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_500italic.ttf; path = natori/Fonts/playfair_display_500italic.ttf; sourceTree = "<group>"; };
+		5E768FC622849F00DBDC4ED9 /* montserrat_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_regular.ttf; path = natori/Fonts/montserrat_regular.ttf; sourceTree = "<group>"; };
+		5FA2213BBAC0FF7660E7462E /* inter_italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_italic.ttf; path = natori/Fonts/inter_italic.ttf; sourceTree = "<group>"; };
+		6161F544F3BDA2F8B7E6CF53 /* inter_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_900.ttf; path = natori/Fonts/inter_900.ttf; sourceTree = "<group>"; };
+		61B7A0747069B20EC776E6DC /* playfair_display_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_500italic.ttf; path = natori/Fonts/playfair_display_500italic.ttf; sourceTree = "<group>"; };
 		63DEED8B4495FFD5B88B9435 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		66CC745BFDF8F71CD092CCB7 /* NotificationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		68AE3C1CAC0CDA3024B357E5 /* roboto_condensed_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_300italic.ttf; path = natori/Fonts/roboto_condensed_300italic.ttf; sourceTree = "<group>"; };
+		68AE3C1CAC0CDA3024B357E5 /* roboto_condensed_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_300italic.ttf; path = natori/Fonts/roboto_condensed_300italic.ttf; sourceTree = "<group>"; };
 		6A1D1B85B68E06865671E37A /* libPods-ImagePreviewExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ImagePreviewExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A1D78EEDC558BE0DBE3292D /* poppins_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_200italic.ttf; path = natori/Fonts/poppins_200italic.ttf; sourceTree = "<group>"; };
-		6A83AD1D8A4AAC67A2CB3A77 /* dm_sans_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_900italic.ttf; path = natori/Fonts/dm_sans_900italic.ttf; sourceTree = "<group>"; };
-		6C0288AC8A4DCFD55964B1CB /* montserrat_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_500italic.ttf; path = natori/Fonts/montserrat_500italic.ttf; sourceTree = "<group>"; };
+		6A1D78EEDC558BE0DBE3292D /* poppins_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_200italic.ttf; path = natori/Fonts/poppins_200italic.ttf; sourceTree = "<group>"; };
+		6A83AD1D8A4AAC67A2CB3A77 /* dm_sans_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_900italic.ttf; path = natori/Fonts/dm_sans_900italic.ttf; sourceTree = "<group>"; };
+		6C0288AC8A4DCFD55964B1CB /* montserrat_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_500italic.ttf; path = natori/Fonts/montserrat_500italic.ttf; sourceTree = "<group>"; };
 		6CFE436873C5BA4B4E40A6AA /* NotificationViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
-		6D0AA81C6FDD655C7FB8F5F7 /* dm_sans_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_300.ttf; path = natori/Fonts/dm_sans_300.ttf; sourceTree = "<group>"; };
-		7480AABD2F0F3B9EA426A2DB /* dm_sans_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_300italic.ttf; path = natori/Fonts/dm_sans_300italic.ttf; sourceTree = "<group>"; };
-		74BC564BC37102A32B4A7127 /* montserrat_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_600.ttf; path = natori/Fonts/montserrat_600.ttf; sourceTree = "<group>"; };
-		75C1F01E2A4602D8F4DACC48 /* inter_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_500italic.ttf; path = natori/Fonts/inter_500italic.ttf; sourceTree = "<group>"; };
+		6D0AA81C6FDD655C7FB8F5F7 /* dm_sans_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_300.ttf; path = natori/Fonts/dm_sans_300.ttf; sourceTree = "<group>"; };
+		7480AABD2F0F3B9EA426A2DB /* dm_sans_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_300italic.ttf; path = natori/Fonts/dm_sans_300italic.ttf; sourceTree = "<group>"; };
+		74BC564BC37102A32B4A7127 /* montserrat_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_600.ttf; path = natori/Fonts/montserrat_600.ttf; sourceTree = "<group>"; };
+		75C1F01E2A4602D8F4DACC48 /* inter_500italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_500italic.ttf; path = natori/Fonts/inter_500italic.ttf; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = natori/AppDelegate.swift; sourceTree = "<group>"; };
-		76BA697E26238174840BA951 /* poppins_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_300italic.ttf; path = natori/Fonts/poppins_300italic.ttf; sourceTree = "<group>"; };
+		76BA697E26238174840BA951 /* poppins_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_300italic.ttf; path = natori/Fonts/poppins_300italic.ttf; sourceTree = "<group>"; };
 		76F62A8EB63AB48C5691A70D /* natori.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; name = natori.entitlements; path = natori/natori.entitlements; sourceTree = "<group>"; };
-		799DA58201DD9FE73054E644 /* montserrat_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_100.ttf; path = natori/Fonts/montserrat_100.ttf; sourceTree = "<group>"; };
-		7BE8BAF2C9ABE4A728A03592 /* inter_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_800italic.ttf; path = natori/Fonts/inter_800italic.ttf; sourceTree = "<group>"; };
-		7D027FB773523B2C70F284AB /* inter_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_800.ttf; path = natori/Fonts/inter_800.ttf; sourceTree = "<group>"; };
-		7F1062956C2518D1F0AE41B4 /* dm_sans_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_100italic.ttf; path = natori/Fonts/dm_sans_100italic.ttf; sourceTree = "<group>"; };
-		80F8492FC4423B3FB4FD5C37 /* inter_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_200.ttf; path = natori/Fonts/inter_200.ttf; sourceTree = "<group>"; };
+		799DA58201DD9FE73054E644 /* montserrat_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_100.ttf; path = natori/Fonts/montserrat_100.ttf; sourceTree = "<group>"; };
+		7BE8BAF2C9ABE4A728A03592 /* inter_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_800italic.ttf; path = natori/Fonts/inter_800italic.ttf; sourceTree = "<group>"; };
+		7D027FB773523B2C70F284AB /* inter_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_800.ttf; path = natori/Fonts/inter_800.ttf; sourceTree = "<group>"; };
+		7F1062956C2518D1F0AE41B4 /* dm_sans_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_100italic.ttf; path = natori/Fonts/dm_sans_100italic.ttf; sourceTree = "<group>"; };
+		80F8492FC4423B3FB4FD5C37 /* inter_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_200.ttf; path = natori/Fonts/inter_200.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = natori/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8601D47D4FE377B3C2BB5367 /* MeheryAppGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeheryAppGroup.swift; sourceTree = "<group>"; };
-		88EC640B433162C271C79770 /* roboto_condensed_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_700italic.ttf; path = natori/Fonts/roboto_condensed_700italic.ttf; sourceTree = "<group>"; };
-		8C605A16A9FC9C523AB06C0B /* roboto_condensed_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_300.ttf; path = natori/Fonts/roboto_condensed_300.ttf; sourceTree = "<group>"; };
+		88EC640B433162C271C79770 /* roboto_condensed_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_700italic.ttf; path = natori/Fonts/roboto_condensed_700italic.ttf; sourceTree = "<group>"; };
+		8C605A16A9FC9C523AB06C0B /* roboto_condensed_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_300.ttf; path = natori/Fonts/roboto_condensed_300.ttf; sourceTree = "<group>"; };
 		8D02AD1662C442097F50CE36 /* ImageNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F9458B492FDAE75AC40134F /* poppins_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_100.ttf; path = natori/Fonts/poppins_100.ttf; sourceTree = "<group>"; };
-		8FED586F84D26E33B0F9D6C1 /* roboto_condensed_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_regular.ttf; path = natori/Fonts/roboto_condensed_regular.ttf; sourceTree = "<group>"; };
-		90895F168492FD0704868FE6 /* playfair_display_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_600.ttf; path = natori/Fonts/playfair_display_600.ttf; sourceTree = "<group>"; };
+		8F9458B492FDAE75AC40134F /* poppins_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_100.ttf; path = natori/Fonts/poppins_100.ttf; sourceTree = "<group>"; };
+		8FED586F84D26E33B0F9D6C1 /* roboto_condensed_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_regular.ttf; path = natori/Fonts/roboto_condensed_regular.ttf; sourceTree = "<group>"; };
+		90895F168492FD0704868FE6 /* playfair_display_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_600.ttf; path = natori/Fonts/playfair_display_600.ttf; sourceTree = "<group>"; };
 		9176F851C309DCF63CCE33F6 /* libPods-DeliveryActivityExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DeliveryActivityExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		917CE7BED691A1EE47E5B5BA /* Pods-DeliveryActivityExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryActivityExtension.debug.xcconfig"; path = "Target Support Files/Pods-DeliveryActivityExtension/Pods-DeliveryActivityExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		93B143181D2F912578D4C0CF /* inter_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_regular.ttf; path = natori/Fonts/inter_regular.ttf; sourceTree = "<group>"; };
-		955BAA34BA5969D6AB5EDE00 /* montserrat_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_300.ttf; path = natori/Fonts/montserrat_300.ttf; sourceTree = "<group>"; };
-		95EC5F8F47540A3EB7879E7C /* montserrat_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_700.ttf; path = natori/Fonts/montserrat_700.ttf; sourceTree = "<group>"; };
+		93B143181D2F912578D4C0CF /* inter_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_regular.ttf; path = natori/Fonts/inter_regular.ttf; sourceTree = "<group>"; };
+		955BAA34BA5969D6AB5EDE00 /* montserrat_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_300.ttf; path = natori/Fonts/montserrat_300.ttf; sourceTree = "<group>"; };
+		95EC5F8F47540A3EB7879E7C /* montserrat_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_700.ttf; path = natori/Fonts/montserrat_700.ttf; sourceTree = "<group>"; };
 		9AD835209B131521BB633FCE /* DeliveryActivityLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeliveryActivityLiveActivity.swift; sourceTree = "<group>"; };
-		9BA2D50E30DD28BA60F95D75 /* HelveticaNeueBlack.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueBlack.ttf; path = natori/Fonts/HelveticaNeueBlack.ttf; sourceTree = "<group>"; };
-		9DF6491B778B8546BC76677D /* inter_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_100italic.ttf; path = natori/Fonts/inter_100italic.ttf; sourceTree = "<group>"; };
-		9E0C352D47CA5FF878EBF86C /* roboto_condensed_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_900italic.ttf; path = natori/Fonts/roboto_condensed_900italic.ttf; sourceTree = "<group>"; };
-		9F1B613A226CE2921B725FE3 /* dm_sans_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_700.ttf; path = natori/Fonts/dm_sans_700.ttf; sourceTree = "<group>"; };
-		9F6056A074803064301BD872 /* montserrat_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_700italic.ttf; path = natori/Fonts/montserrat_700italic.ttf; sourceTree = "<group>"; };
+		9BA2D50E30DD28BA60F95D75 /* HelveticaNeueBlack.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = HelveticaNeueBlack.ttf; path = natori/Fonts/HelveticaNeueBlack.ttf; sourceTree = "<group>"; };
+		9DF6491B778B8546BC76677D /* inter_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_100italic.ttf; path = natori/Fonts/inter_100italic.ttf; sourceTree = "<group>"; };
+		9E0C352D47CA5FF878EBF86C /* roboto_condensed_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_900italic.ttf; path = natori/Fonts/roboto_condensed_900italic.ttf; sourceTree = "<group>"; };
+		9F1B613A226CE2921B725FE3 /* dm_sans_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_700.ttf; path = natori/Fonts/dm_sans_700.ttf; sourceTree = "<group>"; };
+		9F6056A074803064301BD872 /* montserrat_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_700italic.ttf; path = natori/Fonts/montserrat_700italic.ttf; sourceTree = "<group>"; };
 		A05E9B69ED07F20A447B8746 /* MeheryLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MeheryLiveActivity.swift; path = natori/MeheryLiveActivity.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B5B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = natori/SceneDelegate.swift; sourceTree = "<group>"; };
-		A3497F2AF3456B27BA295128 /* playfair_display_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_900italic.ttf; path = natori/Fonts/playfair_display_900italic.ttf; sourceTree = "<group>"; };
+		A3497F2AF3456B27BA295128 /* playfair_display_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_900italic.ttf; path = natori/Fonts/playfair_display_900italic.ttf; sourceTree = "<group>"; };
 		A3DD4AA404D1825643299E93 /* Pods-ImagePreviewExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImagePreviewExtension.debug.xcconfig"; path = "Target Support Files/Pods-ImagePreviewExtension/Pods-ImagePreviewExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		A420F76BAC7EFAC2DACEF140 /* poppins_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_600italic.ttf; path = natori/Fonts/poppins_600italic.ttf; sourceTree = "<group>"; };
-		A49A13C913D71A12102FDF10 /* inter_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_500.ttf; path = natori/Fonts/inter_500.ttf; sourceTree = "<group>"; };
+		A420F76BAC7EFAC2DACEF140 /* poppins_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_600italic.ttf; path = natori/Fonts/poppins_600italic.ttf; sourceTree = "<group>"; };
+		A49A13C913D71A12102FDF10 /* inter_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_500.ttf; path = natori/Fonts/inter_500.ttf; sourceTree = "<group>"; };
 		A7E8F9A01B2C3D4E5F607182 /* PushTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PushTokenManager.swift; path = natori/PushTokenManager.swift; sourceTree = "<group>"; };
-		AD4A1E192F6940A4451C03AD /* dm_sans_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_200italic.ttf; path = natori/Fonts/dm_sans_200italic.ttf; sourceTree = "<group>"; };
-		AE5A42B398E58AF972360F2F /* dm_sans_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_900.ttf; path = natori/Fonts/dm_sans_900.ttf; sourceTree = "<group>"; };
+		AD4A1E192F6940A4451C03AD /* dm_sans_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_200italic.ttf; path = natori/Fonts/dm_sans_200italic.ttf; sourceTree = "<group>"; };
+		AE5A42B398E58AF972360F2F /* dm_sans_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_900.ttf; path = natori/Fonts/dm_sans_900.ttf; sourceTree = "<group>"; };
 		B7C81D2E3F4A5061728394A2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		B7C81D2E3F4A5061728394A4 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
-		B8E3237CA56AFA5899B667D9 /* playfair_display_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_900.ttf; path = natori/Fonts/playfair_display_900.ttf; sourceTree = "<group>"; };
+		B8E3237CA56AFA5899B667D9 /* playfair_display_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_900.ttf; path = natori/Fonts/playfair_display_900.ttf; sourceTree = "<group>"; };
 		B8FA0FE40E43C70F4A7B6162 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B95EA8EA9BC68D4800602A05 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BA4E9F51D216E25BCCEED72E /* poppins_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_700.ttf; path = natori/Fonts/poppins_700.ttf; sourceTree = "<group>"; };
-		BAE3F2551B1141343FE09057 /* roboto_condensed_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_100italic.ttf; path = natori/Fonts/roboto_condensed_100italic.ttf; sourceTree = "<group>"; };
-		BB948D54639FFCEB19F29886 /* poppins_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_900.ttf; path = natori/Fonts/poppins_900.ttf; sourceTree = "<group>"; };
+		BA4E9F51D216E25BCCEED72E /* poppins_700.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_700.ttf; path = natori/Fonts/poppins_700.ttf; sourceTree = "<group>"; };
+		BAE3F2551B1141343FE09057 /* roboto_condensed_100italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_100italic.ttf; path = natori/Fonts/roboto_condensed_100italic.ttf; sourceTree = "<group>"; };
+		BB948D54639FFCEB19F29886 /* poppins_900.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_900.ttf; path = natori/Fonts/poppins_900.ttf; sourceTree = "<group>"; };
 		BDBA952292F915999AAD0BEE /* natori-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "natori-Bridging-Header.h"; path = "natori/natori-Bridging-Header.h"; sourceTree = "<group>"; };
 		BE0F583ADDC9192724B7D6EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C08E8EDF4225683EEBD4156C /* dm_sans_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_500.ttf; path = natori/Fonts/dm_sans_500.ttf; sourceTree = "<group>"; };
-		C1B9B3B4F8DEAF3B352D3E95 /* roboto_condensed_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_600.ttf; path = natori/Fonts/roboto_condensed_600.ttf; sourceTree = "<group>"; };
+		C08E8EDF4225683EEBD4156C /* dm_sans_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_500.ttf; path = natori/Fonts/dm_sans_500.ttf; sourceTree = "<group>"; };
+		C1B9B3B4F8DEAF3B352D3E95 /* roboto_condensed_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_600.ttf; path = natori/Fonts/roboto_condensed_600.ttf; sourceTree = "<group>"; };
 		C1C3C21237E27F8404721A8C /* ImagePreviewExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImagePreviewExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		C711A7726CDF610D142A598A /* montserrat_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_500.ttf; path = natori/Fonts/montserrat_500.ttf; sourceTree = "<group>"; };
+		C711A7726CDF610D142A598A /* montserrat_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_500.ttf; path = natori/Fonts/montserrat_500.ttf; sourceTree = "<group>"; };
 		C9A01B2C3D4E5F60718293A4 /* PushTokenManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PushTokenManager.m; path = natori/PushTokenManager.m; sourceTree = "<group>"; };
-		C9CFE6E736C0E8B514244205 /* montserrat_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_200italic.ttf; path = natori/Fonts/montserrat_200italic.ttf; sourceTree = "<group>"; };
+		C9CFE6E736C0E8B514244205 /* montserrat_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_200italic.ttf; path = natori/Fonts/montserrat_200italic.ttf; sourceTree = "<group>"; };
 		CAB9D1004CAAC561EB066E55 /* libPods-ImageNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ImageNotification.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD9085358E82107DA2112673 /* inter_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_100.ttf; path = natori/Fonts/inter_100.ttf; sourceTree = "<group>"; };
-		CF671D377EB1D87AC8C71053 /* playfair_display_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_regular.ttf; path = natori/Fonts/playfair_display_regular.ttf; sourceTree = "<group>"; };
-		D0651DFB4C6C3DC56F1B8A36 /* Bauer Bodoni Regular 400.otf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Bauer Bodoni Regular 400.otf"; path = "natori/Fonts/Bauer Bodoni Regular 400.otf"; sourceTree = "<group>"; };
-		D0C2DC93748AE7A463174FB8 /* poppins_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_700italic.ttf; path = natori/Fonts/poppins_700italic.ttf; sourceTree = "<group>"; };
-		D124CDE8735DD17493E1D9ED /* roboto_condensed_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_100.ttf; path = natori/Fonts/roboto_condensed_100.ttf; sourceTree = "<group>"; };
-		D2E261D0785D43952C3041F8 /* dm_sans_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_800.ttf; path = natori/Fonts/dm_sans_800.ttf; sourceTree = "<group>"; };
-		D34CB309B8566C8F96392781 /* poppins_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_900italic.ttf; path = natori/Fonts/poppins_900italic.ttf; sourceTree = "<group>"; };
-		D3FD818C26FC4C351B0694CF /* poppins_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_300.ttf; path = natori/Fonts/poppins_300.ttf; sourceTree = "<group>"; };
-		D5AEDB67F9AF484548E4403A /* Bauer Bodoni Bold 700.otf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Bauer Bodoni Bold 700.otf"; path = "natori/Fonts/Bauer Bodoni Bold 700.otf"; sourceTree = "<group>"; };
-		DAB63F9982FE47E622E213D9 /* montserrat_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_300italic.ttf; path = natori/Fonts/montserrat_300italic.ttf; sourceTree = "<group>"; };
+		CD9085358E82107DA2112673 /* inter_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_100.ttf; path = natori/Fonts/inter_100.ttf; sourceTree = "<group>"; };
+		CF671D377EB1D87AC8C71053 /* playfair_display_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_regular.ttf; path = natori/Fonts/playfair_display_regular.ttf; sourceTree = "<group>"; };
+		D0651DFB4C6C3DC56F1B8A36 /* Bauer Bodoni Regular 400.otf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Bauer Bodoni Regular 400.otf"; path = "natori/Fonts/Bauer Bodoni Regular 400.otf"; sourceTree = "<group>"; };
+		D0C2DC93748AE7A463174FB8 /* poppins_700italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_700italic.ttf; path = natori/Fonts/poppins_700italic.ttf; sourceTree = "<group>"; };
+		D124CDE8735DD17493E1D9ED /* roboto_condensed_100.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_100.ttf; path = natori/Fonts/roboto_condensed_100.ttf; sourceTree = "<group>"; };
+		D2E261D0785D43952C3041F8 /* dm_sans_800.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_800.ttf; path = natori/Fonts/dm_sans_800.ttf; sourceTree = "<group>"; };
+		D34CB309B8566C8F96392781 /* poppins_900italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_900italic.ttf; path = natori/Fonts/poppins_900italic.ttf; sourceTree = "<group>"; };
+		D3FD818C26FC4C351B0694CF /* poppins_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_300.ttf; path = natori/Fonts/poppins_300.ttf; sourceTree = "<group>"; };
+		D5AEDB67F9AF484548E4403A /* Bauer Bodoni Bold 700.otf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Bauer Bodoni Bold 700.otf"; path = "natori/Fonts/Bauer Bodoni Bold 700.otf"; sourceTree = "<group>"; };
+		DAB63F9982FE47E622E213D9 /* montserrat_300italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_300italic.ttf; path = natori/Fonts/montserrat_300italic.ttf; sourceTree = "<group>"; };
 		DB0893DAD74289030090694F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DD218797E33F8B2A14A47576 /* playfair_display_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_800italic.ttf; path = natori/Fonts/playfair_display_800italic.ttf; sourceTree = "<group>"; };
-		DD833BA70A4FC09B78C10491 /* montserrat_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = montserrat_200.ttf; path = natori/Fonts/montserrat_200.ttf; sourceTree = "<group>"; };
+		DD218797E33F8B2A14A47576 /* playfair_display_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_800italic.ttf; path = natori/Fonts/playfair_display_800italic.ttf; sourceTree = "<group>"; };
+		DD833BA70A4FC09B78C10491 /* montserrat_200.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = montserrat_200.ttf; path = natori/Fonts/montserrat_200.ttf; sourceTree = "<group>"; };
 		DE128ADEDBD088408F17A9D7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF72F3AE7499A18ADF14EA86 /* roboto_condensed_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_200italic.ttf; path = natori/Fonts/roboto_condensed_200italic.ttf; sourceTree = "<group>"; };
-		E2CC8E4CD013AB16E251FC5D /* playfair_display_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = playfair_display_500.ttf; path = natori/Fonts/playfair_display_500.ttf; sourceTree = "<group>"; };
-		E596769939AC399B12DB53D5 /* inter_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_200italic.ttf; path = natori/Fonts/inter_200italic.ttf; sourceTree = "<group>"; };
+		DF72F3AE7499A18ADF14EA86 /* roboto_condensed_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_200italic.ttf; path = natori/Fonts/roboto_condensed_200italic.ttf; sourceTree = "<group>"; };
+		E2CC8E4CD013AB16E251FC5D /* playfair_display_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = playfair_display_500.ttf; path = natori/Fonts/playfair_display_500.ttf; sourceTree = "<group>"; };
+		E596769939AC399B12DB53D5 /* inter_200italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_200italic.ttf; path = natori/Fonts/inter_200italic.ttf; sourceTree = "<group>"; };
 		E5AB85689B2D660A44B1B136 /* DeliveryActivityBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeliveryActivityBundle.swift; sourceTree = "<group>"; };
 		E7F31988D3A12E887CAC5A56 /* BootSplash.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = natori/BootSplash.storyboard; sourceTree = "<group>"; };
-		EBCD9DF8C319F360CE4D7747 /* dm_sans_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = dm_sans_600italic.ttf; path = natori/Fonts/dm_sans_600italic.ttf; sourceTree = "<group>"; };
-		EBF54D8EA71515514563DF2D /* poppins_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_regular.ttf; path = natori/Fonts/poppins_regular.ttf; sourceTree = "<group>"; };
-		ECDD5C62ED3B2FC554E50637 /* DeliveryActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; name = DeliveryActivityExtension.appex; path = DeliveryActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBCD9DF8C319F360CE4D7747 /* dm_sans_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = dm_sans_600italic.ttf; path = natori/Fonts/dm_sans_600italic.ttf; sourceTree = "<group>"; };
+		EBF54D8EA71515514563DF2D /* poppins_regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_regular.ttf; path = natori/Fonts/poppins_regular.ttf; sourceTree = "<group>"; };
+		ECDD5C62ED3B2FC554E50637 /* DeliveryActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DeliveryActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EE571DFD7FA8E6F829C0C306 /* HelveticaNeueLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = HelveticaNeueLight.ttf; path = natori/Fonts/HelveticaNeueLight.ttf; sourceTree = "<group>"; };
-		F0545F54D0D3BFE68AD7FFB2 /* poppins_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = poppins_600.ttf; path = natori/Fonts/poppins_600.ttf; sourceTree = "<group>"; };
-		F41D0F5EFF08A3535653CB3E /* inter_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_300.ttf; path = natori/Fonts/inter_300.ttf; sourceTree = "<group>"; };
-		F545DD624EAA2C1BEA62C648 /* roboto_condensed_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_600italic.ttf; path = natori/Fonts/roboto_condensed_600italic.ttf; sourceTree = "<group>"; };
-		F5AC5F77D36B5DE31A1D4F4E /* Bauer Bodoni Black 900.otf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Bauer Bodoni Black 900.otf"; path = "natori/Fonts/Bauer Bodoni Black 900.otf"; sourceTree = "<group>"; };
+		EE571DFD7FA8E6F829C0C306 /* HelveticaNeueLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = HelveticaNeueLight.ttf; path = natori/Fonts/HelveticaNeueLight.ttf; sourceTree = "<group>"; };
+		F0545F54D0D3BFE68AD7FFB2 /* poppins_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = poppins_600.ttf; path = natori/Fonts/poppins_600.ttf; sourceTree = "<group>"; };
+		F41D0F5EFF08A3535653CB3E /* inter_300.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_300.ttf; path = natori/Fonts/inter_300.ttf; sourceTree = "<group>"; };
+		F545DD624EAA2C1BEA62C648 /* roboto_condensed_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_600italic.ttf; path = natori/Fonts/roboto_condensed_600italic.ttf; sourceTree = "<group>"; };
+		F5AC5F77D36B5DE31A1D4F4E /* Bauer Bodoni Black 900.otf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Bauer Bodoni Black 900.otf"; path = "natori/Fonts/Bauer Bodoni Black 900.otf"; sourceTree = "<group>"; };
 		F812913D1E88444E0C78CEF0 /* AppIntent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		F82BAA2A9BE9EF6B7AEA6393 /* DeliveryActivityControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeliveryActivityControl.swift; sourceTree = "<group>"; };
 		F918D7BED11DB5E2A7E0BD1E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		FA8DAB4680C0004E7FF16B66 /* roboto_condensed_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_500.ttf; path = natori/Fonts/roboto_condensed_500.ttf; sourceTree = "<group>"; };
-		FBC2CA2E397F7140D65A7498 /* inter_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_600.ttf; path = natori/Fonts/inter_600.ttf; sourceTree = "<group>"; };
-		FC32159BDAF24FBD5C08575F /* inter_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = inter_600italic.ttf; path = natori/Fonts/inter_600italic.ttf; sourceTree = "<group>"; };
-		FD860F60E73438419A09E16D /* roboto_condensed_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = roboto_condensed_800italic.ttf; path = natori/Fonts/roboto_condensed_800italic.ttf; sourceTree = "<group>"; };
+		FA8DAB4680C0004E7FF16B66 /* roboto_condensed_500.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_500.ttf; path = natori/Fonts/roboto_condensed_500.ttf; sourceTree = "<group>"; };
+		FBC2CA2E397F7140D65A7498 /* inter_600.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_600.ttf; path = natori/Fonts/inter_600.ttf; sourceTree = "<group>"; };
+		FC32159BDAF24FBD5C08575F /* inter_600italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = inter_600italic.ttf; path = natori/Fonts/inter_600italic.ttf; sourceTree = "<group>"; };
+		FD860F60E73438419A09E16D /* roboto_condensed_800italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = roboto_condensed_800italic.ttf; path = natori/Fonts/roboto_condensed_800italic.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -413,7 +413,6 @@
 				27FEA913299B49DA8EA79847 /* Assets.xcassets */,
 				B95EA8EA9BC68D4800602A05 /* Info.plist */,
 			);
-			name = DeliveryActivity;
 			path = DeliveryActivity;
 			sourceTree = "<group>";
 		};
@@ -558,7 +557,6 @@
 				B8FA0FE40E43C70F4A7B6162 /* Assets.xcassets */,
 				44C3C61617E60756DE94FA97 /* Base.lproj */,
 			);
-			name = ImagePreviewExtension;
 			path = ImagePreviewExtension;
 			sourceTree = "<group>";
 		};
@@ -580,7 +578,6 @@
 			children = (
 				45F0F60F4AC42121F5AFE1BF /* MainInterface.storyboard */,
 			);
-			name = Base.lproj;
 			path = Base.lproj;
 			sourceTree = "<group>";
 		};
@@ -652,7 +649,6 @@
 				DB0893DAD74289030090694F /* Info.plist */,
 				66CC745BFDF8F71CD092CCB7 /* NotificationService.swift */,
 			);
-			name = ImageNotification;
 			path = ImageNotification;
 			sourceTree = "<group>";
 		};
@@ -951,9 +947,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -969,6 +969,8 @@
 				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = "[CP-User] [RNFB] Core Configuration";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\n\n##########################################################################\n##########################################################################\n#\n#  NOTE THAT IF YOU CHANGE THIS FILE YOU MUST RUN pod install AFTERWARDS\n#\n#  This file is installed as an Xcode build script in the project file\n#  by cocoapods, and you will not see your changes until you pod install\n#\n##########################################################################\n##########################################################################\n\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  if ! _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\"); then\n    echo \"error: Failed to parse firebase.json, check for syntax errors.\"\n    exit 1\n  fi\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_analytics_storage\n  _ANALYTICS_STORAGE=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_analytics_storage\")\n  if [[ $_ANALYTICS_STORAGE ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_ANALYTICS_STORAGE\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_STORAGE\")\")\n  fi\n\n  # config.analytics_default_allow_ad_storage\n  _ANALYTICS_AD_STORAGE=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_storage\")\n  if [[ $_ANALYTICS_AD_STORAGE ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_STORAGE\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AD_STORAGE\")\")\n  fi\n\n  # config.analytics_default_allow_ad_user_data\n  _ANALYTICS_AD_USER_DATA=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_user_data\")\n  if [[ $_ANALYTICS_AD_USER_DATA ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_USER_DATA\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AD_USER_DATA\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
@@ -1047,9 +1049,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-natori/Pods-natori-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1153,7 +1159,7 @@
 				CODE_SIGN_ENTITLEMENTS = DeliveryActivity/DeliveryActivityExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				EXECUTABLE_NAME = DeliveryActivityExtension;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1184,7 +1190,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = natori/natori.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = natori/Info.plist;
@@ -1217,7 +1223,7 @@
 				CODE_SIGN_ENTITLEMENTS = natori/natori.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				INFOPLIST_FILE = natori/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -1247,7 +1253,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1280,7 +1286,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ImagePreviewExtension/Info.plist;
@@ -1308,7 +1314,7 @@
 				CODE_SIGN_ENTITLEMENTS = DeliveryActivity/DeliveryActivityExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				EXECUTABLE_NAME = DeliveryActivityExtension;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1484,7 +1490,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1516,7 +1522,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 6CRFUK7DVC;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ImagePreviewExtension/Info.plist;

@@ -2,7 +2,7 @@
 export { MeheryEventSenderView } from './native/MeheryEventSenderView';
 export { BannerScreen } from './components/BannerScreen';
 export { CustomBanner } from './components/CustomBanner';
-export { getDeviceId } from './utils/device';
+export { getDeviceId, resetCachedDeviceId } from './utils/device';
 export { setDeviceMetadata } from './utils/deviceMetadata';
 export { setGeoIP } from './utils/geoIpContext';
 export { registerDeviceWithAPNS } from './firebase/IosAPNS';

@@ -543,6 +543,7 @@ export async function sendPollEvent() {
   }
 
   sdkLog.log('showing poll:', showingPoll);
+  sdkLog.log(`[SDK] poll contact_id=${contact_id}`);
   const payload = { contact_id };
   const commonHeaders = await buildCommonHeaders();
   const apiBaseUrl = await getApiBaseUrl();

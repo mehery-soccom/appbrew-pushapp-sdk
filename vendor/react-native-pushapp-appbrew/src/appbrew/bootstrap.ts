@@ -42,7 +42,8 @@ export async function bootstrapMeherySdk(options?: {
 
   bootstrapPromise = (async () => {
     const environment = options?.environment ?? getEnvironment()
-    const logs = options?.logs ?? __DEV__
+    // DIAGNOSTIC (build 34): release logging on to read device logs; revert after debugging.
+    const logs = options?.logs ?? true
 
     // Before any SDK call that caches device_id (setGeoIP → common headers).
     await ensureMeheryChannelPinned()

@@ -128,6 +128,20 @@ describe('sendMeheryCustomEvent', () => {
     expect(mockSend).toHaveBeenCalledTimes(1)
   })
 
+  it('dedupes add_to_cart when the same variant arrives as gid then bare id', async () => {
+    await sendMeheryCustomEvent('add_to_cart', {
+      currency: 'INR',
+      value: 100,
+      items: [{ item_id: 'gid://shopify/ProductVariant/42', item_variant: 'gid://shopify/ProductVariant/42' }],
+    })
+    await sendMeheryCustomEvent('add_to_cart', {
+      currency: 'INR',
+      value: 100,
+      items: [{ item_id: '7', item_variant: '42' }],
+    })
+    expect(mockSend).toHaveBeenCalledTimes(1)
+  })
+
   it('skips commerce events when items is {} or empty', async () => {
     const ok = await sendMeheryCustomEvent(
       'view_item',

@@ -110,4 +110,23 @@ describe('poll check after custom event', () => {
       false
     );
   });
+
+  it('a hung /v1/event times out so later events still send', async () => {
+    fetchMock.mockImplementationOnce(
+      (_url: string, init: { signal: AbortSignal }) =>
+        new Promise((_resolve, reject) => {
+          init.signal.addEventListener('abort', () => reject(new Error('aborted')));
+        })
+    );
+    const first = sendCustomEvent('view_item', {}, { eventType: 'LOG' });
+    await jest.advanceTimersByTimeAsync(11_000);
+    await expect(first).resolves.toBe(false);
+
+    await sendCustomEvent('add_to_cart', {}, { eventType: 'INTERACTIVE' });
+    await jest.advanceTimersByTimeAsync(1000);
+    expect(urls().some((u) => u.endsWith('/v1/notification/in-app/poll'))).toBe(
+      true
+    );
+  });
 });
+

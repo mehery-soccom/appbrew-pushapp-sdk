@@ -75,10 +75,6 @@ export function MeheryPdpActionOverlay() {
       sku: variant?.sku,
       currency: 'INR',
     })
-  }
-
-  const sendAddToCartEvent = () => {
-    if (!productData) return
     const payload = cartPayloadFromProduct(productData, {
       currency: 'INR',
       shopDomain: resolveShopDomain(),
@@ -89,15 +85,14 @@ export function MeheryPdpActionOverlay() {
     }
   }
 
-  // A successful Shopify add already emits add_to_cart via the analytics
-  // tracker; sending here too would fire the campaign twice.
   const onAddToCart = async () => {
     addLocal()
-    try {
-      if (!variantId) throw new Error('no variant')
-      await addItemsToCart([{ variantId, quantity }])
-    } catch {
-      sendAddToCartEvent()
+    if (variantId) {
+      try {
+        await addItemsToCart([{ variantId, quantity }])
+      } catch {
+        /* ignore */
+      }
     }
     Toast.show({ type: 'success', text1: 'Added to cart' })
   }
@@ -107,11 +102,12 @@ export function MeheryPdpActionOverlay() {
     setBusy(true)
     try {
       addLocal()
-      try {
-        if (!variantId) throw new Error('no variant')
-        await addItemsToCart([{ variantId, quantity }])
-      } catch {
-        sendAddToCartEvent()
+      if (variantId) {
+        try {
+          await addItemsToCart([{ variantId, quantity }])
+        } catch {
+          /* ignore */
+        }
       }
       void sendMeheryCustomEvent(
         PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
@@ -129,7 +125,6 @@ export function MeheryPdpActionOverlay() {
 
   const onCheckout = () => {
     addLocal()
-    sendAddToCartEvent()
     void sendMeheryCustomEvent(
       PUSHAPP_CHECKOUT_EVENTS.BEGIN_CHECKOUT,
       buildDummyCheckoutPayload(localCartToCheckoutShape())

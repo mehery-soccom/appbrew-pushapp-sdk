@@ -96,6 +96,8 @@ function dedupeKey(name: string, data: Record<string, unknown>): string {
   const items = data.items as
     | Array<{ item_variant?: string; item_id?: string }>
     | undefined
+  // Same variant arrives as a Shopify gid from the PDP and as a bare id from
+  // the cart mutation path; compare on the trailing id.
   return String(
     items?.[0]?.item_variant ??
       items?.[0]?.item_id ??
@@ -107,16 +109,18 @@ function dedupeKey(name: string, data: Record<string, unknown>): string {
       data.user_id ??
       data.email ??
       ''
-  )
+  ).replace(/^gid:\/\/shopify\/\w+\//, '')
 }
 
 function isDuplicate(name: string, data: Record<string, unknown>): boolean {
   const key = dedupeKey(name, data)
   const now = Date.now()
   // Cart press interceptor + Gauntlet analytics often fire ~400–500ms apart.
+  // add_to_cart: PDP tap and the Shopify cart mutation land ~1.5s apart.
   const windowMs =
-    name === 'add_to_cart' ||
-    name === 'remove_from_cart' ||
+    name === 'add_to_cart'
+      ? 3000
+      : name === 'remove_from_cart' ||
     name === 'add_to_wishlist' ||
     name === 'remove_from_wishlist' ||
     name === 'view_item' ||

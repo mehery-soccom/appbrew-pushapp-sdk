@@ -8,6 +8,7 @@ import { renderInlinePoll } from '../../components/RenderInlinePoll';
 import { renderTooltipPoll } from '../../components/TooltipPollManager';
 import Floater from '../../components/FloaterPoll';
 import { buildCommonHeaders } from '../../helpers/buildCommonHeaders';
+import { fetchWithTimeout } from '../../helpers/fetchWithTimeout';
 import { getApiBaseUrl } from '../../helpers/tenantContext';
 import { SDK_EVENT_NAMES } from '../default/eventNames';
 import { getDeviceId } from '../../utils/device';
@@ -188,7 +189,7 @@ export async function sendCustomEvent(
   const commonHeaders = await buildCommonHeaders();
   const apiBaseUrl = await getApiBaseUrl();
   try {
-    const res = await fetch(`${apiBaseUrl}/v1/event`, {
+    const res = await fetchWithTimeout(`${apiBaseUrl}/v1/event`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -547,7 +548,7 @@ export async function sendPollEvent() {
   const apiBaseUrl = await getApiBaseUrl();
 
   try {
-    const res = await fetch(`${apiBaseUrl}/v1/notification/in-app/poll`, {
+    const res = await fetchWithTimeout(`${apiBaseUrl}/v1/notification/in-app/poll`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

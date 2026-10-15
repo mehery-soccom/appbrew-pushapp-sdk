@@ -51,21 +51,27 @@ class FakeWebSocket {
 
 import { connectToServer, reauthenticateWebSocket } from '../socket/WebSock';
 
+function ws(i: number): FakeWebSocket {
+  const instance = FakeWebSocket.instances[i];
+  if (!instance) throw new Error(`no WebSocket #${i}`);
+  return instance;
+}
+
 describe('WebSocket reconnect', () => {
   beforeEach(() => jest.useFakeTimers());
   afterEach(() => jest.useRealTimers());
 
   it('still reconnects after a login swapped the socket (flag must not stick)', async () => {
     await connectToServer();
-    FakeWebSocket.instances[0].open();
+    ws(0).open();
 
     mockUserId = 'cust_9';
     await reauthenticateWebSocket();
     const afterLogin = FakeWebSocket.instances.length;
-    FakeWebSocket.instances[afterLogin - 1].open();
+    ws(afterLogin - 1).open();
 
     // iOS closes the socket, e.g. when the app is backgrounded.
-    FakeWebSocket.instances[afterLogin - 1].onclose?.({
+    ws(afterLogin - 1).onclose?.({
       code: 1001,
       reason: 'Stream end encountered',
     });
@@ -76,7 +82,7 @@ describe('WebSocket reconnect', () => {
 
   it('reconnects when the app returns to the foreground with no socket', async () => {
     const before = FakeWebSocket.instances.length;
-    FakeWebSocket.instances[before - 1].readyState = 3;
+    ws(before - 1).readyState = 3;
     mockAppStateHandlers.forEach((h) => h('active'));
     await jest.advanceTimersByTimeAsync(10);
     expect(FakeWebSocket.instances.length).toBeGreaterThan(before);

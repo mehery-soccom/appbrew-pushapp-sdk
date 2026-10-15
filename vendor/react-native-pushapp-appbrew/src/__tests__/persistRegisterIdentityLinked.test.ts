@@ -5,6 +5,9 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   multiSet: jest.fn(async (pairs: [string, string][]) => {
     pairs.forEach(([k, v]) => mockStore.set(k, v));
   }),
+  multiGet: jest.fn(async (keys: string[]) =>
+    keys.map((k) => [k, mockStore.get(k) ?? null])
+  ),
 }));
 jest.mock('../events/custom/CustomEvents', () => ({
   OnAppOpen: jest.fn(),
@@ -32,7 +35,7 @@ jest.mock('../socket/WebSock', () => ({
   reauthenticateWebSocket: jest.fn(),
 }));
 
-import { persistRegisterIdentity } from '../utils/user';
+import { persistRegisterIdentity, getEffectiveContactId } from '../utils/user';
 import { connectToServer } from '../socket/WebSock';
 
 const guestRegister = {
@@ -65,5 +68,28 @@ describe('persistRegisterIdentity', () => {
     await persistRegisterIdentity(guestRegister);
     expect(mockStore.get('contact_id')).toBe('guest_1_dev');
     expect(connectToServer).toHaveBeenCalled();
+  });
+});
+
+describe('getEffectiveContactId', () => {
+  beforeEach(() => mockStore.clear());
+
+  it('ignores a stale stored contact_id once the customer is linked', async () => {
+    mockStore.set('contact_id', 'guest_old_dev1');
+    mockStore.set('registered_user_id', 'guest_1');
+    mockStore.set('user_id', 'cust_9');
+    mockStore.set('UserLoggedIn', 'true');
+    await expect(getEffectiveContactId('dev1')).resolves.toBe('cust_9_dev1');
+  });
+
+  it('uses the guest id when logged out', async () => {
+    mockStore.set('contact_id', 'cust_9_dev1');
+    mockStore.set('registered_user_id', 'guest_1');
+    await expect(getEffectiveContactId('dev1')).resolves.toBe('guest_1_dev1');
+  });
+
+  it('falls back to the stored contact_id when no user id exists yet', async () => {
+    mockStore.set('contact_id', 'stored_dev1');
+    await expect(getEffectiveContactId('dev1')).resolves.toBe('stored_dev1');
   });
 });

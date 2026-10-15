@@ -216,13 +216,13 @@ export async function getEffectiveContactId(deviceId: string): Promise<string> {
   const trimmedDeviceId = deviceId.trim();
   if (!trimmedDeviceId) return '';
 
-  const storedContactId = (await AsyncStorage.getItem('contact_id'))?.trim();
-  if (storedContactId) return storedContactId;
-
+  // Same formula events and the WebSocket auth use. A stored contact_id can be
+  // stale after an upgrade or an overwritten register, which silently breaks
+  // polls while events still log for the right user.
   const effectiveUserId = await getEffectiveUserId();
-  if (!effectiveUserId) return '';
+  if (effectiveUserId) return `${effectiveUserId}_${trimmedDeviceId}`;
 
-  return `${effectiveUserId}_${trimmedDeviceId}`;
+  return (await AsyncStorage.getItem('contact_id'))?.trim() ?? '';
 }
 
 function extractSessionIdFromLinkResponse(data: unknown): string {

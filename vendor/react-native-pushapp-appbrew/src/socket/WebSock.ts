@@ -1,12 +1,12 @@
 // sdk/index.tsx (add at the top or create a separate ws.ts file)
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AppState } from 'react-native';
 import { handleWebSocketPollSignal } from '../events/custom/CustomEvents';
 import { waitForEffectiveUserId } from '../utils/user';
 import { getWsHostUrl } from '../helpers/tenantContext';
 import { sdkLog } from '../helpers/sdkLogger';
 
 let socket: WebSocket | null = null;
-let skipNextAutoReconnect = false;
 let lastAuthedCompositeId: string | null = null;
 
 function buildCompositeId(userID: string, device_id: string): string {
@@ -25,12 +25,11 @@ function sendWebSocketAuth(userID: string, device_id: string): void {
   sdkLog.log('🔐 WebSocket auth sent:', userId);
 }
 
-function closeSocket(options?: { suppressAutoReconnect?: boolean }): void {
+// Handlers are detached before close(), so an intentional close never reaches
+// onclose. A shared "skip next reconnect" flag was never cleared that way and
+// swallowed the next real disconnect (e.g. iOS closing the socket with 1001).
+function closeSocket(): void {
   if (!socket) return;
-
-  if (options?.suppressAutoReconnect) {
-    skipNextAutoReconnect = true;
-  }
 
   const existing = socket;
   socket = null;
@@ -75,11 +74,6 @@ function attachSocketHandlers(
       socket = null;
     }
 
-    if (skipNextAutoReconnect) {
-      skipNextAutoReconnect = false;
-      return;
-    }
-
     setTimeout(() => {
       sdkLog.log('🔄 Attempting to reconnect...');
       connectToServer();
@@ -88,9 +82,22 @@ function attachSocketHandlers(
 }
 
 let connectInFlight: Promise<void> | null = null;
+let foregroundListenerAdded = false;
+
+// iOS drops sockets in the background; reconnect when the app is active again.
+function ensureForegroundReconnect(): void {
+  if (foregroundListenerAdded || !AppState?.addEventListener) return;
+  foregroundListenerAdded = true;
+  AppState.addEventListener('change', (state) => {
+    if (state === 'active') {
+      void connectToServer();
+    }
+  });
+}
 
 // One connect at a time: initSdk and register-complete can both call this.
 export const connectToServer = (): Promise<void> => {
+  ensureForegroundReconnect();
   connectInFlight ??= doConnect().finally(() => {
     connectInFlight = null;
   });
@@ -116,7 +123,7 @@ async function doConnect(): Promise<void> {
   }
 
   try {
-    closeSocket({ suppressAutoReconnect: true });
+    closeSocket();
     const wsUrl = await getWsHostUrl();
     const ws = new WebSocket(wsUrl);
     socket = ws;
@@ -160,13 +167,13 @@ export const reauthenticateWebSocket = async () => {
     sdkLog.log(
       `🔄 WebSocket identity changed (${lastAuthedCompositeId ?? 'none'} → ${nextCompositeId}); reconnecting`
     );
-    closeSocket({ suppressAutoReconnect: true });
+    closeSocket();
     await connectToServer();
     return;
   }
 
   sdkLog.log('🔄 WebSocket reconnecting after login');
-  closeSocket({ suppressAutoReconnect: true });
+  closeSocket();
   await connectToServer();
 };
 
